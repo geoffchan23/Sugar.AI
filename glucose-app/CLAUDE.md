@@ -23,10 +23,14 @@ colours, `RayAvatar`, `SheetDialog` = AlertDialog's slots as a bottom
 sheet). Glucose status colours stay separate from the brand (low red,
 high amber, green target band). One activity with three tabs (MainActivity):
 **Today** (`TodayScreen.kt`: Now card with the latest reading — red when
-low, amber when high — last dose/meal, the chart card with Day/Week and
+low, amber when high — with the trend arrow inline after the number (it
+was a round badge that looked like a button), last dose/meal, the chart card with Day/Week and
 time in range, swipe the chart to change day; the log as a timeline: tap
-to edit, swipe left to reveal Delete (tap it; Undo after); the Ask Ray bar with a mic and
-+ Dose / + Food chips), **Ray** (chat, threads as chips) and **Reports**.
+to edit, swipe left to reveal Delete (tap it; Undo after); + Dose / + Food
+chips — the Ask Ray bar was dropped 2026-10-11, Ray is his tab and the watch;
+`DescribeDialog.kt` now only hosts `ChangesDialog`), **Ray** (ChatGPT-style:
+☰ history drawer with search, grouped Today / Yesterday / Previous 7 days /
+month, long-press to rename or delete; ✎ new chat keeps the old one) and **Reports**.
 Settings is the gear on Today. `ChatActivity` / `ReportsActivity` are
 trampolines kept for notifications. Widget (deep indigo, no logo — no room) and watch use the same palette.
 
@@ -203,7 +207,7 @@ The old "no cloud / never an LLM API" rule is gone (Geoff, 2026-10-08).
   validated (`parseChanges`; rejects go back to the model with reasons),
   carried by uid, and applied by `Journal.applyChanges`, which skips a row
   edited/deleted since it was proposed (`planChange`). Phone: the change
-  list sits under the new rows in the Ask dialog, grouped by day, all ticked.
+  list sits under the new rows on a chat card, grouped by day, all ticked.
   Watch: today's rows are confirmed on the watch as before; other changes
   post a "N changes to review" notification that opens `ChangesDialog`.
 - **Replies**: when something's unclear the model asks one question
@@ -260,6 +264,11 @@ the main phone, Geoff on the other; ADB `op chat-author --es author geoff`).
   their Ray post a notification (`ChatNotification`) unless that thread is open.
 - Each chat turn is also an interaction-log record (source `chat`, with
   `data.chat.{thread,author}`), outcome from the card.
+- Rename / delete are `author = "system"` rows in `chat_messages` (meta
+  `{"rename": …}` / `{"deleted": true}`, `ChatStore.threadEvent`): they
+  sync like messages, `chatThreads` applies them, and they're never shown,
+  notified or sent to the model (`isMessage`). Deleting hides the thread on
+  both phones; its rows stay in the table and anything it logged stays logged.
 - A message's footer lists what Ray looked at; tap to see the SQL/code.
 - ADB: `--es op chat-test --es author geoff --es text "…" [--es thread <id>]`
   posts a real message (it syncs) and logs Ray's reply under tag `ChatTest`.
@@ -377,7 +386,7 @@ Parsing (`WatchParse` in `WatchListenerService.kt`), in order:
    **Her phone needs, once:**
    `adb shell appops set com.geoffchan.glucosewidget USE_FULL_SCREEN_INTENT allow`
    (Android 14+ doesn't grant it to non-call apps) and the AICore model
-   downloaded (send something from the Ask bar once, or `op describe-test`).
+   downloaded (`op describe-test` once).
 3. **`parseSpoken`** (`SpokenEntry.kt`, deterministic): number words,
    "19 and 4" (19/20 → long), insulin brand/slang words, "at 5:30" /
    "an hour ago" / "this morning", "walked 20 minutes" → `20 min walk`.

@@ -25,7 +25,7 @@ object ChatNotification {
     suspend fun newMessages(context: Context, incoming: List<ChatMessageEntity>) {
         val me = Store.chatAuthor(context)
         val now = System.currentTimeMillis()
-        val show = incoming.filter { it.author != me && now - it.createdAtMs < RECENT_MS && it.thread != openThread }
+        val show = incoming.filter { it.isMessage && it.author != me && now - it.createdAtMs < RECENT_MS && it.thread != openThread }
         if (show.isEmpty()) return
         if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) return
         val nm = context.getSystemService(NotificationManager::class.java)

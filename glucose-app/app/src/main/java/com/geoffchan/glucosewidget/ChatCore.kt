@@ -16,6 +16,18 @@ import org.json.JSONObject
 const val AUTHOR_FRANCINE = "francine"
 const val AUTHOR_GEOFF = "geoff"
 const val AUTHOR_RAY = "ray"
+/**
+ * Thread events, not messages: a rename (meta {"rename": title}) or a
+ * delete (meta {"deleted": true}). They ride the chat sync like any
+ * message, so both phones agree; never shown, never sent to the model.
+ */
+const val AUTHOR_SYSTEM = "system"
+
+fun threadEventMeta(rename: String? = null, deleted: Boolean = false): JSONObject =
+    JSONObject().apply { rename?.let { put("rename", it) }; if (deleted) put("deleted", true) }
+
+/** A real message (not a [AUTHOR_SYSTEM] thread event). */
+val ChatMessageEntity.isMessage: Boolean get() = author != AUTHOR_SYSTEM
 
 fun authorName(author: String): String = when (author) {
     AUTHOR_FRANCINE -> "Francine"
@@ -90,7 +102,7 @@ const val CHAT_PRIOR_CHARS = 24_000
  * with any card's outcome appended. Oldest dropped first past [maxChars].
  */
 fun chatPrior(messages: List<ChatMessageEntity>, maxChars: Int = CHAT_PRIOR_CHARS): List<JSONObject> {
-    val items = messages.map { m ->
+    val items = messages.filter { it.isMessage }.map { m ->
         if (m.author == AUTHOR_RAY) {
             val card = decodeCard(m.card)?.let { "\n" + cardSummary(it) }.orEmpty()
             JSONObject().put("role", "assistant").put("content", (m.text.ifBlank { "(no reply)" } + card))
@@ -114,18 +126,34 @@ fun chatPrior(messages: List<ChatMessageEntity>, maxChars: Int = CHAT_PRIOR_CHAR
 data class ChatThreadSummary(val thread: String, val title: String, val lastAtMs: Long, val lastLine: String, val count: Int)
 
 fun chatThreads(all: List<ChatMessageEntity>): List<ChatThreadSummary> =
-    all.groupBy { it.thread }.map { (thread, ms) ->
-        val sorted = ms.sortedBy { it.createdAtMs }
+    all.groupBy { it.thread }.mapNotNull { (thread, ms) ->
+        val events = ms.filter { !it.isMessage }.sortedBy { it.createdAtMs }.map { runCatching { JSONObject(it.meta ?: "{}") }.getOrDefault(JSONObject()) }
+        if (events.any { it.optBoolean("deleted") }) return@mapNotNull null
+        val sorted = ms.filter { it.isMessage }.sortedBy { it.createdAtMs }
+        if (sorted.isEmpty()) return@mapNotNull null
         val first = sorted.firstOrNull { it.author != AUTHOR_RAY } ?: sorted.first()
         val last = sorted.last()
+        val renamed = events.lastOrNull { it.has("rename") }?.optString("rename")?.takeIf { it.isNotBlank() }
         ChatThreadSummary(
             thread = thread,
-            title = first.text.trim().replace(Regex("""\s+"""), " ").let { if (it.length > 60) it.take(57) + "…" else it },
+            title = renamed ?: first.text.trim().replace(Regex("""\s+"""), " ").let { if (it.length > 60) it.take(57) + "…" else it },
             lastAtMs = last.createdAtMs,
             lastLine = "${authorName(last.author)}: ${last.text.trim().replace(Regex("""\s+"""), " ").take(80)}",
             count = sorted.size,
         )
     }.sortedByDescending { it.lastAtMs }
+
+/** ChatGPT-style buckets for the history list: Today, Yesterday, Previous 7 days, then month names. */
+fun threadGroup(lastAtMs: Long, today: java.time.LocalDate, zone: java.time.ZoneId): String {
+    val d = java.time.Instant.ofEpochMilli(lastAtMs).atZone(zone).toLocalDate()
+    return when {
+        d >= today -> "Today"
+        d == today.minusDays(1) -> "Yesterday"
+        d > today.minusDays(8) -> "Previous 7 days"
+        d.year == today.year -> d.month.getDisplayName(java.time.format.TextStyle.FULL, java.util.Locale.CANADA)
+        else -> "${d.month.getDisplayName(java.time.format.TextStyle.FULL, java.util.Locale.CANADA)} ${d.year}"
+    }
+}
 
 // ---------------------------------------------------------------- sync
 

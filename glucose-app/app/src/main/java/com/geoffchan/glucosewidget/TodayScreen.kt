@@ -95,7 +95,7 @@ private val EMD = DateTimeFormatter.ofPattern("EEE, MMM d", Locale.CANADA)
 /**
  * The Today tab: the current reading first (the number she opens the app
  * for), then the day or week chart, then that range's log as a timeline,
- * and the Ask Ray bar with quick + Dose / + Food chips at the bottom.
+ * and quick + Dose / + Food chips at the bottom (Ray is his own tab; the Ask bar went 2026-10-11).
  * Rows: tap to edit, swipe left to delete (Undo in the snackbar).
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -115,24 +115,8 @@ fun TodayScreen(snackbar: SnackbarHostState, onOpenSettings: () -> Unit) {
     var editingDose by remember { mutableStateOf<JournalEntity?>(null) } // set alongside dosing
     var logging by remember { mutableStateOf(false) }
     var editingLog by remember { mutableStateOf<JournalEntity?>(null) } // set alongside logging
-    var describeText by remember { mutableStateOf<String?>(null) } // non-null: the Ask sheet is open, prefilled
     val pendingDelete = remember { mutableStateListOf<String>() } // swiped away, waiting out the Undo
 
-    val speech = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { r ->
-        val said = r.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.firstOrNull()
-        if (r.resultCode == Activity.RESULT_OK && !said.isNullOrBlank()) describeText = said
-    }
-    fun listen() {
-        try {
-            speech.launch(
-                Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-                    .putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-                    .putExtra(RecognizerIntent.EXTRA_PROMPT, "Tell Ray"),
-            )
-        } catch (e: ActivityNotFoundException) {
-            describeText = "" // no speech service: type instead
-        }
-    }
 
     val today = LocalDate.now(zone)
     val isWeek = mode == SCOPE_WEEK
@@ -276,7 +260,7 @@ fun TodayScreen(snackbar: SnackbarHostState, onOpenSettings: () -> Unit) {
           }
             if (rows.isEmpty()) item("empty") {
                 Text(
-                    "Nothing logged yet. Tell Ray what you ate or took, or use + Dose and + Food.",
+                    "Nothing logged yet. Tell Ray (the Ray tab or your watch), or use + Dose and + Food.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(vertical = 12.dp, horizontal = 4.dp),
@@ -331,36 +315,11 @@ fun TodayScreen(snackbar: SnackbarHostState, onOpenSettings: () -> Unit) {
             item("end") { Spacer(Modifier.height(8.dp)) }
         }
 
-        // ---- Ask Ray bar ----
+        // ---- quick add (talking to Ray is the Ray tab or her watch) ----
         Column(Modifier.padding(start = 12.dp, end = 12.dp, top = 6.dp, bottom = 8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 QuickChip("+ Dose") { dosing = true }
                 if (isWeek) QuickChip("+ Week note") { adding = true } else QuickChip("+ Food") { logging = true }
-            }
-            Surface(
-                onClick = { describeText = "" },
-                shape = CircleShape,
-                color = MaterialTheme.colorScheme.surfaceContainer,
-                border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.primary),
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                Row(
-                    Modifier.padding(start = 8.dp, end = 6.dp, top = 6.dp, bottom = 6.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    RayAvatar(30.dp)
-                    Text(
-                        "Ask Ray or log…",
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.weight(1f).padding(start = 10.dp),
-                    )
-                    Surface(onClick = { listen() }, shape = CircleShape, color = MaterialTheme.colorScheme.primary, modifier = Modifier.size(40.dp)) {
-                        Box(contentAlignment = Alignment.Center) {
-                            Icon(painterResource(R.drawable.ic_mic), "Speak to Ray", tint = MaterialTheme.colorScheme.onPrimary, modifier = Modifier.size(22.dp))
-                        }
-                    }
-                }
             }
         }
     }
@@ -585,42 +544,6 @@ fun TodayScreen(snackbar: SnackbarHostState, onOpenSettings: () -> Unit) {
         )
     }
 
-    describeText?.let { initial ->
-        // Like the other sheets: the day being viewed, today in week mode.
-        val target = if (isWeek) LocalDate.now(zone) else day
-        val targetEntries by dao.journalFor(SCOPE_DAY, target.toString()).collectAsState(initial = emptyList())
-        DescribeDialog(
-            title = "Ask Ray or log · ${target.format(MD)}",
-            day = target,
-            existing = targetEntries,
-            initialText = initial,
-            onDismiss = { describeText = null },
-            onSave = { save ->
-                val now2 = System.currentTimeMillis()
-                scope.launch {
-                    val items = mutableListOf<SavedItem>()
-                    for ((proposed, text) in save.inserts) {
-                        val row = JournalEntity(
-                            day = target.toString(), text = text,
-                            createdAtMs = now2, updatedAtMs = now2, scope = SCOPE_DAY,
-                        )
-                        Journal.insert(context, row)
-                        items += SavedItem(proposed, text, row.uid, "insert")
-                    }
-                    for ((guess, proposed, text) in save.confirms) {
-                        Journal.update(context, guess.copy(text = text, updatedAtMs = now2))
-                        items += SavedItem(proposed, text, guess.uid, "confirm")
-                    }
-                    items += Journal.applyChanges(context, save.changes)
-                    GlucoseWidget().updateAll(context)
-                    save.interactionId?.let {
-                        InteractionLog.setOutcomeLater(context, it, Outcome(OUTCOME_SAVED, now2, items, save.unticked))
-                    }
-                    describeText = null
-                }
-            },
-        )
-    }
 }
 
 /** The big "Now" card: reading, trend, age, last dose and last meal. Red when low, amber when high. */
@@ -655,7 +578,7 @@ private fun NowCard(
         Box {
             Image(
                 painterResource(R.drawable.sparkle), null,
-                modifier = Modifier.align(Alignment.TopEnd).offset(x = (-78).dp, y = 12.dp).size(20.dp),
+                modifier = Modifier.align(Alignment.TopEnd).offset(x = (-20).dp, y = 16.dp).size(22.dp),
             )
             Column(Modifier.padding(start = 18.dp, end = 16.dp, top = 14.dp, bottom = 14.dp)) {
                 if (reading == null) {
@@ -682,6 +605,11 @@ private fun NowCard(
                                 style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.Black, letterSpacing = (-1).sp),
                             )
                             Text(
+                                trendArrow(reading.trend),
+                                style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Black),
+                                modifier = Modifier.padding(start = 8.dp, bottom = 6.dp),
+                            )
+                            Text(
                                 "mmol/L",
                                 style = MaterialTheme.typography.labelLarge,
                                 color = Color.White.copy(alpha = 0.85f),
@@ -689,10 +617,6 @@ private fun NowCard(
                             )
                         }
                     }
-                    Box(
-                        Modifier.size(52.dp).background(Color.White.copy(alpha = 0.22f), CircleShape),
-                        contentAlignment = Alignment.Center,
-                    ) { Text(trendArrow(reading.trend), style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Black)) }
                 }
                 val pills = listOfNotNull(lastDose, lastEvent)
                 if (pills.isNotEmpty()) {

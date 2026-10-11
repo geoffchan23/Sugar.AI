@@ -32,6 +32,14 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.ui.graphics.Color
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -88,10 +96,12 @@ class ChatActivity : ComponentActivity() {
 
 /**
  * The Ray tab (see [RayChat]): shared threads between her phone and
- * Geoff's, as chips across the top. Ray's messages can carry a card of
- * proposed entries/changes (ticked; untick, then Save), a saved report, and
- * what he ran to get there (tap to see the SQL or code).
+ * Geoff's. ChatGPT-style: ☰ opens the history (search, grouped by date,
+ * long-press to rename or delete, both synced), ✎ starts a new chat (the
+ * old one stays in the history). Ray's messages can carry a card of
+ * proposed entries/changes, a saved report, and what he ran to get there.
  */
+@OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
 @Composable
 fun RayScreen(thread: String, onThread: (String) -> Unit) {
     val context = androidx.compose.ui.platform.LocalContext.current
@@ -100,46 +110,165 @@ fun RayScreen(thread: String, onThread: (String) -> Unit) {
     val other = if (me == AUTHOR_FRANCINE) AUTHOR_GEOFF else AUTHOR_FRANCINE
     val all by dao.allChat().collectAsState(initial = emptyList())
     val threads = chatThreads(all)
-    Column(Modifier.fillMaxSize().imePadding()) {
-        Row(
-            Modifier.fillMaxWidth().padding(start = 16.dp, end = 8.dp, top = 8.dp, bottom = 8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            RayAvatar(42.dp)
-            Column(Modifier.weight(1f).padding(start = 12.dp)) {
-                Text("Ray", style = MaterialTheme.typography.titleLarge)
-                Text(
-                    "You're ${authorName(me)} · shared with ${authorName(other)}",
-                    style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
+    val current = threads.firstOrNull { it.thread == thread }
+    val drawer = androidx.compose.material3.rememberDrawerState(androidx.compose.material3.DrawerValue.Closed)
+    val scope = androidx.compose.runtime.rememberCoroutineScope()
+    var renaming by remember { mutableStateOf<ChatThreadSummary?>(null) }
+    var deleting by remember { mutableStateOf<ChatThreadSummary?>(null) }
+
+    androidx.compose.material3.ModalNavigationDrawer(
+        drawerState = drawer,
+        drawerContent = {
+            androidx.compose.material3.ModalDrawerSheet(
+                drawerContainerColor = MaterialTheme.colorScheme.background,
+                modifier = Modifier.fillMaxWidth(0.86f),
+            ) {
+                ChatHistory(
+                    threads, thread,
+                    onOpen = { onThread(it); scope.launch { drawer.close() } },
+                    onNew = { onThread(newUid()); scope.launch { drawer.close() } },
+                    onRename = { renaming = it },
+                    onDelete = { deleting = it },
                 )
             }
-            IconButton(onClick = { onThread(newUid()) }) { Icon(Icons.Filled.Add, "New chat") }
-        }
-        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-        if (threads.isNotEmpty()) {
-            LazyRow(
-                contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 14.dp, vertical = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(6.dp),
+        },
+    ) {
+        Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).imePadding()) {
+            Row(
+                Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 6.dp),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
-                if (threads.none { it.thread == thread }) item("new") { ThreadChip("New chat", true) {} }
-                items(threads, key = { it.thread }) { t ->
-                    ThreadChip(t.title.let { if (it.length > 26) it.take(25).trimEnd() + "…" else it }, t.thread == thread) { onThread(t.thread) }
+                IconButton(onClick = { scope.launch { drawer.open() } }) { Icon(Icons.Filled.Menu, "Chats") }
+                Row(Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
+                    RayAvatar(30.dp)
+                    Column(Modifier.padding(start = 8.dp)) {
+                        Text(
+                            current?.title ?: "New chat", style = MaterialTheme.typography.titleMedium,
+                            maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
+                        )
+                        Text(
+                            "Ray · shared with ${authorName(other)}",
+                            style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
                 }
+                IconButton(onClick = { onThread(newUid()) }, enabled = current != null) { Icon(Icons.Filled.Edit, "New chat") }
             }
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+            Conversation(thread, all.filter { it.thread == thread && it.isMessage }, me)
         }
-        Conversation(thread, all.filter { it.thread == thread }, me)
+    }
+
+    renaming?.let { t ->
+        var name by remember(t.thread) { mutableStateOf(t.title) }
+        androidx.compose.material3.AlertDialog(
+            onDismissRequest = { renaming = null },
+            title = { Text("Rename chat") },
+            text = { androidx.compose.material3.OutlinedTextField(name, { name = it }, singleLine = true, modifier = Modifier.fillMaxWidth()) },
+            confirmButton = {
+                androidx.compose.material3.TextButton(enabled = name.isNotBlank(), onClick = {
+                    renaming = null
+                    InteractionLog.recordLater(context) { ChatStore.threadEvent(it, t.thread, rename = name.trim()) }
+                }) { Text("Rename") }
+            },
+            dismissButton = { androidx.compose.material3.TextButton(onClick = { renaming = null }) { Text("Cancel") } },
+        )
+    }
+    deleting?.let { t ->
+        androidx.compose.material3.AlertDialog(
+            onDismissRequest = { deleting = null },
+            title = { Text("Delete chat?") },
+            text = { Text("“${t.title}” goes from both phones. Anything it logged stays in the log.") },
+            confirmButton = {
+                androidx.compose.material3.TextButton(onClick = {
+                    deleting = null
+                    if (t.thread == thread) onThread(newUid())
+                    InteractionLog.recordLater(context) { ChatStore.threadEvent(it, t.thread, deleted = true) }
+                }) { Text("Delete", color = MaterialTheme.colorScheme.error) }
+            },
+            dismissButton = { androidx.compose.material3.TextButton(onClick = { deleting = null }) { Text("Cancel") } },
+        )
     }
 }
 
+/** The history drawer: search, + New chat, threads grouped Today / Yesterday / Previous 7 days / by month. */
+@OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
 @Composable
-private fun ThreadChip(label: String, selected: Boolean, onClick: () -> Unit) {
-    Surface(
-        onClick = onClick,
-        shape = CircleShape,
-        color = if (selected) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.surfaceVariant,
-        contentColor = if (selected) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.onSurfaceVariant,
-    ) {
-        Text(label, style = MaterialTheme.typography.labelLarge, maxLines = 1, modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp))
+private fun ChatHistory(
+    threads: List<ChatThreadSummary>,
+    selected: String,
+    onOpen: (String) -> Unit,
+    onNew: () -> Unit,
+    onRename: (ChatThreadSummary) -> Unit,
+    onDelete: (ChatThreadSummary) -> Unit,
+) {
+    var query by remember { mutableStateOf("") }
+    val zone = remember { ZoneId.systemDefault() }
+    val today = LocalDate.now(zone)
+    val shown = if (query.isBlank()) threads else threads.filter {
+        it.title.contains(query.trim(), ignoreCase = true) || it.lastLine.contains(query.trim(), ignoreCase = true)
+    }
+    Column(Modifier.fillMaxSize().padding(top = 12.dp)) {
+        Text("Chats", style = MaterialTheme.typography.headlineSmall, modifier = Modifier.padding(horizontal = 20.dp, vertical = 4.dp))
+        androidx.compose.material3.OutlinedTextField(
+            query, { query = it },
+            placeholder = { Text("Search") },
+            leadingIcon = { Icon(Icons.Filled.Search, null) },
+            singleLine = true,
+            shape = CircleShape,
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 8.dp),
+        )
+        LazyColumn(Modifier.weight(1f), contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 8.dp, vertical = 4.dp)) {
+            var group: String? = null
+            for (t in shown) {
+                val g = threadGroup(t.lastAtMs, today, zone)
+                if (g != group) {
+                    group = g
+                    item("g:$g") {
+                        Text(
+                            g, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(start = 12.dp, top = 14.dp, bottom = 4.dp),
+                        )
+                    }
+                }
+                item(t.thread) {
+                    var menu by remember { mutableStateOf(false) }
+                    Box {
+                        Surface(
+                            color = if (t.thread == selected) MaterialTheme.colorScheme.primaryContainer else Color.Transparent,
+                            shape = RoundedCornerShape(14.dp),
+                            modifier = Modifier.fillMaxWidth().combinedClickable(onClick = { onOpen(t.thread) }, onLongClick = { menu = true }),
+                        ) {
+                            Column(Modifier.padding(horizontal = 12.dp, vertical = 10.dp)) {
+                                Text(t.title, style = MaterialTheme.typography.bodyLarge, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+                                Text(
+                                    t.lastLine, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
+                                )
+                            }
+                        }
+                        androidx.compose.material3.DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
+                            androidx.compose.material3.DropdownMenuItem(text = { Text("Rename") }, onClick = { menu = false; onRename(t) })
+                            androidx.compose.material3.DropdownMenuItem(text = { Text("Delete", color = MaterialTheme.colorScheme.error) }, onClick = { menu = false; onDelete(t) })
+                        }
+                    }
+                }
+            }
+            if (shown.isEmpty()) item("none") {
+                Text(
+                    if (query.isBlank()) "No chats yet." else "No chats match “${query.trim()}”.",
+                    color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(12.dp),
+                )
+            }
+        }
+        androidx.compose.material3.Button(
+            onClick = onNew,
+            shape = CircleShape,
+            modifier = Modifier.padding(16.dp).navigationBarsPadding(),
+        ) {
+            Icon(Icons.Filled.Edit, null, modifier = Modifier.size(18.dp))
+            Text("New chat", modifier = Modifier.padding(start = 8.dp))
+        }
     }
 }
 

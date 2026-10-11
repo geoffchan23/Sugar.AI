@@ -194,6 +194,11 @@ object ChatStore {
      * skipped — [planWatchSave]) and changes on other days. The card then
      * says who saved what, on both phones.
      */
+    /** Rename or delete a thread on both phones (a [AUTHOR_SYSTEM] event; see [chatThreads]). */
+    suspend fun threadEvent(context: Context, thread: String, rename: String? = null, deleted: Boolean = false) {
+        post(context, thread, AUTHOR_SYSTEM, "", meta = threadEventMeta(rename, deleted))
+    }
+
     suspend fun saveCard(context: Context, uid: String, entries: List<String>, changes: List<ChangeOp>, by: String): String {
         val dao = GlucoseDb.get(context).dao()
         val m = dao.chatMessage(uid) ?: return "That message is gone."
