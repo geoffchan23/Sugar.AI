@@ -299,9 +299,26 @@ I/O in `InteractionLog.kt`; logging never blocks or breaks an entry.
   cancel. No outcome = she swiped away (or hasn't acted yet).
 - The watch generates the id and sends it with /log/parse; proposal, save
   and /log/outcome carry it back (older watches/phones without ids still work).
-- Later corrections aren't written back: saved rows keep their journal uid,
-  and the export resolves each against the journal (kept / edited / confirmed
-  guess / deleted).
+- **Corrections** (from 2026-10-11, the label now that the watch doesn't
+  confirm): every edit or delete through `Journal` of a row some record
+  saved appends `{journalUid, op edit/delete/confirm, before, after, by,
+  atMs}` to that record's `outcome.corrections` (`InteractionLog.correction`;
+  `by` = `Store.chatAuthor`, so Francine on hers, Geoff on his). Undo on the
+  watch is a delete too. Merged from both phones (`mergeOutcome` keeps both
+  sides'). Adds that fill a gap (something she said but the parse missed)
+  aren't linked yet.
+- **Memory:** the most recent 15 edit/delete corrections go into every
+  logging prompt's user turn as "Past corrections …" (`correctionLessons`),
+  so the model sees what it got wrong before.
+- **Evals:** the export also writes `data/watch-evals.jsonl` (input, got,
+  expected = the log as it is now, corrected flag); `tools/run-watch-evals.py
+  --serial <phone>` replays the corrected cases (`--all` for every case)
+  through `watch-parse-test` and scores rows ignoring times. Use it after
+  changing the prompt or model. Turning recurring corrections into rules
+  in `LOGGING_RULES` / `RAY_CORE` is the "skill" step — do it in a session
+  from the export.
+- The export also resolves each saved row against the journal (kept /
+  edited / confirmed guess / deleted) for records from before corrections.
 
 Sync: records ride the encrypted relay (outbox entries `i:<uid>`, payload
 field `inter`). The full trace stays on the phone where it happened; the
@@ -327,9 +344,13 @@ with one big mic button — and, the way she normally gets in, **tapping
 the time on her Big Glucose watch face** (a WFF `<Launch>` on the clock;
 see watch-face/CLAUDE.md). She speaks ("took 6 units and a chicken
 burger"); the watch sends the transcript to her phone (the main phone)
-over the Wearable Data Layer; the phone replies with rows; she unticks
-anything wrong and taps Save; the phone writes them to today via
-`Journal` and the watch buzzes ✓. Paths and JSON are in
+over the Wearable Data Layer; **the phone saves the rows to today via
+`Journal` straight away** and replies; the watch buzzes and shows ✓ with
+what went in, plus **Undo** (`/log/undo`: removes the rows that record
+inserted) — no confirm screen since 2026-10-11 (Geoff: "assume it gets it
+right, we correct after the fact"). A plain log closes itself after 5 s;
+an answer waits for Done. The watch asks for this with `autoSave` on
+/log/parse; an older watch without it still gets the tick-and-Save screen. Paths and JSON are in
 `WatchProtocol.kt` (phone) and `wear/…/Protocol.kt` (watch) — change
 both together. The wear APK must keep applicationId
 `com.geoffchan.glucosewidget` and the same debug key as the phone app,
@@ -361,8 +382,7 @@ Parsing (`WatchParse` in `WatchListenerService.kt`), in order:
    "19 and 4" (19/20 → long), insulin brand/slang words, "at 5:30" /
    "an hour ago" / "this morning", "walked 20 minutes" → `20 min walk`.
    Good for short in-the-moment phrases; weak on paragraphs.
-Anything without a time is stamped now. Every row starts ticked on the
-watch (she unticks; Francine asked 2026-10-10). Status per row: new,
+Anything without a time is stamped now. Status per row: new,
 "already logged" (saving is a no-op), "confirms guess" or "replaces
 auto-log" (both update the matched row).
 Logcat tag `WatchLog` shows which parser ran (`openai`, `nano`,

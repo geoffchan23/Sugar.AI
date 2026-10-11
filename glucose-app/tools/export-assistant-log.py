@@ -13,6 +13,13 @@ eval label — with later corrections resolved against the journal: each saved
 row is "kept", "edited" (and to what), "confirmed" (a guess she kept),
 "deleted" or "missing" (not synced yet).
 
+Also writes data/watch-evals.jsonl (--evals): one case per saved record,
+with what she said, what was logged ("got") and what the log says now
+("expected": later edits applied, deletes dropped). Cases someone
+corrected are the interesting ones; tools/run-watch-evals.py replays them.
+From 2026-10-11 records also carry explicit "corrections" (who changed
+what, when) in their outcome.
+
 Prints a short summary. Records from ADB test ops (source "debug") are in
 the file but left out of the summary unless --include-debug.
 
@@ -92,6 +99,32 @@ def record(r, journal, tombs):
     }
 
 
+def eval_case(x):
+    """input → expected rows, from a saved record and what became of its rows."""
+    o = x.get("outcome") or {}
+    if o.get("kind") not in ("saved", "saved-as-guesses"):
+        return None
+    got, expected = [], []
+    for s in o.get("saved", []):
+        text = s.get("saved", "")
+        text = text[: -len(GUESS)] if text.endswith(GUESS) else text
+        if s.get("op") == "already":
+            continue
+        got.append(text)
+        now = s.get("now")
+        if now == "edited":
+            expected.append(s.get("nowText", ""))
+        elif now in ("kept", "confirmed", "missing"):
+            expected.append(text)
+    corrections = o.get("corrections", [])
+    return {
+        "id": x["id"], "source": x["source"], "input": x["input"],
+        "now": (x.get("context") or {}).get("now"), "parser": x["parser"],
+        "got": got, "expected": expected, "corrected": got != expected or bool(corrections),
+        "corrections": corrections,
+    }
+
+
 def summary(recs):
     n = len(recs)
     print("interactions: %d" % n)
@@ -129,6 +162,12 @@ def summary(recs):
         print("keep rate: %d/%d proposed rows saved and unchanged (%.0f%%); %d edited (before or after saving), %d deleted later"
               % (kept, offered, 100.0 * kept / offered, edits, deleted))
 
+    cs = [c for x in recs for c in ((x.get("outcome") or {}).get("corrections") or [])]
+    if cs:
+        print("corrections: %d (%s; by %s)" % (
+            len(cs), ", ".join("%s %d" % kv for kv in Counter(c["op"] for c in cs).most_common()),
+            ", ".join("%s %d" % kv for kv in Counter(c["by"] for c in cs).most_common())))
+
     ms = [x["ms"] for x in recs if isinstance(x.get("ms"), (int, float))]
     if ms:
         print("assistant latency: median %.1f s, max %.1f s (n=%d)" % (statistics.median(ms) / 1000, max(ms) / 1000, len(ms)))
@@ -141,6 +180,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--db", default=str(ROOT / "data" / "glucose.db"))
     ap.add_argument("--out", default=str(ROOT / "data" / "assistant-log.jsonl"))
+    ap.add_argument("--evals", default=str(ROOT / "data" / "watch-evals.jsonl"))
     ap.add_argument("--include-debug", action="store_true", help="count ADB test-op records in the summary")
     a = ap.parse_args()
     if not Path(a.db).exists():
@@ -151,6 +191,11 @@ def main():
         for x in recs:
             f.write(json.dumps(x, ensure_ascii=False) + "\n")
     print("wrote %d interactions to %s" % (len(recs), a.out))
+    cases = [c for c in (eval_case(x) for x in recs if x["source"] != "debug") if c]
+    with open(a.evals, "w") as f:
+        for c in cases:
+            f.write(json.dumps(c, ensure_ascii=False) + "\n")
+    print("wrote %d eval cases (%d corrected) to %s" % (len(cases), sum(c["corrected"] for c in cases), a.evals))
     if not rows and journal == {}:
         print("(this database predates the interaction log — install the current app and pull again)")
     summary([x for x in recs if a.include_debug or x["source"] != "debug"])

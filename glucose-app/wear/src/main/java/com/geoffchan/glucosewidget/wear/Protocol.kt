@@ -15,6 +15,8 @@ object Protocol {
     const val PATH_QUEUED = "/log/queued"
     const val PATH_QUEUED_ACK = "/log/queued-ack"
     const val PATH_OUTCOME = "/log/outcome"
+    const val PATH_UNDO = "/log/undo"
+    const val PATH_UNDONE = "/log/undone"
 
     // outcomes for the phone's interaction log (match InteractionCore.kt)
     const val OUTCOME_CANCELLED = "cancelled"
@@ -30,9 +32,10 @@ data class Row(val text: String, val label: String, val time: String, val status
 /** [answer]: the assistant's reply for the watch screen ("" when it only logged). */
 /** [id]: the phone's interaction-log record (our parse id echoed back; null from older phones). */
 /** [changes]: edits to other days waiting on the phone for review; [awaiting]: the answer is a question. */
+/** [saved]: the phone already saved the rows (no confirm screen, from 2026-10-11); null from older phones. */
 data class Proposal(
     val ok: Boolean, val error: String?, val parser: String, val rows: List<Row>, val answer: String = "", val id: String? = null,
-    val changes: Int = 0, val awaiting: Boolean = false,
+    val changes: Int = 0, val awaiting: Boolean = false, val saved: Saved? = null,
 )
 
 data class Saved(val ok: Boolean, val error: String?, val saved: Int, val confirmed: Int, val already: Int)
@@ -50,6 +53,7 @@ fun decodeProposal(json: String): Proposal {
         o.optBoolean("ok"), o.optNullableString("error"), o.optString("parser"), rows, o.optString("answer", ""),
         if (o.has("id")) o.optNullableString("id") else null,
         o.optInt("changes"), o.optBoolean("awaiting"),
+        if (o.optBoolean("autoSaved")) Saved(true, null, o.optInt("saved"), o.optInt("confirmed"), o.optInt("already")) else null,
     )
 }
 
@@ -58,7 +62,12 @@ fun decodeProposal(json: String): Proposal {
  * resend) find the record; [replyTo] is the record whose question she's answering.
  */
 fun encodeParse(id: String, text: String, replyTo: String? = null): String =
-    JSONObject().put("id", id).put("text", text).apply { replyTo?.let { put("replyTo", it) } }.toString()
+    JSONObject().put("id", id).put("text", text).put("autoSave", true).apply { replyTo?.let { put("replyTo", it) } }.toString()
+
+fun encodeUndo(id: String): String = JSONObject().put("id", id).toString()
+
+/** /log/undone: how many rows the phone removed. */
+fun decodeUndone(json: String): Pair<Boolean, Int> = JSONObject(json).let { it.optBoolean("ok") to it.optInt("removed") }
 
 /** "3 changes to review on your phone", or "" for none. */
 fun changesNote(n: Int): String = when (n) {
@@ -77,12 +86,12 @@ fun decodeSaved(json: String): Saved {
     return Saved(o.optBoolean("ok"), o.optNullableString("error"), o.optInt("saved"), o.optInt("confirmed"), o.optInt("already"))
 }
 
-/** What the ✓ screen says, e.g. "Saved 2 · 1 already logged". */
+/** What the ✓ screen says, e.g. "Logged 2 · 1 already logged". */
 fun savedSummary(s: Saved): String {
     val parts = mutableListOf<String>()
-    if (s.saved + s.confirmed > 0) parts += "Saved ${s.saved + s.confirmed}"
+    if (s.saved + s.confirmed > 0) parts += "Logged ${s.saved + s.confirmed}"
     if (s.already > 0) parts += "${s.already} already logged"
-    return parts.joinToString(" · ").ifEmpty { "Nothing new to save" }
+    return parts.joinToString(" · ").ifEmpty { "Already logged" }
 }
 
 /** Something she said while the phone was out of reach, held until it's back. */

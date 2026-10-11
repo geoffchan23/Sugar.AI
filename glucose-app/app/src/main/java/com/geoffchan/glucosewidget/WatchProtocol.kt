@@ -9,7 +9,12 @@ import org.json.JSONObject
  * wear/…/Protocol.kt — change both together.
  *
  *   watch → phone  /log/parse     {"id","text"} (older watches: the bare UTF-8 transcript)
- *   watch → phone  /log/parse     {"id","text","replyTo"?}  replyTo: the record whose question she's answering
+ *   watch → phone  /log/parse     {"id","text","replyTo"?,"autoSave"?}  replyTo: the record whose question she's answering;
+ *                                 autoSave (watches from 2026-10-11): save the rows now, no confirm screen
+ *   phone → watch  /log/proposal  … plus "autoSaved" (the rows are already in the journal) and the
+ *                                 saved/confirmed/already counts; the watch shows ✓ with Undo
+ *   watch → phone  /log/undo      {"id"}  remove what record id saved (logged as corrections)
+ *   phone → watch  /log/undone    {"ok","error","removed"}
  *   phone → watch  /log/proposal  {"ok","error","parser","answer","id","rows":[{text,label,time,status}],"changes","awaiting"}
  *                  answer: the assistant's watch-sized reply ("" when none; then rows only)
  *                  id: the interaction log record (the watch's id echoed, or a new one)
@@ -34,6 +39,8 @@ object WatchProtocol {
     const val PATH_QUEUED = "/log/queued"
     const val PATH_QUEUED_ACK = "/log/queued-ack"
     const val PATH_OUTCOME = "/log/outcome"
+    const val PATH_UNDO = "/log/undo"
+    const val PATH_UNDONE = "/log/undone"
 
     const val STATUS_NEW = "new"
     const val STATUS_ALREADY = "already" // the same entry is already logged; saving it does nothing
@@ -64,7 +71,7 @@ fun watchRow(p: ProposedEntry, existing: List<JournalEntity>): WatchRow? {
 
 fun encodeProposal(
     rows: List<WatchRow>, parser: String, error: String? = null, answer: String = "", id: String? = null,
-    changes: Int = 0, awaiting: Boolean = false,
+    changes: Int = 0, awaiting: Boolean = false, saved: SaveCounts? = null,
 ): String = JSONObject()
     .put("ok", error == null)
     .put("error", error ?: JSONObject.NULL)
@@ -74,7 +81,15 @@ fun encodeProposal(
     .put("rows", JSONArray(rows.map { JSONObject().put("text", it.text).put("label", it.label).put("time", it.time).put("status", it.status) }))
     .put("changes", changes)
     .put("awaiting", awaiting)
+    .apply {
+        if (saved != null) put("autoSaved", true).put("saved", saved.saved).put("confirmed", saved.confirmed).put("already", saved.already)
+    }
     .toString()
+
+data class SaveCounts(val saved: Int, val confirmed: Int, val already: Int)
+
+fun encodeUndone(removed: Int, error: String? = null): String = JSONObject()
+    .put("ok", error == null).put("error", error ?: JSONObject.NULL).put("removed", removed).toString()
 
 fun encodeSave(texts: List<String>, id: String? = null, unticked: List<String> = emptyList()): String = JSONObject()
     .put("texts", JSONArray(texts)).put("id", id ?: JSONObject.NULL).put("unticked", JSONArray(unticked)).toString()

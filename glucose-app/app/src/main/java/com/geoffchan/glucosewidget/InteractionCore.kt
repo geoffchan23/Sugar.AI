@@ -51,7 +51,27 @@ data class Outcome(
     val saved: List<SavedItem> = emptyList(),
     val unticked: List<String> = emptyList(),
     val note: String? = null,
+    val corrections: List<Correction> = emptyList(),
 )
+
+const val CORRECTION_EDIT = "edit"
+const val CORRECTION_DELETE = "delete"
+const val CORRECTION_CONFIRM = "confirm" // a guess kept as it was (a "right" label)
+
+/**
+ * Someone changed a row this record saved, after the fact (from
+ * 2026-10-11 the watch saves without a confirm screen, so this is the
+ * label for what the parse got wrong). [after] is "" for a delete.
+ */
+data class Correction(val journalUid: String, val op: String, val before: String, val after: String, val by: String, val atMs: Long)
+
+/** The op for changing a saved row from [before] to [after] ("" = deleted), or null if nothing changed. */
+fun correctionOp(before: String, after: String?): String? = when {
+    after == null -> CORRECTION_DELETE
+    after == before -> null
+    isGuessEntry(before) && after == before.removeSuffix(GUESS_SUFFIX) -> CORRECTION_CONFIRM
+    else -> CORRECTION_EDIT
+}
 
 fun cut(s: String, max: Int): String =
     if (s.length <= max) s else s.take(max) + "…[truncated ${s.length - max} chars]"
@@ -116,7 +136,11 @@ fun encodeOutcome(o: Outcome): String = JSONObject()
     }))
     .put("unticked", JSONArray(o.unticked))
     .put("note", o.note ?: JSONObject.NULL)
+    .apply { if (o.corrections.isNotEmpty()) put("corrections", JSONArray(o.corrections.map { encodeCorrection(it) })) }
     .toString()
+
+private fun encodeCorrection(c: Correction): JSONObject = JSONObject()
+    .put("journalUid", c.journalUid).put("op", c.op).put("before", c.before).put("after", c.after).put("by", c.by).put("atMs", c.atMs)
 
 fun decodeOutcome(json: String?): Outcome? = runCatching {
     val o = JSONObject(json ?: return null)
@@ -131,6 +155,12 @@ fun decodeOutcome(json: String?): Outcome? = runCatching {
         },
         unticked = (0 until unticked.length()).map { unticked.getString(it) },
         note = o.optNullableString("note"),
+        corrections = (o.optJSONArray("corrections") ?: JSONArray()).let { a ->
+            (0 until a.length()).map {
+                val c = a.getJSONObject(it)
+                Correction(c.getString("journalUid"), c.getString("op"), c.optString("before"), c.optString("after"), c.optString("by"), c.optLong("atMs"))
+            }
+        },
     )
 }.getOrNull()
 
@@ -142,6 +172,15 @@ fun decodeOutcome(json: String?): Outcome? = runCatching {
  * changes reviewed on the phone); otherwise the later outcome wins.
  */
 fun mergeOutcome(current: String?, incoming: String?): String? {
+    val merged = mergeOutcomeKind(current, incoming) ?: return null
+    // corrections come from either phone at any time: always keep both sides'
+    val all = (decodeOutcome(current)?.corrections.orEmpty() + decodeOutcome(incoming)?.corrections.orEmpty())
+        .distinctBy { it.journalUid to it.atMs }.sortedBy { it.atMs }
+    val m = decodeOutcome(merged) ?: return merged
+    return if (m.corrections == all) merged else encodeOutcome(m.copy(corrections = all))
+}
+
+private fun mergeOutcomeKind(current: String?, incoming: String?): String? {
     val cur = decodeOutcome(current) ?: return incoming
     val inc = decodeOutcome(incoming) ?: return current
     val curSaved = cur.kind == OUTCOME_SAVED || cur.kind == OUTCOME_GUESSES
@@ -293,7 +332,8 @@ fun applyRemoteInteraction(remote: SyncInteraction, local: AssistantLogEntity?):
  * /log/parse body: {"id","text","replyTo"?} from current watches, or the bare
  * transcript from older ones. [replyTo]: the record whose question she's answering.
  */
-data class ParseRequest(val id: String?, val text: String, val replyTo: String? = null)
+/** [autoSave]: the watch has no confirm screen (from 2026-10-11): save the rows right away. */
+data class ParseRequest(val id: String?, val text: String, val replyTo: String? = null, val autoSave: Boolean = false)
 
 fun decodeParseRequest(body: String): ParseRequest {
     val t = body.trim()
@@ -302,6 +342,7 @@ fun decodeParseRequest(body: String): ParseRequest {
         if (o.has("text")) return ParseRequest(
             o.optNullableString("id")?.takeIf { it.isNotBlank() }, o.getString("text"),
             o.optNullableString("replyTo")?.takeIf { it.isNotBlank() },
+            o.optBoolean("autoSave"),
         )
     }
     return ParseRequest(null, body)
@@ -314,3 +355,23 @@ fun decodeWatchOutcome(json: String): WatchOutcome? = runCatching {
     val o = JSONObject(json)
     WatchOutcome(o.getString("id"), o.getString("kind")).takeIf { it.id.isNotBlank() && it.kind.isNotBlank() }
 }.getOrNull()
+
+/** One correction with what she said, for the prompt's lessons and the evals. */
+data class CorrectionExample(val input: String, val correction: Correction)
+
+/**
+ * "What we fixed last time" for the model: the most recent corrections,
+ * newest first, as short lines. Empty when there are none.
+ */
+fun correctionLessons(examples: List<CorrectionExample>, max: Int = 15): String {
+    val lines = examples.filter { it.correction.op != CORRECTION_CONFIRM }
+        .sortedByDescending { it.correction.atMs }.take(max)
+        .map { (input, c) ->
+            val said = cut(input.trim().replace(Regex("\\s+"), " "), 160)
+            val fix = if (c.op == CORRECTION_DELETE) "deleted it" else "changed it to \"${c.after}\""
+            "- \"$said\" → you logged \"${c.before}\"; ${authorName(c.by)} $fix."
+        }
+    if (lines.isEmpty()) return ""
+    return "Past corrections (entries you logged from what she said that were fixed afterwards; avoid the same mistakes):\n" +
+        lines.joinToString("\n")
+}

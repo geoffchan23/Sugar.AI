@@ -142,7 +142,7 @@ fun historyInput(history: List<Turn>): List<JSONObject> = history.flatMap { t ->
     )
 }
 
-fun assistantUserTurn(message: String, now: ZonedDateTime, targetDay: LocalDate, fromWatch: Boolean, current: String?): String = buildString {
+fun assistantUserTurn(message: String, now: ZonedDateTime, targetDay: LocalDate, fromWatch: Boolean, current: String?, lessons: String = ""): String = buildString {
     appendLine("Now: ${CLOCK.format(now)} (America/Toronto).")
     appendLine("Current glucose: ${current ?: "unknown"}.")
     val today = now.toLocalDate()
@@ -153,7 +153,8 @@ fun assistantUserTurn(message: String, now: ZonedDateTime, targetDay: LocalDate,
             else -> ""
         } + ".",
     )
-    appendLine(if (fromWatch) "Said into her watch just now." else "Typed in the phone app.")
+    appendLine(if (fromWatch) "Said into her watch just now. It's saved as you log it, with no confirm screen, so get it right." else "Typed in the phone app.")
+    if (lessons.isNotBlank()) { appendLine(); appendLine(lessons) }
     appendLine()
     append("Francine: ").append(message.trim())
 }
@@ -204,7 +205,8 @@ object Assistant {
     ): AssistantResult = withTimeout(timeoutMs) {
         val cfg = Store.aiConfig(context) ?: throw AssistantException("assistant not configured")
         val now = ZonedDateTime.now(zone)
-        val turn = assistantUserTurn(message, now, targetDay, fromWatch, InteractionLog.currentReading(context))
+        val lessons = correctionLessons(InteractionLog.correctionExamples(context))
+        val turn = assistantUserTurn(message, now, targetDay, fromWatch, InteractionLog.currentReading(context), lessons)
         // a reply to a question, or anything touching other days, deserves more thought than a plain log
         val effort = cfg.effort ?: if (history.isNotEmpty()) "medium" else defaultEffort(message)
         run(cfg, turn, effort, roomData(context), zone, trace = trace, history = history, today = now.toLocalDate())

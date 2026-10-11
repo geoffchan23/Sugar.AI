@@ -26,7 +26,8 @@ import java.time.ZoneId
 /**
  * Her watch's voice log, phone side (see [WatchProtocol]). The watch sends
  * what she said; [WatchParse] breaks it into rows and this replies with a
- * proposal; on her Save it writes the rows to today via [Journal]. Entries
+ * proposal; from 2026-10-11 it saves the rows to today via [Journal] straight
+ * away (Undo on the watch removes them; older watches still confirm). Entries
  * the watch held while the phone was out of reach arrive on /log/queued and
  * are saved as guesses.
  *
@@ -43,12 +44,14 @@ class WatchListenerService : WearableListenerService() {
                     WatchProtocol.PATH_SAVE -> reply(event, WatchProtocol.PATH_SAVED, WatchParse.save(this@WatchListenerService, body))
                     WatchProtocol.PATH_QUEUED -> reply(event, WatchProtocol.PATH_QUEUED_ACK, WatchParse.saveQueued(this@WatchListenerService, body))
                     WatchProtocol.PATH_OUTCOME -> WatchParse.outcome(this@WatchListenerService, body) // no reply
+                    WatchProtocol.PATH_UNDO -> reply(event, WatchProtocol.PATH_UNDONE, WatchParse.undo(this@WatchListenerService, body))
                 }
             } catch (e: Exception) {
                 Log.w(WatchParse.TAG, "watch ${event.path} failed", e)
                 if (event.path == WatchProtocol.PATH_OUTCOME) return@runBlocking
                 val (path, err) = when (event.path) {
                     WatchProtocol.PATH_SAVE -> WatchProtocol.PATH_SAVED to encodeSaved(0, 0, 0, WatchParse.SAVE_FAILED)
+                    WatchProtocol.PATH_UNDO -> WatchProtocol.PATH_UNDONE to encodeUndone(0, WatchParse.SAVE_FAILED)
                     WatchProtocol.PATH_QUEUED -> WatchProtocol.PATH_QUEUED_ACK to
                         encodeQueuedAck(decodeQueued(body)?.id.orEmpty(), 0, false, WatchParse.SAVE_FAILED)
                     else -> WatchProtocol.PATH_PROPOSAL to encodeProposal(emptyList(), "none", WatchParse.READ_FAILED)
@@ -139,7 +142,14 @@ object WatchParse {
         val changes = ai?.changes.orEmpty()
         // other days' edits are reviewed on the phone, not on the watch's small screen
         if (changes.isNotEmpty() && source != SOURCE_DEBUG) notifyChanges(context, id, changes.size)
-        return encodeProposal(rows, parser, answer = answer, id = id, changes = changes.size, awaiting = ai?.awaitingAnswer == true)
+        // the watch no longer confirms (Geoff, 2026-10-11): save now; she and Geoff fix it afterwards,
+        // and each fix is logged as a correction against this record
+        val counts = if (req.autoSave && rows.isNotEmpty() && source != SOURCE_DEBUG) {
+            val (counts, items) = saveTexts(context, rows.map { it.text })
+            InteractionLog.setOutcome(context, id, Outcome(OUTCOME_SAVED, System.currentTimeMillis(), items, note = "auto-saved from the watch"))
+            counts
+        } else null
+        return encodeProposal(rows, parser, answer = answer, id = id, changes = changes.size, awaiting = ai?.awaitingAnswer == true, saved = counts)
     }
 
     private const val CHANGES_CHANNEL = "watch-changes"
@@ -262,15 +272,23 @@ object WatchParse {
         }
     }
 
-    /** /log/save → /log/saved body. */
+    /** /log/save → /log/saved body (watches from before 2026-10-11, which still confirm). */
     suspend fun save(context: Context, json: String): String {
         if (!Store.isMainPhone(context)) return encodeSaved(0, 0, 0, NOT_MAIN)
+        val (c, items) = saveTexts(context, decodeSave(json))
+        val meta = decodeSaveMeta(json)
+        meta.id?.let { InteractionLog.setOutcome(context, it, Outcome(OUTCOME_SAVED, System.currentTimeMillis(), items, meta.unticked)) }
+        return encodeSaved(c.saved, c.confirmed, c.already)
+    }
+
+    /** Writes canonical [texts] to today (see [planWatchSave]). */
+    private suspend fun saveTexts(context: Context, texts: List<String>): Pair<SaveCounts, List<SavedItem>> {
         val today = LocalDate.now(ZoneId.systemDefault()).toString()
         val existing = todayEntries(context, today)
         val now = System.currentTimeMillis()
         var saved = 0; var confirmed = 0; var already = 0
         val items = mutableListOf<SavedItem>()
-        for (op in planWatchSave(decodeSave(json), existing)) when (op) {
+        for (op in planWatchSave(texts, existing)) when (op) {
             is WatchSaveOp.Insert -> {
                 val row = JournalEntity(day = today, text = op.text, createdAtMs = now, updatedAtMs = now, scope = SCOPE_DAY)
                 Journal.insert(context, row)
@@ -285,9 +303,29 @@ object WatchParse {
             is WatchSaveOp.Already -> { items += SavedItem(op.text, op.text, null, "already"); already++ }
         }
         if (saved + confirmed > 0) GlucoseWidget().updateAll(context)
-        val meta = decodeSaveMeta(json)
-        meta.id?.let { InteractionLog.setOutcome(context, it, Outcome(OUTCOME_SAVED, now, items, meta.unticked)) }
-        return encodeSaved(saved, confirmed, already)
+        return SaveCounts(saved, confirmed, already) to items
+    }
+
+    /**
+     * /log/undo → /log/undone: she tapped Undo on the ✓ screen. Removes the
+     * rows record [id] inserted (a guess or auto-logged row it confirmed was
+     * there before, so it stays); each delete goes through [Journal], so
+     * it's logged as a correction.
+     */
+    suspend fun undo(context: Context, json: String): String {
+        if (!Store.isMainPhone(context)) return encodeUndone(0, NOT_MAIN)
+        val id = runCatching { org.json.JSONObject(json).getString("id") }.getOrNull() ?: return encodeUndone(0, SAVE_FAILED)
+        val dao = GlucoseDb.get(context).dao()
+        val rec = dao.interaction(id) ?: return encodeUndone(0, "Couldn't find that entry on your phone.")
+        var removed = 0
+        for (item in decodeOutcome(rec.outcome)?.saved.orEmpty()) {
+            if (item.op != "insert") continue
+            val row = item.journalUid?.let { dao.journalByUid(it) } ?: continue
+            Journal.delete(context, row); removed++
+        }
+        if (removed > 0) GlucoseWidget().updateAll(context)
+        Log.i(TAG, "undo $id: removed $removed")
+        return encodeUndone(removed)
     }
 
     /** /log/outcome: she cancelled, asked again or read an answer — logged against the record. */

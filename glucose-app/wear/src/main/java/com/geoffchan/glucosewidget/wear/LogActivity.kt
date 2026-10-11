@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.itemsIndexed
+import androidx.wear.compose.foundation.lazy.items
 import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
 import androidx.wear.compose.material.Checkbox
 import androidx.wear.compose.material.Chip
@@ -45,7 +46,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
- * Speak → the phone breaks it down → tick what's right → Save. Opens straight
+ * Speak → the phone breaks it down and saves it → ✓ with Undo (the tick-and-
+ * Save screen is only for phones from before 2026-10-11). Opens straight
  * into voice input (from the launcher or the "Log" tile). The phone (hers,
  * the main phone) does all parsing and saving; the watch only shows rows.
  */
@@ -56,6 +58,8 @@ class LogActivity : ComponentActivity() {
         data class Confirm(val transcript: String, val rows: List<Row>, val answer: String = "", val changes: Int = 0) : Ui
         data class Answer(val transcript: String, val answer: String, val changes: Int = 0, val awaiting: Boolean = false) : Ui
         data class Done(val summary: String) : Ui
+        /** Saved by the phone already: what went in, with Undo (no confirm step, from 2026-10-11). */
+        data class Logged(val transcript: String, val rows: List<Row>, val summary: String, val answer: String = "", val changes: Int = 0) : Ui
         data class Queued(val transcript: String) : Ui
         data class Error(val message: String) : Ui
     }
@@ -150,6 +154,10 @@ class LogActivity : ComponentActivity() {
                     !p.ok -> Ui.Error(p.error ?: READ_FAILED)
                     p.rows.isEmpty() && (p.answer.isNotBlank() || p.changes > 0) -> Ui.Answer(transcript, p.answer, p.changes, p.awaiting)
                     p.rows.isEmpty() -> Ui.Error("Didn't catch any doses or food — try again.\n\n“$transcript”")
+                    p.saved != null -> {
+                        buzz()
+                        Ui.Logged(transcript, p.rows, savedSummary(p.saved), p.answer, p.changes).also { autoClose(it) }
+                    }
                     else -> {
                         checked.clear()
                         // all ticked: she unticks what she doesn't want (an already-logged row saves as a no-op)
@@ -186,6 +194,31 @@ class LogActivity : ComponentActivity() {
             } catch (e: Exception) {
                 ui = Ui.Error(SAVE_FAILED)
             }
+        }
+    }
+
+    /** A plain log closes itself; anything with an answer to read waits for Done. */
+    private fun autoClose(l: Ui.Logged) {
+        if (l.answer.isNotBlank() || l.changes > 0) return
+        lifecycleScope.launch {
+            delay(5_000)
+            if (ui === l) finish()
+        }
+    }
+
+    private fun undo(l: Ui.Logged) {
+        val id = interactionId ?: return finish()
+        interactionId = null
+        ui = Ui.Thinking(l.transcript, saving = true)
+        lifecycleScope.launch {
+            ui = try {
+                val (ok, removed) = decodeUndone(link.request(Protocol.PATH_UNDO, encodeUndo(id), Protocol.PATH_UNDONE))
+                if (!ok) Ui.Error("Your phone couldn't undo that — fix it in the app.")
+                else Ui.Done(if (removed == 1) "Removed 1" else "Removed $removed")
+            } catch (e: Exception) {
+                Ui.Error("Couldn't reach your phone — fix it in the app.")
+            }
+            if (ui is Ui.Done) { delay(1_500); finish() }
         }
     }
 
@@ -232,6 +265,28 @@ class LogActivity : ComponentActivity() {
                     item { Chip(onClick = { tellOutcome(Protocol.OUTCOME_ANSWERED); finish() }, label = { Text("Done") }, colors = ChipDefaults.primaryChipColors(), modifier = Modifier.fillMaxWidth()) }
                     item { Chip(onClick = { listen() }, label = { Text("Ask again") }, colors = ChipDefaults.secondaryChipColors(), modifier = Modifier.fillMaxWidth()) }
                 }
+            }
+            is Ui.Logged -> ScalingLazyColumn(
+                Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(top = 28.dp, start = 10.dp, end = 10.dp, bottom = 40.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                item { Text("✓ ${s.summary}", textAlign = TextAlign.Center, style = MaterialTheme.typography.title3, color = MaterialTheme.colors.primary) }
+                items(s.rows.size) { i ->
+                    val row = s.rows[i]
+                    Text(
+                        "${row.label} · ${row.time}" + if (row.status == Protocol.STATUS_ALREADY) " (already)" else "",
+                        textAlign = TextAlign.Center, style = MaterialTheme.typography.body2, maxLines = 2, overflow = TextOverflow.Ellipsis,
+                    )
+                }
+                if (s.answer.isNotBlank()) {
+                    item { Text(s.answer, textAlign = TextAlign.Center, style = MaterialTheme.typography.body2, modifier = Modifier.padding(vertical = 4.dp)) }
+                }
+                if (s.changes > 0) {
+                    item { Text(changesNote(s.changes), textAlign = TextAlign.Center, style = MaterialTheme.typography.caption1, color = MaterialTheme.colors.primary, modifier = Modifier.padding(vertical = 4.dp)) }
+                }
+                item { Chip(onClick = { interactionId = null; finish() }, label = { Text("Done") }, colors = ChipDefaults.primaryChipColors(), modifier = Modifier.fillMaxWidth()) }
+                item { Chip(onClick = { undo(s) }, label = { Text("Undo") }, colors = ChipDefaults.secondaryChipColors(), modifier = Modifier.fillMaxWidth()) }
             }
             is Ui.Done -> Centered {
                 Text("✓", fontSize = 48.sp, color = MaterialTheme.colors.primary)

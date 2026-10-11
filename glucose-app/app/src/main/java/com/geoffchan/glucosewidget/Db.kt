@@ -155,6 +155,13 @@ interface GlucoseDao {
     @Query("SELECT uid FROM assistant_log WHERE updatedAtMs >= :sinceMs")
     suspend fun interactionUidsUpdatedSince(sinceMs: Long): List<String>
 
+    /** Records whose outcome mentions journal row [uid] (the one that saved it, normally just one). */
+    @Query("SELECT * FROM assistant_log WHERE outcome LIKE '%' || :uid || '%' ORDER BY createdAtMs DESC")
+    suspend fun interactionsMentioning(uid: String): List<AssistantLogEntity>
+
+    @Query("SELECT * FROM assistant_log WHERE outcome LIKE '%\"corrections\":[%' ORDER BY updatedAtMs DESC LIMIT :limit")
+    suspend fun correctedInteractions(limit: Int): List<AssistantLogEntity>
+
     @Query("SELECT COUNT(*) FROM assistant_log")
     suspend fun interactionCount(): Int
 

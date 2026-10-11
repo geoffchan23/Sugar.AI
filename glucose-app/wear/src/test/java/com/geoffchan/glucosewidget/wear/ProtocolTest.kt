@@ -42,8 +42,8 @@ class ProtocolTest {
 
     @Test fun `saved summary`() {
         val s = decodeSaved("""{"ok":true,"error":null,"saved":2,"confirmed":1,"already":1}""")
-        assertEquals("Saved 3 · 1 already logged", savedSummary(s))
-        assertEquals("Nothing new to save", savedSummary(Saved(true, null, 0, 0, 0)))
+        assertEquals("Logged 3 · 1 already logged", savedSummary(s))
+        assertEquals("Already logged", savedSummary(Saved(true, null, 0, 0, 0)))
         assertEquals("2 already logged", savedSummary(Saved(true, null, 0, 0, 2)))
     }
 }
@@ -67,5 +67,13 @@ class LogIdsTest {
         val items = listOf(QueuedItem("q1", "candy", 5, "p1"), QueuedItem("q2", "walk", 6))
         org.junit.Assert.assertEquals(items, decodeQueue(encodeQueue(items)))
         org.junit.Assert.assertEquals("p1", org.json.JSONObject(encodeQueued(items[0])).getString("parseId"))
+    }
+
+    @Test fun `auto-saved proposal`() {
+        val p = decodeProposal("""{"ok":true,"error":null,"parser":"openai","answer":"","id":"a","rows":[{"text":"t","label":"2u short","time":"10:59 PM","status":"new"}],"changes":0,"awaiting":false,"autoSaved":true,"saved":1,"confirmed":0,"already":0}""")
+        assertEquals(1, p.saved!!.saved)
+        val old = decodeProposal("""{"ok":true,"error":null,"parser":"openai","answer":"","id":"a","rows":[],"changes":0,"awaiting":false}""")
+        assertEquals(null, old.saved)
+        assertEquals(true, org.json.JSONObject(encodeParse("a", "hi")).getBoolean("autoSave"))
     }
 }

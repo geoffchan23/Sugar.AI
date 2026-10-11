@@ -5,7 +5,9 @@ import android.content.Context
 /**
  * The one write path for journal rows. Every insert/edit/delete — the app's
  * dialogs, the auto-routines, the ADB receiver, the watch — goes through
- * here so the change is also handed to [Sync] for the other phone.
+ * here so the change is also handed to [Sync] for the other phone, and an
+ * edit or delete of a row the assistant saved is logged as a correction
+ * ([InteractionLog.correction]).
  */
 object Journal {
     suspend fun insert(context: Context, entry: JournalEntity): Long {
@@ -18,13 +20,18 @@ object Journal {
 
     /** Saves [entry] as given; callers set updatedAtMs (it decides sync conflicts). */
     suspend fun update(context: Context, entry: JournalEntity) {
-        GlucoseDb.get(context).dao().updateJournal(entry)
+        val dao = GlucoseDb.get(context).dao()
+        val before = dao.journalByUid(entry.uid)?.text
+        dao.updateJournal(entry)
+        if (before != null && before != entry.text) InteractionLog.correction(context, entry.uid, before, entry.text)
         Sync.localChanged(context, listOf(entry), emptyList())
     }
 
     suspend fun delete(context: Context, entry: JournalEntity) {
         val dao = GlucoseDb.get(context).dao()
+        val before = dao.journalByUid(entry.uid)?.text ?: entry.text
         dao.deleteJournal(entry)
+        InteractionLog.correction(context, entry.uid, before, null)
         val t = JournalTombstone(entry.uid, System.currentTimeMillis())
         dao.insertTombstone(t)
         Sync.localChanged(context, emptyList(), listOf(t))

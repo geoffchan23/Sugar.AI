@@ -71,6 +71,37 @@ object InteractionLog {
         }
     }
 
+    /**
+     * Row [uid] was edited ([after]) or deleted (null) after a record saved
+     * it: note that on the record, for the evals and the prompt's lessons.
+     * Rows no record saved (typed in by hand) are ignored.
+     */
+    suspend fun correction(context: Context, uid: String, before: String, after: String?) {
+        try {
+            val op = correctionOp(before, after) ?: return
+            val dao = GlucoseDb.get(context).dao()
+            val rec = dao.interactionsMentioning(uid).firstOrNull { r ->
+                decodeOutcome(r.outcome)?.saved?.any { it.journalUid == uid && it.op != "already" } == true
+            } ?: return
+            val cur = decodeOutcome(rec.outcome) ?: return
+            val c = Correction(uid, op, before, after.orEmpty(), Store.chatAuthor(context), System.currentTimeMillis())
+            dao.updateInteraction(rec.copy(outcome = encodeOutcome(cur.copy(corrections = cur.corrections + c)), updatedAtMs = maxOf(c.atMs, rec.updatedAtMs + 1)))
+            Sync.interactionChanged(context, rec.uid)
+            Log.i(TAG, "correction on ${rec.uid}: $op \"$before\" → \"${after.orEmpty()}\"")
+        } catch (e: Exception) {
+            Log.w(TAG, "correction failed", e)
+        }
+    }
+
+    /** Recent corrections with what she said, newest first. */
+    suspend fun correctionExamples(context: Context, limit: Int = 40): List<CorrectionExample> = try {
+        GlucoseDb.get(context).dao().correctedInteractions(limit).flatMap { r ->
+            decodeOutcome(r.outcome)?.corrections.orEmpty().map { CorrectionExample(r.input, it) }
+        }.sortedByDescending { it.correction.atMs }
+    } catch (e: Exception) {
+        Log.w(TAG, "corrections failed", e); emptyList()
+    }
+
     /** The conversation so far when she replies to record [replyTo] (empty if none or unknown). */
     suspend fun history(context: Context, replyTo: String?): List<Turn> {
         replyTo ?: return emptyList()
