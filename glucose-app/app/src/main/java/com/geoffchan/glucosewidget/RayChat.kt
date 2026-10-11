@@ -137,7 +137,7 @@ object RayChat {
             }
             val entries = chatCardEntries(r.entries, now.toLocalTime())
             val card = if (entries.isNotEmpty() || r.changes.isNotEmpty()) ChatCard(now.toLocalDate().toString(), entries, r.changes) else null
-            val body = listOfNotNull(r.answer.takeIf { it.isNotBlank() }, r.detail).joinToString("\n\n").ifBlank { if (card != null) "Here's what I'd log:" else "(no reply)" }
+            val body = loggingWording(listOfNotNull(r.answer.takeIf { it.isNotBlank() }, r.detail).joinToString("\n\n").ifBlank { if (card != null) "Ready to log:" else "(no reply)" })
             val meta = JSONObject()
                 .put("tools", toolsUsed(trace))
                 .put("model", r.model).put("ms", r.ms).put("costUsd", r.estimatedCostUsd)

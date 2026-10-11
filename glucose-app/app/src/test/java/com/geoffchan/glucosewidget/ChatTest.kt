@@ -256,3 +256,15 @@ class ChatMigrationTest {
         assertNotNull(MIGRATION_4_5)
     }
 }
+
+class LoggingWordingTest {
+    @org.junit.Test
+    fun proposedBecomesReadyToLog() {
+        org.junit.Assert.assertEquals(
+            "Ready to log: 2 units of short-acting insulin at 22:59. Please confirm on screen.",
+            loggingWording("Proposed 2 units of short-acting insulin at 22:59. Please confirm on screen."),
+        )
+        org.junit.Assert.assertEquals("Ready to log: a quarter of an apple fritter", loggingWording("Proposed: a quarter of an apple fritter"))
+        org.junit.Assert.assertEquals("You were in range 66%.", loggingWording("You were in range 66%."))
+    }
+}

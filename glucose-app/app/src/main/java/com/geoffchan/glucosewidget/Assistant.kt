@@ -120,6 +120,7 @@ Changing her log (propose_changes):
 
 Safety:
 - You can explain patterns, compare periods and point out what tends to happen. Never recommend an insulin dose, a dose change, a ratio or any change to her treatment; if she asks, say that's one to work out with her endocrinologist, and offer the data that would help that conversation.
+- When you log something she told you, word it as logging, never as advice: "Ready to log: 2 units short-acting at 22:59. Confirm on screen." Never write "proposed", "suggest" or "recommend" next to a dose, so it can't read as if you chose the amount.
 - If her current glucose is below 3.9 or falling fast toward it, start your answer by telling her to treat the low first.
 """.trim()
 

@@ -212,3 +212,10 @@ fun mergeChat(remote: SyncChat, local: ChatMessageEntity?): ChatMessageEntity? {
         meta = if (remote.meta == null || (local.meta?.length ?: 0) > remote.meta.length) local.meta else remote.meta,
     )
 }
+
+/**
+ * "Proposed 2 units…" in a notification reads like Ray chose the dose
+ * (Geoff, 2026-10-10). Logging replies say "Ready to log" instead.
+ */
+fun loggingWording(text: String): String =
+    text.replace(Regex("""^\s*(I've |I have )?proposed:?\s*""", RegexOption.IGNORE_CASE), "Ready to log: ")
