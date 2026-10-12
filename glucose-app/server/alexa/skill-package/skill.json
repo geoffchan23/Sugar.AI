@@ -29,8 +29,7 @@
       "distributionCountries": [
         "CA"
       ],
-      "testingInstructions": "Private",
-      "category": "HEALTH_AND_FITNESS"
+      "testingInstructions": "Private"
     },
     "apis": {
       "custom": {

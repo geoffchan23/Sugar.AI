@@ -28,7 +28,21 @@ a `seq`, and it never gets its own changes back. Merging uses the same rules as 
 - `run_analysis` runs in Deno with no `--allow` flags (no files, network or environment), with 256 MB and 20 s limits.
 - `save_report` hands the HTML back to the phone that asked, which keeps it under Reports.
 
-## Alexa skill (one-time, in Geoff's Amazon developer account)
+## Alexa skill
+
+**Created 2026-10-12** through the Skill Management API (SMAPI), using ask-cli's Login with Amazon tokens:
+- The tokens are in `~/.config/cgm-tools/amazon-lwa.json`; refresh them with ask-cli's public client.
+- The skill id is in `~/.config/cgm-tools/alexa.env`.
+- It has locales en-CA and en-US, and testing is enabled in Development.
+- To change the phrases, PUT `skill-package/interactionModels/custom/<locale>.json` to
+  `/v1/skills/{id}/stages/development/interactionModel/locales/{locale}`.
+- Checked with Amazon's simulator:
+  - These reach the server: "ask ray what's francine's sugar", "…when did she last take insulin", "…when did she last
+    eat", "…how was her night" (full Ray, in time), "ask ray for her sugar".
+  - "open ray" and "ask ray what's her number" fail inside Amazon before reaching us. A launch request sent directly
+    is answered fine. Routines use "ask Ray for her sugar".
+
+The manual way, kept for reference (in Geoff's Amazon developer account):
 
 A skill in development only works on its developer's own Amazon account, so it stays private.
 
@@ -45,7 +59,7 @@ A skill in development only works on its developer's own Amazon account, so it s
    `server/deploy/put-secrets.sh && server/deploy/deploy.sh`
 5. **Test** tab: set "Skill testing is enabled in" to **Development**, then type "open ray".
 6. In the Alexa app, add routines so no "ask Ray" is needed:
-   - When you say "what's Francine's blood sugar", the action is **Customized**: "open Ray".
+   - When you say "what's Francine's blood sugar", the action is **Customized**: "ask Ray for her sugar".
    - When you say "when did Francine last take insulin", the action is **Customized**: "ask Ray when she last took
      insulin".
 
