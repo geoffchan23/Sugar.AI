@@ -210,6 +210,11 @@ class ServerDb(private val path: String) : SyncStore, AssistantData {
         it.createStatement().use { st -> st.execute("PRAGMA query_only = 1") }
     }
 
+    fun logVoice(via: String, intent: String, text: String, path: String, ms: Long, interaction: String?) {
+        exec("INSERT INTO voice_log (atMs, via, intent, text, path, ms, interaction) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            System.currentTimeMillis(), via, intent, text, path, ms, interaction)
+    }
+
     fun close() = conn.close()
 
     companion object {
@@ -226,6 +231,9 @@ class ServerDb(private val path: String) : SyncStore, AssistantData {
                 "`updatedAtMs` INTEGER NOT NULL, `author` TEXT NOT NULL, `text` TEXT NOT NULL, `card` TEXT, `meta` TEXT, PRIMARY KEY(`uid`))",
             "CREATE INDEX IF NOT EXISTS `index_chat_messages_thread_createdAtMs` ON `chat_messages` (`thread`, `createdAtMs`)",
             "CREATE TABLE IF NOT EXISTS `server_meta` (`key` TEXT NOT NULL PRIMARY KEY, `value` TEXT NOT NULL)",
+            // how people talk to Ray by voice (Alexa, Hey Google): for tuning the skill's phrasings
+            "CREATE TABLE IF NOT EXISTS `voice_log` (`atMs` INTEGER NOT NULL, `via` TEXT NOT NULL, `intent` TEXT NOT NULL, " +
+                "`text` TEXT NOT NULL, `path` TEXT NOT NULL, `ms` INTEGER NOT NULL, `interaction` TEXT)",
             "CREATE TABLE IF NOT EXISTS `changes` (`seq` INTEGER PRIMARY KEY AUTOINCREMENT, `kind` TEXT NOT NULL, `uid` TEXT NOT NULL, `origin` TEXT NOT NULL)",
         )
         const val ORIGIN_SERVER = "server"

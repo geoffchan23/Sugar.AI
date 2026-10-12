@@ -26,6 +26,12 @@ class RayServiceTest {
         assertEquals("Ray isn't set up on the server yet.", ray.voice("why was she high last night", "Alexa", "alexa", 5000).speech)
     }
 
+    @Test fun quickAnswersSayHowTheyWereAnswered() {
+        val ray = RayService(ServerDb(":memory:"), null, "m", "deno")
+        assertEquals("quick:READING", ray.voice("what's her sugar", "Alexa", "alexa", 5000).path)
+        assertEquals("off", ray.voice("why was she high", "Alexa", "alexa", 5000).path)
+    }
+
     @Test fun voiceSaveConfirmsGuessesAndSkipsRepeats() {
         val db = ServerDb(":memory:")
         val ray = RayService(db, null, "m", "deno")

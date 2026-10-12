@@ -23,7 +23,7 @@ import java.security.KeyStore
  * development only works on Geoff's own Amazon account; ALEXA_USER_IDS
  * (optional) narrows it to given users.
  */
-class Alexa(private val skillId: String?, private val userIds: Set<String>, private val ray: RayService) {
+class Alexa(private val skillId: String?, private val userIds: Set<String>, private val ray: RayService, private val db: ServerDb? = null) {
     private val certs = ConcurrentHashMap<String, Pair<X509Certificate, Long>>()
 
     data class Reply(val code: Int, val json: String)
@@ -49,15 +49,24 @@ class Alexa(private val skillId: String?, private val userIds: Set<String>, priv
                         ?.takeIf { it.isNotBlank() }?.let { QUERY_INTENTS.getValue(intent.optString("name")) + it }.orEmpty()
                     "AMAZON.HelpIntent" -> return speak("Ask me things like: what's Francine's sugar, when did she last take insulin, or tell Ray she had 4 units. ", end = false)
                     "AMAZON.StopIntent", "AMAZON.CancelIntent", "AMAZON.NavigateHomeIntent" -> return speak("Okay.")
-                    "AMAZON.FallbackIntent" -> return speak("Sorry, I didn't catch that. Try: ask Ray what's Francine's sugar.")
+                    "AMAZON.FallbackIntent" -> {
+                        db?.logVoice("alexa", "AMAZON.FallbackIntent", "", "fallback", 0, null) // no words: Alexa doesn't send them
+                        return speak("Sorry, I didn't catch that. Try: ask Ray what's Francine's sugar.")
+                    }
                     else -> ""
                 }
             }
             "SessionEndedRequest" -> return Reply(200, JSONObject().put("version", "1.0").put("response", JSONObject()).toString())
             else -> ""
         }
-        if (text.isBlank()) return speak("Sorry, I didn't catch that.")
+        val intentName = if (type == "IntentRequest") request.getJSONObject("intent").optString("name") else type
+        if (text.isBlank()) {
+            db?.logVoice("alexa", intentName, "", "empty", 0, null)
+            return speak("Sorry, I didn't catch that.")
+        }
+        val t0 = System.currentTimeMillis()
         val spoken = ray.voice(text, "Alexa", RayService.SOURCE_ALEXA, DEADLINE_MS)
+        db?.logVoice("alexa", intentName, text, spoken.path, System.currentTimeMillis() - t0, spoken.interaction)
         log("alexa: ${type}${if (spoken.interaction != null) " record ${spoken.interaction}" else " (quick)"}")
         return speak(spoken.speech)
     }

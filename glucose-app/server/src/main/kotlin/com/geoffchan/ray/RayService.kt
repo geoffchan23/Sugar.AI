@@ -173,7 +173,8 @@ class RayService(private val db: ServerDb, private val key: String?, private val
 
     // ---------------------------------------------------------------- voice (Alexa, Google shortcuts)
 
-    data class Spoken(val speech: String, val interaction: String?)
+    /** [path]: how it was answered: "quick:READING" etc., "ray", "ray-timeout", "ray-error", "off". */
+    data class Spoken(val speech: String, val interaction: String?, val path: String = "ray")
 
     /**
      * A spoken question or log. Fixed questions (her number, last dose, last
@@ -188,9 +189,9 @@ class RayService(private val db: ServerDb, private val key: String?, private val
                 QuickQuestion.READING -> spokenReading(db.latestReading(), nowMs)
                 else -> spokenLast(q, runBlocking { db.journal(now.toLocalDate().minusDays(3).toString(), now.toLocalDate().toString()) }, now.toLocalDate().toString())
             }
-            return Spoken(speech, null)
+            return Spoken(speech, null, "quick:$q")
         }
-        if (key == null) return Spoken("Ray isn't set up on the server yet.", null)
+        if (key == null) return Spoken("Ray isn't set up on the server yet.", null, "off")
         val current = db.latestReading()?.let { readingText(it, nowMs) }
         val lessons = correctionLessons(correctionExamples())
         val turn = voiceUserTurn(text, now, current, via, lessons)
@@ -208,7 +209,7 @@ class RayService(private val db: ServerDb, private val key: String?, private val
             record(uid, source, text, "none", interactionData(ctx, listOf(ParseAttempt("openai", false, why)), emptyList(), trace = trace, error = why), null)
             return Spoken(
                 if (e is TimeoutCancellationException) "Sorry, that's taking me too long to answer out loud. Try asking in the Ray chat." else "Sorry, I couldn't reach Ray just now.",
-                uid,
+                uid, if (e is TimeoutCancellationException) "ray-timeout" else "ray-error",
             )
         }
         val entries = r.entries.mapNotNull { p -> (if (p.time == null) p.copy(time = now.toLocalTime().withSecond(0).withNano(0)) else p).noteText()?.let { p to it } }
@@ -220,7 +221,7 @@ class RayService(private val db: ServerDb, private val key: String?, private val
         }
         val items = save(now.toLocalDate().toString(), entries.map { it.second })
         record(uid, source, text, "openai", data, Outcome(OUTCOME_SAVED, System.currentTimeMillis(), items, note = "spoken via $via"))
-        return Spoken(readBack(items, entries.map { it.first }), uid)
+        return Spoken(readBack(items, entries.map { it.first }), uid, "ray-log")
     }
 
     /** "Logged 4 units of short-acting at 9:12 pm and coffee at 10:30 am." — from what was saved, not the model's words. */

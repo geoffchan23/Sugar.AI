@@ -72,7 +72,7 @@ fun main() {
     val ray = RayService(db, cfg.openAiKey, cfg.model, cfg.deno)
     val devices = Devices(cfg.deviceTokens)
     val sync = SyncApi(db)
-    val alexa = Alexa(cfg.alexaSkillId, cfg.alexaUserIds, ray)
+    val alexa = Alexa(cfg.alexaSkillId, cfg.alexaUserIds, ray, db)
 
     if (cfg.dexcomUser != null && cfg.dexcomPassword != null) {
         val dexcom = Dexcom(db, cfg.dexcomUser, cfg.dexcomPassword)
@@ -138,7 +138,9 @@ fun main() {
     }
     device("/v1/voice") { dev, body, ex ->
         val o = JSONObject(body)
+        val t0 = System.currentTimeMillis()
         val spoken = ray.voice(o.getString("text"), o.optString("via", "a phone's voice assistant"), RayService.SOURCE_GOOGLE, o.optLong("deadlineMs", 25_000).coerceIn(3_000, 60_000))
+        db.logVoice("google:$dev", "shortcut", o.getString("text"), spoken.path, System.currentTimeMillis() - t0, spoken.interaction)
         log("voice $dev${if (spoken.interaction != null) " record ${spoken.interaction}" else " (quick)"}")
         ex.json(200, JSONObject().put("speech", spoken.speech).put("interaction", spoken.interaction ?: JSONObject.NULL))
     }
