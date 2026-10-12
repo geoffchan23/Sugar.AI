@@ -1,7 +1,7 @@
 {
   "interactionModel": {
     "languageModel": {
-      "invocationName": "ray",
+      "invocationName": "sugar ray",
       "intents": [
         {
           "name": "SugarIntent",

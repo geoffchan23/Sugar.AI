@@ -47,11 +47,11 @@ class Alexa(private val skillId: String?, private val userIds: Set<String>, priv
                     "LastMealIntent" -> "when did Francine last eat"
                     in QUERY_INTENTS -> intent.optJSONObject("slots")?.optJSONObject("query")?.optString("value")
                         ?.takeIf { it.isNotBlank() }?.let { QUERY_INTENTS.getValue(intent.optString("name")) + it }.orEmpty()
-                    "AMAZON.HelpIntent" -> return speak("Ask me things like: what's Francine's sugar, when did she last take insulin, or tell Ray she had 4 units. ", end = false)
+                    "AMAZON.HelpIntent" -> return speak("Ask me things like: what's Francine's sugar, when did she last take insulin, or she had 4 units of short acting. ", end = false)
                     "AMAZON.StopIntent", "AMAZON.CancelIntent", "AMAZON.NavigateHomeIntent" -> return speak("Okay.")
                     "AMAZON.FallbackIntent" -> {
                         db?.logVoice("alexa", "AMAZON.FallbackIntent", "", "fallback", 0, null) // no words: Alexa doesn't send them
-                        return speak("Sorry, I didn't catch that. Try: ask Ray what's Francine's sugar.")
+                        return speak("Sorry, I didn't catch that. Try: ask Sugar Ray what's Francine's sugar.")
                     }
                     else -> ""
                 }

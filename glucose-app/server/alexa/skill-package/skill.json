@@ -7,9 +7,9 @@
           "summary": "Francine's diabetes assistant (private)",
           "description": "Private skill for one household.",
           "examplePhrases": [
-            "Alexa, open Ray",
-            "Alexa, ask Ray what's Francine's sugar",
-            "Alexa, ask Ray when she last took insulin"
+            "Alexa, open Sugar Ray",
+            "Alexa, ask Sugar Ray what's Francine's sugar",
+            "Alexa, ask Sugar Ray when she last took insulin"
           ],
           "keywords": []
         },
@@ -18,9 +18,9 @@
           "summary": "Francine's diabetes assistant (private)",
           "description": "Private skill for one household.",
           "examplePhrases": [
-            "Alexa, open Ray",
-            "Alexa, ask Ray what's Francine's sugar",
-            "Alexa, ask Ray when she last took insulin"
+            "Alexa, open Sugar Ray",
+            "Alexa, ask Sugar Ray what's Francine's sugar",
+            "Alexa, ask Sugar Ray when she last took insulin"
           ],
           "keywords": []
         }
