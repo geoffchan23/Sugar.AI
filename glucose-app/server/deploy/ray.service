@@ -1,0 +1,22 @@
+[Unit]
+Description=Ray server (cloud Ray for the glucose app)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=ray
+Group=ray
+EnvironmentFile=/etc/ray/ray.env
+Environment=JAVA_OPTS=-Xmx512m
+ExecStart=/opt/ray/bin/ray
+Restart=always
+RestartSec=10
+# hardening: it only needs its own data directory
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/ray
+
+[Install]
+WantedBy=multi-user.target

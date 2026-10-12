@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit
  * - Every run also polls the topic and merges the other phone's messages
  *   (rules in SyncCore: last write wins on updatedAtMs).
  * - ntfy.sh keeps messages ~12 h, so once a day each phone re-publishes
- *   everything changed in the last 7 days. A phone offline longer than that
+ *   everything changed in the last 7 days (Ray's records and chat: 2). A phone offline longer than that
  *   needs "Resend last 30 days" from the other one (Settings).
  *
  * Assistant interaction records ([InteractionLog]) ride along: outbox
@@ -44,6 +44,9 @@ object Sync {
     private const val BASE = "https://ntfy.sh"
     private const val DIGEST_EVERY_MS = 24 * 3600_000L
     private const val DIGEST_WINDOW_MS = 7 * 24 * 3600_000L
+    // Ray's records and chat are most of the volume (~1 message each); both phones share home Wi-Fi
+    // and so ntfy.sh's 250 messages/day per IP, which a 7-day digest of them used up (2026-10-12)
+    private const val DIGEST_LOG_WINDOW_MS = 2 * 24 * 3600_000L
     const val RESEND_WINDOW_MS = 30 * 24 * 3600_000L
 
     private val http = OkHttpClient.Builder()
@@ -85,15 +88,20 @@ object Sync {
         WorkManager.getInstance(context).enqueueUniqueWork("sync", ExistingWorkPolicy.APPEND_OR_REPLACE, req)
     }
 
-    /** Queue every row/tombstone changed within [windowMs] for publishing. */
-    suspend fun queueRecent(context: Context, windowMs: Long) {
+    /**
+     * Queue every row/tombstone changed within [windowMs] for publishing, and
+     * interaction records and chat changed within [logWindowMs].
+     */
+    suspend fun queueRecent(context: Context, windowMs: Long, logWindowMs: Long = windowMs) {
         val dao = GlucoseDb.get(context).dao()
-        val since = System.currentTimeMillis() - windowMs
+        val now = System.currentTimeMillis()
+        val since = now - windowMs
+        val logSince = now - logWindowMs
         Store.addToOutbox(
             context,
             dao.journalUpdatedSince(since).map { it.uid } + dao.tombstonesSince(since).map { it.uid } +
-                dao.interactionUidsUpdatedSince(since).map { INTERACTION_PREFIX + it } +
-                dao.chatUidsUpdatedSince(since).map { CHAT_PREFIX + it },
+                dao.interactionUidsUpdatedSince(logSince).map { INTERACTION_PREFIX + it } +
+                dao.chatUidsUpdatedSince(logSince).map { CHAT_PREFIX + it },
         )
     }
 
@@ -121,14 +129,19 @@ object Sync {
         val cfg = Store.syncConfig(context) ?: return
         try {
             val status = Store.syncStatus(context)
-            if (System.currentTimeMillis() - (status.lastDigestAt ?: 0L) > DIGEST_EVERY_MS) {
-                queueRecent(context, DIGEST_WINDOW_MS)
-                publishOutbox(context, cfg)
-                Store.markDigest(context)
-            } else {
-                publishOutbox(context, cfg)
+            // a refused publish (ntfy.sh 429 once its daily message quota is used up) mustn't
+            // stop this phone receiving: poll anyway, then report the publish failure
+            val published = runCatching {
+                if (System.currentTimeMillis() - (status.lastDigestAt ?: 0L) > DIGEST_EVERY_MS) {
+                    queueRecent(context, DIGEST_WINDOW_MS, DIGEST_LOG_WINDOW_MS)
+                    publishOutbox(context, cfg)
+                    Store.markDigest(context)
+                } else {
+                    publishOutbox(context, cfg)
+                }
             }
             poll(context, cfg)
+            published.getOrThrow()
             Store.saveSyncError(context, null)
         } catch (e: Exception) {
             Store.saveSyncError(context, "${e.javaClass.simpleName}: ${e.message}".take(200))
@@ -205,46 +218,26 @@ object Sync {
     /** Merge one payload straight into Room — never through [Journal], so it isn't re-published. */
     private suspend fun apply(context: Context, p: SyncPayload, incoming: MutableList<ChatMessageEntity>): Boolean {
         val db = GlucoseDb.get(context)
-        val dao = db.dao()
-        var changed = false
-        db.withTransaction {
-            for (r in p.rows) {
-                val local = dao.journalByUid(r.uid)
-                when (decideRow(r, local, dao.tombstone(r.uid)?.deletedAtMs)) {
-                    RowAction.INSERT -> {
-                        dao.insertJournal(JournalEntity(day = r.day, text = r.text, createdAtMs = r.createdAtMs, updatedAtMs = r.updatedAtMs, scope = r.scope, uid = r.uid))
-                        dao.clearTombstone(r.uid)
-                        changed = true
-                    }
-                    RowAction.UPDATE -> {
-                        dao.updateJournal(local!!.copy(day = r.day, text = r.text, scope = r.scope, createdAtMs = r.createdAtMs, updatedAtMs = r.updatedAtMs))
-                        changed = true
-                    }
-                    RowAction.IGNORE -> Unit
-                }
-            }
-            for (t in p.tombs) {
-                val local = dao.journalByUid(t.uid)
-                if (tombDeletesLocal(t, local)) {
-                    dao.deleteJournal(local!!)
-                    changed = true
-                }
-                val known = dao.tombstone(t.uid)
-                if (known == null || known.deletedAtMs < t.deletedAtMs) dao.insertTombstone(JournalTombstone(t.uid, t.deletedAtMs))
-            }
-            for (i in p.inter) {
-                val local = dao.interaction(i.uid)
-                applyRemoteInteraction(i, local)?.let { if (local == null) dao.insertInteraction(it) else dao.updateInteraction(it) }
-            }
-            for (c in p.chat) {
-                val local = dao.chatMessage(c.uid)
-                mergeChat(c, local)?.let {
-                    dao.upsertChat(it)
-                    if (local == null) incoming += it
-                }
-            }
-        }
-        return changed
+        return db.withTransaction { applyPayload(db.dao().asSyncStore(), p, incoming) }
+    }
+}
+
+/** The DAO as the shared merge's store (SyncMerge.kt). */
+fun GlucoseDao.asSyncStore(): SyncStore {
+    val dao = this
+    return object : SyncStore {
+        override suspend fun journalByUid(uid: String) = dao.journalByUid(uid)
+        override suspend fun insertJournal(entry: JournalEntity) = dao.insertJournal(entry)
+        override suspend fun updateJournal(entry: JournalEntity) = dao.updateJournal(entry)
+        override suspend fun deleteJournal(entry: JournalEntity) = dao.deleteJournal(entry)
+        override suspend fun tombstone(uid: String) = dao.tombstone(uid)
+        override suspend fun insertTombstone(t: JournalTombstone) = dao.insertTombstone(t)
+        override suspend fun clearTombstone(uid: String) = dao.clearTombstone(uid)
+        override suspend fun interaction(uid: String) = dao.interaction(uid)
+        override suspend fun insertInteraction(e: AssistantLogEntity) = dao.insertInteraction(e)
+        override suspend fun updateInteraction(e: AssistantLogEntity) = dao.updateInteraction(e)
+        override suspend fun chatMessage(uid: String) = dao.chatMessage(uid)
+        override suspend fun upsertChat(m: ChatMessageEntity) = dao.upsertChat(m)
     }
 }
 

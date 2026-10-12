@@ -9,7 +9,8 @@ assistant is called **Ray**.
 Personal Android app on Geoff's phone (reports as "Pixel 9 Pro"). Widget
 shows the current Dexcom G7 reading; the app accumulates history and a
 day-level journal. Sideloaded debug build only — never publish, never
-add accounts or telemetry. Wearer's Dexcom Share login is a PHONE NUMBER
+add accounts or telemetry. The one exception, approved by Geoff 2026-10-12, is
+cloud Ray: our own server holding her data (see "Ray server" below). Wearer's Dexcom Share login is a PHONE NUMBER
 (+1416…), not an email.
 
 ## Look and layout (from 2026-10-10)
@@ -152,8 +153,13 @@ ntfy.sh topic (no account). The relay only sees base64(nonce ‖ AES-256-GCM).
   `updatedAtMs`, ties keep local; a delete beats any edit older than it.
   Remote rows are written straight to Room so they aren't re-published.
 - ntfy.sh keeps messages ~12 h, so once a day each phone re-sends what
-  changed in the last **7 days**. A phone offline longer than that needs
+  changed in the last **7 days** (Ray's records and chat: 2 days). A phone offline longer than that needs
   Settings → "Resend 30 days" (or `op sync-resend`) on the other phone.
+- **ntfy.sh quota.** It allows 250 messages a day **per IP**, and both phones share home Wi-Fi. Past
+  that, every publish gets HTTP 429.
+  - Check the count with `curl -s https://ntfy.sh/v1/account` from home.
+  - A refused publish still lets the phone poll.
+  - This hit on 2026-10-12. The real fix is phase 4 (sync through the Ray server).
 - `journal.id` is per phone; use ids from a pull of the phone you target.
   Because edits sync, `pull-db.sh`, the IngestReceiver and the fill-gaps
   push can target either phone — Geoff's is usually the one on ADB.
@@ -169,6 +175,53 @@ adb -s <her-phone>   $R --es op sync-setup --es key "$KEY" --es topic "$TOPIC" -
 adb -s <geoff-phone> $R --es op sync-setup --es key "$KEY" --es topic "$TOPIC" --ez main false
 # also: --es op sync-now | sync-resend | sync-reset   (logcat tag "Sync")
 ```
+
+## Ray server — cloud Ray (from 2026-10-12)
+
+Geoff approved moving to one Ray in the cloud. The server holds the **master copy** of her data, and every
+device asks it: the Ray tab, the watch, Alexa and Google shortcuts. Her full history is OK to keep there,
+and Alexa may both answer and log (it logs right away and reads back what it saved). Phases:
+
+1. **Done.** Server, data copy, Dexcom polling, backups.
+2. **Partly done.** Shared `:core` module.
+3. Ray answering on the server, with phone fallbacks.
+4. Sync through the server; ntfy is retired.
+5. Alexa skill.
+6. Google shortcuts, and the watch talking to the server directly.
+
+- **The VM.** Its own Oracle Always Free VM `ray` (A1 ARM, 2 OCPU / 12 GB, Ubuntu 24.04, Toronto),
+  separate from the Unicorns VM.
+  - SSH key: `~/.ssh/oci_ray_key`, user `ubuntu`.
+  - Setup: unattended upgrades (reboots at 04:00 when needed), SSH keys only, iptables opens 80/443.
+  - Caddy, with only `/health` public (`server/deploy/Caddyfile`).
+  - The host name is `ray.geoffreychan.com` (a GoDaddy A record). Until DNS is set, use
+    `RAY_HOST=ubuntu@<ip>` with the scripts.
+- **The code.** `:server` (plain JVM, `com.geoffchan.ray`) runs as systemd `ray` from `/opt/ray`, as
+  user `ray`, listening on loopback :8080.
+  - The DB is `/var/lib/ray/ray.db`: the **same tables as Room v5** plus `server_meta`. It was seeded
+    from a pull of her phone (full history).
+  - It polls Dexcom Share every 5 min (24 h window).
+  - It follows the ntfy relay **read-only** every 60 s and merges with the same code as the phones
+    (`applyPayload` in core `SyncMerge.kt`). It never publishes.
+  - Status over SSH: `curl -s localhost:8080/status`.
+- **Secrets.** They are only in `/etc/ray/*.env` (root:ray 640) and are written from the Mac's
+  `~/.config/cgm-tools/` by `server/deploy/put-secrets.sh`:
+  - `sync.env`
+  - `dexcom.env` (DEXCOM_USERNAME/DEXCOM_PASSWORD)
+  - `ray-backup-par.env`
+  - `ray-backup.agepub`
+- **Deploy.** `server/deploy/deploy.sh` builds, runs the tests, rsyncs and restarts.
+- **Backups.** Nightly at 03:30 (`ray-backup.timer`):
+  - The snapshot is checked with `integrity_check`, gzipped and **age**-encrypted to the public key.
+    The private key is only on the Mac (`~/.config/cgm-tools/ray-backup.agekey`).
+  - It is PUT through a write-only pre-authenticated link into the private bucket `ray-backups`. The
+    bucket keeps 60 days through a lifecycle rule, which needs the `objectstorage-lifecycle` IAM policy.
+  - Restore:
+    `oci os object get -bn ray-backups --name <n> --file b.age && age -d -i ~/.config/cgm-tools/ray-backup.agekey b.age | gunzip > ray.db`
+- **`:core`.** It holds every Android-free file: entities, sync format and merge, parsing, Ray's
+  prompt (`AssistantCore.kt`) and tools. The package is unchanged, so imports didn't move. The app,
+  the server and the tests all use it. Room reads the entities from core (`room-common` only).
+  - `org.json` is `compileOnly` there: Android provides it, and the server adds it itself.
 
 ## Widget
 
@@ -466,7 +519,7 @@ capped at 256 by the API.
 
 ```bash
 export JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home
-./gradlew testDebugUnitTest assembleDebug
+./gradlew testDebugUnitTest :server:test assembleDebug   # modules: app, wear, core (shared), server
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 ```
 

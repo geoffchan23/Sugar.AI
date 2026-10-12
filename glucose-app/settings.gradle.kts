@@ -17,3 +17,5 @@ dependencyResolutionManagement {
 rootProject.name = "glucose-widget"
 include(":app")
 include(":wear")
+include(":core")
+include(":server")

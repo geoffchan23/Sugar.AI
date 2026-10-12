@@ -1,0 +1,8 @@
+[Unit]
+Description=Encrypted backup of the Ray database
+
+[Service]
+Type=oneshot
+User=ray
+Group=ray
+ExecStart=/opt/ray/deploy/ray-backup.sh
