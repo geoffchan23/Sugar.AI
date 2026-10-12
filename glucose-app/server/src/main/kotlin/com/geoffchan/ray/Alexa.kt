@@ -48,7 +48,8 @@ class Alexa(private val skillId: String?, private val userIds: Set<String>, priv
                     in QUERY_INTENTS -> intent.optJSONObject("slots")?.optJSONObject("query")?.optString("value")
                         ?.takeIf { it.isNotBlank() }?.let { QUERY_INTENTS.getValue(intent.optString("name")) + it }.orEmpty()
                     "AMAZON.HelpIntent" -> return speak("Ask me things like: what's Francine's sugar, when did she last take insulin, or she had 4 units of short acting. ", end = false)
-                    "AMAZON.StopIntent", "AMAZON.CancelIntent", "AMAZON.NavigateHomeIntent" -> return speak("Okay.")
+                    "AMAZON.StopIntent", "AMAZON.CancelIntent", "AMAZON.NavigateHomeIntent", "AMAZON.NoIntent" -> return speak("Okay.")
+                    "AMAZON.YesIntent" -> return speak("Go ahead.", end = false, reprompt = "What would you like to know?")
                     "AMAZON.FallbackIntent" -> {
                         db?.logVoice("alexa", "AMAZON.FallbackIntent", "", "fallback", 0, null) // no words: Alexa doesn't send them
                         return speak("Sorry, I didn't catch that. Try: ask Sugar Ray what's Francine's sugar.")
@@ -68,15 +69,19 @@ class Alexa(private val skillId: String?, private val userIds: Set<String>, priv
         val spoken = ray.voice(text, "Alexa", RayService.SOURCE_ALEXA, DEADLINE_MS)
         db?.logVoice("alexa", intentName, text, spoken.path, System.currentTimeMillis() - t0, spoken.interaction)
         log("alexa: ${type}${if (spoken.interaction != null) " record ${spoken.interaction}" else " (quick)"}")
+        // "open Sugar Ray" is the reliable way in (Alexa+ tends to answer one-shot "ask …" questions itself),
+        // so the launch gives her number and keeps listening for one follow-up
+        if (type == "LaunchRequest") return speak("${spoken.speech} Anything else?", end = false, reprompt = "You can ask when she last took insulin, how her night was, or tell me what she had.")
         return speak(spoken.speech)
     }
 
-    private fun speak(text: String, end: Boolean = true) = Reply(
+    private fun speak(text: String, end: Boolean = true, reprompt: String? = null) = Reply(
         200,
         JSONObject().put("version", "1.0").put(
             "response",
             JSONObject()
                 .put("outputSpeech", JSONObject().put("type", "PlainText").put("text", text))
+                .apply { if (reprompt != null) put("reprompt", JSONObject().put("outputSpeech", JSONObject().put("type", "PlainText").put("text", reprompt))) }
                 .put("shouldEndSession", end),
         ).toString(),
     )
