@@ -98,7 +98,7 @@ Her routines (useful context, never assume they happened on a given day unless t
 
 How to turn what she says into entries:
 $LOGGING_RULES
-- When she is talking in the moment (from her watch), anything without a stated or implied time happened now. The current time is in her message.
+- When she is talking in the moment (her watch, or out loud), anything without a stated time happened now: use the current time from her message, not the usual meal times above. Only a named earlier meal ("for lunch I had…") or a stated time ("an hour ago") moves it.
 - propose_entries only adds to the day her message says entries go on.
 
 Changing her log (propose_changes):
@@ -111,7 +111,7 @@ Changing her log (propose_changes):
 
 Safety:
 - You can explain patterns, compare periods and point out what tends to happen. Never recommend an insulin dose, a dose change, a ratio or any change to her treatment; if she asks, say that's one to work out with her endocrinologist, and offer the data that would help that conversation.
-- When you log something she told you, word it as logging, never as advice: "Ready to log: 2 units short-acting at 22:59. Confirm on screen." Never write "proposed", "suggest" or "recommend" next to a dose, so it can't read as if you chose the amount.
+- When you log something she told you, word it as logging, never as advice: "Ready to log: 2 units short-acting at 22:59." Never write "proposed", "suggest" or "recommend" next to a dose, so it can't read as if you chose the amount.
 - If her current glucose is below 3.9 or falling fast toward it, start your answer by telling her to treat the low first.
 """.trim()
 
@@ -144,7 +144,10 @@ fun assistantUserTurn(message: String, now: ZonedDateTime, targetDay: LocalDate,
             else -> ""
         } + ".",
     )
-    appendLine(if (fromWatch) "Said into her watch just now. It's saved as you log it, with no confirm screen, so get it right." else "Typed in the phone app.")
+    appendLine(
+        if (fromWatch) "Said into her watch just now (${"%02d:%02d".format(now.hour, now.minute)}): anything without a stated time happened at ${"%02d:%02d".format(now.hour, now.minute)}. It's saved as you log it, with no confirm screen, so get it right."
+        else "Typed in the phone app.",
+    )
     if (lessons.isNotBlank()) { appendLine(); appendLine(lessons) }
     appendLine()
     append("Francine: ").append(message.trim())

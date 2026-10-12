@@ -76,7 +76,7 @@ fun correctionOp(before: String, after: String?): String? = when {
 fun cut(s: String, max: Int): String =
     if (s.length <= max) s else s.take(max) + "…[truncated ${s.length - max} chars]"
 
-private fun JSONObject.optNullableString(key: String): String? = if (!has(key) || isNull(key)) null else optString(key)
+internal fun JSONObject.optNullableString(key: String): String? = if (!has(key) || isNull(key)) null else optString(key)
 
 /**
  * The `data` blob of a record: context, parsers tried, model usage, the

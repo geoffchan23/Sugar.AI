@@ -139,6 +139,9 @@ those exact rows in that range as routine.
 
 ## Two phones: sync (from 2026-10)
 
+> **Since 2026-10-12 both phones sync through the Ray server** (see "Ray server" below). This section describes the
+> older ntfy relay, still used by a phone with no server configured.
+
 Her Pixel 9 Pro is the **main** phone (runs the morning routine, takes
 watch entries); Geoff's is a **second** phone (`isMainPhone=false`, never
 auto-logs). Both read Dexcom Share themselves, and both can add/edit/delete
@@ -180,14 +183,36 @@ adb -s <geoff-phone> $R --es op sync-setup --es key "$KEY" --es topic "$TOPIC" -
 
 Geoff approved moving to one Ray in the cloud. The server holds the **master copy** of her data, and every
 device asks it: the Ray tab, the watch, Alexa and Google shortcuts. Her full history is OK to keep there,
-and Alexa may both answer and log (it logs right away and reads back what it saved). Phases:
+and Alexa may both answer and log (it logs right away and reads back what it saved). API, Alexa setup and ops
+are in `server/README.md`.
 
-1. **Done.** Server, data copy, Dexcom polling, backups.
-2. **Partly done.** Shared `:core` module.
-3. Ray answering on the server, with phone fallbacks.
-4. Sync through the server; ntfy is retired.
-5. Alexa skill.
-6. Google shortcuts, and the watch talking to the server directly.
+**State, 2026-10-12:**
+- Both phones sync through the server (`op ray-setup`). The server no longer follows ntfy.
+- The Ray tab and watch logging run Ray on the server. A phone falls back to its own OpenAI key, then Nano and rules,
+  only when the server is unreachable or returns 5xx.
+- The Alexa endpoint is built; the skill itself needs Geoff's developer console (README).
+- "Francine's sugar" / "Francine's medicine" are launcher aliases of `SpeakActivity`, so "Hey Google, open
+  Francine's sugar" works.
+- Not done, by choice: the watch talking to the server directly. It still goes through her phone, which now asks the
+  server.
+
+**Phone side:**
+- `RayServer` is the client. `Store.rayServer` holds the URL and device token in encrypted prefs; `rayCursor` is the
+  change-log position.
+- `Sync.serverCycle`:
+  - Sends the outbox in batches of 200 as full records (no trimming; the relay's 4 KB limit is gone) and applies the
+    reply.
+  - Has no daily digest: the server is the durable copy.
+  - `Sync.pushBeforeAsk` sends pending changes before Ray answers on the server.
+- `Assistant.ask` and `RayChat` call `Assistant.onServer` (mode `log` / `chat`).
+  - The server's trace is appended to the local trace after a `{"via":"server"}` marker.
+  - Reports come back as HTML and are written to `files/reports`.
+- `Sync.enqueue(now = true)` (setup, "Sync now") REPLACES queued work. With APPEND, a new run waited behind one in a
+  multi-hour backoff left over from the ntfy 429s.
+- The ntfy path is still in `Sync` for a phone without a server; `Sync.active` covers both.
+
+**Prompts.** "In the moment" entries (watch, voice) with no stated time take **now**. Before this, Ray used the
+routine's usual meal time: "had a bagel" at 17:24 became 15:00. The turn spells the time out.
 
 - **The VM.** Its own Oracle Always Free VM `ray` (A1 ARM, 2 OCPU / 12 GB, Ubuntu 24.04, Toronto),
   separate from the Unicorns VM.

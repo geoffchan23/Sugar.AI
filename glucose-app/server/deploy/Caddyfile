@@ -1,8 +1,19 @@
-# Only /health is public for now; everything else is 404 until the app
-# endpoints arrive (phase 3). The server itself listens on loopback only.
+# Public: /health and the API (/v1/*: device tokens, or Alexa's signature).
+# Everything else is 404. The server itself listens on loopback only.
 {$RAY_DOMAIN} {
 	handle /health {
 		reverse_proxy 127.0.0.1:8080
+	}
+	handle /v1/* {
+		request_body {
+			max_size 16MB
+		}
+		reverse_proxy 127.0.0.1:8080 {
+			transport http {
+				read_timeout 200s
+				write_timeout 200s
+			}
+		}
 	}
 	handle {
 		respond 404

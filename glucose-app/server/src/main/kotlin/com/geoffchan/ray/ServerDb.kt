@@ -1,10 +1,12 @@
 package com.geoffchan.ray
 
+import com.geoffchan.glucosewidget.AssistantData
 import com.geoffchan.glucosewidget.AssistantLogEntity
 import com.geoffchan.glucosewidget.ChatMessageEntity
 import com.geoffchan.glucosewidget.JournalEntity
 import com.geoffchan.glucosewidget.JournalTombstone
 import com.geoffchan.glucosewidget.Reading
+import com.geoffchan.glucosewidget.ReadingEntity
 import com.geoffchan.glucosewidget.SyncStore
 import java.sql.Connection
 import java.sql.DriverManager
@@ -14,10 +16,16 @@ import java.sql.ResultSet
  * The server's copy of everything: the same tables as the phones' Room
  * database (v5, CREATEs copied from app/schemas/…/5.json), so a database
  * pulled off a phone (tools/pull-db.sh) can seed it as is, plus `server_meta`
- * for the server's own state. One connection, used under its lock.
+ * for the server's own state and `changes`, the log the phones sync from:
+ * every write through [SyncStore] appends (kind, uid, origin), kind "j"
+ * (journal row or its tombstone), "i" (interaction record) or "c" (chat).
+ * One connection, used under its lock; [origin] is who the current write is for.
  */
-class ServerDb(path: String) : SyncStore {
+class ServerDb(private val path: String) : SyncStore, AssistantData {
     private val conn: Connection = DriverManager.getConnection("jdbc:sqlite:$path")
+
+    /** The device whose payload is being merged ("server" for the server's own writes). */
+    @Volatile var origin: String = ORIGIN_SERVER
 
     init {
         conn.createStatement().use { st ->
@@ -36,6 +44,12 @@ class ServerDb(path: String) : SyncStore {
         } finally {
             conn.autoCommit = true
         }
+    }
+
+    /** [tx] with every change logged as made by [device]. */
+    fun <T> txAs(device: String, block: ServerDb.() -> T): T = synchronized(this) {
+        origin = device
+        try { tx(block) } finally { origin = ORIGIN_SERVER }
     }
 
     private fun <T> query(sql: String, vararg args: Any?, map: (ResultSet) -> T): List<T> = synchronized(this) {
@@ -76,14 +90,15 @@ class ServerDb(path: String) : SyncStore {
 
     // --- SyncStore (the shared merge, SyncMerge.kt) ---
 
-    private fun journal(rs: ResultSet) = JournalEntity(
+    private fun journalRow(rs: ResultSet) = JournalEntity(
         id = rs.getLong("id"), day = rs.getString("day"), text = rs.getString("text"), createdAtMs = rs.getLong("createdAtMs"),
         updatedAtMs = rs.getLong("updatedAtMs"), scope = rs.getString("scope"), uid = rs.getString("uid"),
     )
 
-    override suspend fun journalByUid(uid: String) = query("SELECT * FROM journal WHERE uid = ?", uid, map = ::journal).firstOrNull()
+    override suspend fun journalByUid(uid: String) = query("SELECT * FROM journal WHERE uid = ?", uid, map = ::journalRow).firstOrNull()
 
     override suspend fun insertJournal(entry: JournalEntity): Long {
+        changed("j", entry.uid)
         exec(
             "INSERT INTO journal (day, text, createdAtMs, updatedAtMs, scope, uid) VALUES (?, ?, ?, ?, ?, ?)",
             entry.day, entry.text, entry.createdAtMs, entry.updatedAtMs, entry.scope, entry.uid,
@@ -92,18 +107,20 @@ class ServerDb(path: String) : SyncStore {
     }
 
     override suspend fun updateJournal(entry: JournalEntity) {
+        changed("j", entry.uid)
         exec(
             "UPDATE journal SET day = ?, text = ?, createdAtMs = ?, updatedAtMs = ?, scope = ? WHERE uid = ?",
             entry.day, entry.text, entry.createdAtMs, entry.updatedAtMs, entry.scope, entry.uid,
         )
     }
 
-    override suspend fun deleteJournal(entry: JournalEntity) { exec("DELETE FROM journal WHERE uid = ?", entry.uid) }
+    override suspend fun deleteJournal(entry: JournalEntity) { changed("j", entry.uid); exec("DELETE FROM journal WHERE uid = ?", entry.uid) }
 
     override suspend fun tombstone(uid: String) =
         query("SELECT * FROM journal_tombstones WHERE uid = ?", uid) { JournalTombstone(it.getString("uid"), it.getLong("deletedAtMs")) }.firstOrNull()
 
     override suspend fun insertTombstone(t: JournalTombstone) {
+        changed("j", t.uid)
         exec("INSERT OR REPLACE INTO journal_tombstones (uid, deletedAtMs) VALUES (?, ?)", t.uid, t.deletedAtMs)
     }
 
@@ -118,6 +135,7 @@ class ServerDb(path: String) : SyncStore {
     }.firstOrNull()
 
     override suspend fun insertInteraction(e: AssistantLogEntity) {
+        changed("i", e.uid)
         exec(
             "INSERT OR IGNORE INTO assistant_log (uid, createdAtMs, updatedAtMs, source, input, parser, full, data, outcome) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
             e.uid, e.createdAtMs, e.updatedAtMs, e.source, e.input, e.parser, if (e.full) 1 else 0, e.data, e.outcome,
@@ -125,6 +143,7 @@ class ServerDb(path: String) : SyncStore {
     }
 
     override suspend fun updateInteraction(e: AssistantLogEntity) {
+        changed("i", e.uid)
         exec(
             "UPDATE assistant_log SET createdAtMs = ?, updatedAtMs = ?, source = ?, input = ?, parser = ?, full = ?, data = ?, outcome = ? WHERE uid = ?",
             e.createdAtMs, e.updatedAtMs, e.source, e.input, e.parser, if (e.full) 1 else 0, e.data, e.outcome, e.uid,
@@ -140,10 +159,55 @@ class ServerDb(path: String) : SyncStore {
     }.firstOrNull()
 
     override suspend fun upsertChat(m: ChatMessageEntity) {
+        changed("c", m.uid)
         exec(
             "INSERT OR REPLACE INTO chat_messages (uid, thread, createdAtMs, updatedAtMs, author, text, card, meta) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
             m.uid, m.thread, m.createdAtMs, m.updatedAtMs, m.author, m.text, m.card, m.meta,
         )
+    }
+
+    private fun changed(kind: String, uid: String) {
+        exec("INSERT INTO changes (kind, uid, origin) VALUES (?, ?, ?)", kind, uid, origin)
+    }
+
+    // --- the change log (POST /v1/sync) ---
+
+    data class Change(val seq: Long, val kind: String, val uid: String)
+
+    fun maxSeq(): Long = query("SELECT COALESCE(MAX(seq), 0) FROM changes") { it.getLong(1) }.first()
+
+    /** The latest change per (kind, uid) after [cursor], not made by [device], oldest first, at most [limit]. */
+    fun changesAfter(cursor: Long, device: String, limit: Int): List<Change> = query(
+        "SELECT MAX(seq) AS s, kind, uid FROM changes WHERE seq > ? AND origin != ? GROUP BY kind, uid ORDER BY s LIMIT ?",
+        cursor, device, limit,
+    ) { Change(it.getLong("s"), it.getString("kind"), it.getString("uid")) }
+
+    /** Everything updated since [sinceMs], for a device's first sync with the server. */
+    fun updatedSince(sinceMs: Long): List<Pair<String, String>> =
+        query("SELECT 'j', uid FROM journal WHERE updatedAtMs >= ? UNION ALL SELECT 'j', uid FROM journal_tombstones WHERE deletedAtMs >= ? " +
+            "UNION ALL SELECT 'i', uid FROM assistant_log WHERE updatedAtMs >= ? UNION ALL SELECT 'c', uid FROM chat_messages WHERE updatedAtMs >= ?",
+            sinceMs, sinceMs, sinceMs, sinceMs) { it.getString(1) to it.getString(2) }
+
+    // --- Ray's data (AssistantData + extras) ---
+
+    override suspend fun readings(startMs: Long, endMs: Long): List<ReadingEntity> =
+        query("SELECT * FROM readings WHERE timestampMs >= ? AND timestampMs < ? ORDER BY timestampMs", startMs, endMs) {
+            ReadingEntity(it.getLong("timestampMs"), it.getInt("mgdl"), it.getString("trend"))
+        }
+
+    override suspend fun journal(firstDay: String, lastDay: String): List<JournalEntity> =
+        query("SELECT * FROM journal WHERE scope = 'day' AND day >= ? AND day <= ? ORDER BY day, createdAtMs", firstDay, lastDay, map = ::journalRow)
+
+    override suspend fun journalById(id: Long): JournalEntity? = query("SELECT * FROM journal WHERE id = ?", id, map = ::journalRow).firstOrNull()
+
+    /** Records whose outcome has corrections, newest first (the "Past corrections" lessons). */
+    fun correctedInteractions(limit: Int): List<AssistantLogEntity> =
+        query("SELECT uid FROM assistant_log WHERE outcome LIKE '%\"corrections\":[%' ORDER BY updatedAtMs DESC LIMIT ?", limit) { it.getString(1) }
+            .mapNotNull { kotlinx.coroutines.runBlocking { interaction(it) } }
+
+    /** A separate read-only connection for Ray's query_data tool. */
+    fun readOnly(): Connection = DriverManager.getConnection("jdbc:sqlite:file:$path?mode=ro", java.util.Properties().apply { put("open_mode", "1") }).also {
+        it.createStatement().use { st -> st.execute("PRAGMA query_only = 1") }
     }
 
     fun close() = conn.close()
@@ -162,6 +226,8 @@ class ServerDb(path: String) : SyncStore {
                 "`updatedAtMs` INTEGER NOT NULL, `author` TEXT NOT NULL, `text` TEXT NOT NULL, `card` TEXT, `meta` TEXT, PRIMARY KEY(`uid`))",
             "CREATE INDEX IF NOT EXISTS `index_chat_messages_thread_createdAtMs` ON `chat_messages` (`thread`, `createdAtMs`)",
             "CREATE TABLE IF NOT EXISTS `server_meta` (`key` TEXT NOT NULL PRIMARY KEY, `value` TEXT NOT NULL)",
+            "CREATE TABLE IF NOT EXISTS `changes` (`seq` INTEGER PRIMARY KEY AUTOINCREMENT, `kind` TEXT NOT NULL, `uid` TEXT NOT NULL, `origin` TEXT NOT NULL)",
         )
+        const val ORIGIN_SERVER = "server"
     }
 }

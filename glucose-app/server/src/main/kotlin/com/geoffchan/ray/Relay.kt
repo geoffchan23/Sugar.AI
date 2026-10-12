@@ -40,7 +40,7 @@ class Relay(private val db: ServerDb, private val key: ByteArray, private val to
             if (msg.optString("event") != "message") continue
             lastId = msg.optString("id").ifEmpty { lastId }
             val payload = SyncCrypto.decrypt(key, msg.optString("message"))?.let { decodePayload(it) } ?: continue
-            if (db.tx { runBlocking { applyPayload(this@tx, payload, incoming) } }) changed = true
+            if (db.txAs(ORIGIN) { runBlocking { applyPayload(this@txAs, payload, incoming) } }) changed = true
             merged++
         }
         lastId?.let { db.setMeta(META_SINCE, it) }
@@ -52,5 +52,6 @@ class Relay(private val db: ServerDb, private val key: ByteArray, private val to
         private const val BASE = "https://ntfy.sh"
         const val META_SINCE = "relay_since"
         const val META_POLLED_AT = "relay_polled_at"
+        const val ORIGIN = "relay"
     }
 }

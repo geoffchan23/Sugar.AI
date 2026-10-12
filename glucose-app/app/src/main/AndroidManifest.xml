@@ -74,6 +74,40 @@
             android:turnScreenOn="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
+        <!-- "Hey Google, open Francine's sugar" / "…open Francine's medicine":
+             launcher aliases whose labels are the phrases; SpeakActivity asks
+             the Ray server the fixed question and says the answer. -->
+        <activity
+            android:name=".SpeakActivity"
+            android:exported="false"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:taskAffinity=""
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity-alias
+            android:name=".SpeakSugar"
+            android:targetActivity=".SpeakActivity"
+            android:label="Francine's sugar"
+            android:icon="@drawable/ic_launcher"
+            android:exported="true">
+            <meta-data android:name="question" android:value="what's Francine's blood sugar" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".SpeakMedicine"
+            android:targetActivity=".SpeakActivity"
+            android:label="Francine's medicine"
+            android:icon="@drawable/ic_launcher"
+            android:exported="true">
+            <meta-data android:name="question" android:value="when was the last time Francine took medicine" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
         <receiver android:name=".AlarmReceiver" android:exported="false" />
         <!-- ADB-only ingest path for extraction runs. Exported but guarded
              by DUMP, which only shell/system hold - Android silently skips

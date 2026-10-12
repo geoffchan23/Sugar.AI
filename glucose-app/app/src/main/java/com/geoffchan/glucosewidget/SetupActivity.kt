@@ -172,7 +172,8 @@ private fun SyncSection() {
     var lines by remember { mutableStateOf(listOf<String>()) }
     androidx.compose.runtime.LaunchedEffect(tick) {
         while (true) {
-            val configured = Store.syncConfig(ctx) != null
+            val configured = Sync.active(ctx)
+            val server = Store.rayServer(ctx)
             val main = Store.isMainPhone(ctx)
             val st = Store.syncStatus(ctx)
             fun ago(t: Long?) = t?.let { ageText(it, System.currentTimeMillis()) + " ago" } ?: "never"
@@ -180,7 +181,7 @@ private fun SyncSection() {
                 listOf("Not set up — this phone keeps its journal to itself.", if (main) "Role: main phone" else "Role: second phone")
             } else {
                 listOfNotNull(
-                    "On — end-to-end encrypted relay",
+                    if (server != null) "On — through the Ray server (${server.url.removePrefix("https://")})" else "On — end-to-end encrypted relay",
                     if (main) "Role: main phone (auto-logs routines)" else "Role: second phone (no auto-logging)",
                     "Last checked: ${ago(st.lastPollAt)} · last sent: ${ago(st.lastPublishAt)}",
                     "Waiting to send: ${st.outbox}",
@@ -190,11 +191,11 @@ private fun SyncSection() {
             kotlinx.coroutines.delay(5_000)
         }
     }
-    Text("Sync with the other phone", style = MaterialTheme.typography.titleMedium)
+    Text("Sync", style = MaterialTheme.typography.titleMedium)
     for (l in lines) Text(l, style = MaterialTheme.typography.bodySmall)
-    if (Store.syncConfig(ctx) != null) {
+    if (Sync.active(ctx)) {
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            OutlinedButton(onClick = { Sync.enqueue(ctx); tick++ }, modifier = Modifier.weight(1f)) { Text("Sync now") }
+            OutlinedButton(onClick = { Sync.enqueue(ctx, now = true); tick++ }, modifier = Modifier.weight(1f)) { Text("Sync now") }
             OutlinedButton(
                 onClick = {
                     scope.launch { Sync.queueRecent(ctx, Sync.RESEND_WINDOW_MS); Sync.enqueue(ctx); tick++ }
@@ -210,12 +211,17 @@ private fun SyncSection() {
 private fun AssistantSection() {
     val ctx = androidx.compose.ui.platform.LocalContext.current
     val cfg = androidx.compose.runtime.remember { Store.aiConfig(ctx) }
+    val server = androidx.compose.runtime.remember { Store.rayServer(ctx) }
     val scope = rememberCoroutineScope()
     Text("Ray (assistant)", style = MaterialTheme.typography.titleMedium)
     Text(
-        if (cfg == null) "Not set up — typed and spoken entries use the on-device model, and the chat can't answer."
-        else "OpenAI ${cfg.model}, effort ${cfg.effort ?: "auto (low for logging, medium for questions)"}. " +
-            "Sends your question and the readings/logs it looks up to OpenAI.",
+        when {
+            server != null -> "Ray runs on the Ray server (one Ray for the phones, watch, Alexa and Google). " +
+                if (cfg != null) "If the server can't be reached, this phone answers itself with OpenAI ${cfg.model}." else "If the server can't be reached, entries use the on-device model."
+            cfg == null -> "Not set up — typed and spoken entries use the on-device model, and the chat can't answer."
+            else -> "OpenAI ${cfg.model}, effort ${cfg.effort ?: "auto (low for logging, medium for questions)"}. " +
+                "Sends your question and the readings/logs it looks up to OpenAI."
+        },
         style = MaterialTheme.typography.bodySmall,
     )
     // what's been recorded for evals (this phone's own + synced from the other)

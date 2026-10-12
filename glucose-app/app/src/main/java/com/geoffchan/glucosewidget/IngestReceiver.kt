@@ -36,6 +36,12 @@ import kotlinx.coroutines.launch
  *   … --es op sync-reset    (forget key, topic and sync state)
  * Inserts/deletes here go through [Journal], so they sync like app edits.
  *
+ * Ray server (cloud Ray, see [RayServer]); the device token travels as a file:
+ *   adb exec-in run-as <pkg> sh -c 'cat > files/ray-handoff' < token-file
+ *   … --es op ray-setup [--es url https://…] [--ez main true|false]   (sync + Ray go through the server)
+ *   … --es op ray-clear
+ *   … --es op voice-test --es text '…'   (logcat tag "Voice"; a spoken log is saved like Alexa's)
+ *
  * Assistant (OpenAI, see [Assistant]); the key travels as a file, never an extra:
  *   adb exec-in run-as <pkg> sh -c 'cat > files/ai-handoff' < key-file
  *   … --es op ai-setup [--es model gpt-6-luna] [--es effort low|medium|auto]
@@ -95,7 +101,7 @@ class IngestReceiver : BroadcastReceiver() {
                         )
                         android.util.Log.i("Sync", if (ok) "configured" else "sync-setup rejected: need a base64 32-byte key and a 16+ char topic")
                     }
-                    "sync-now" -> Sync.enqueue(context)
+                    "sync-now" -> Sync.enqueue(context, now = true)
                     "sync-resend" -> { Sync.queueRecent(context, Sync.RESEND_WINDOW_MS); Sync.enqueue(context) }
                     "sync-reset" -> { Sync.reset(context); android.util.Log.i("Sync", "reset") }
                     // Assistant key: pushed into files/ai-handoff with adb exec-in (never an
@@ -110,9 +116,29 @@ class IngestReceiver : BroadcastReceiver() {
                         android.util.Log.i("Assistant", if (cfg != null) "configured: model=${cfg.model} effort=${cfg.effort ?: "auto"}" else "ai-setup: no key (push files/$AI_HANDOFF first)")
                     }
                     "ai-clear" -> { Store.clearAiConfig(context); android.util.Log.i("Assistant", "cleared") }
+                    // Ray server (cloud Ray): this phone's device token goes in files/ray-handoff the same way
+                    "ray-setup" -> {
+                        val f = java.io.File(context.filesDir, RAY_HANDOFF)
+                        val token = f.takeIf { it.exists() }?.readText()?.lineSequence()
+                            ?.map { it.trim().substringAfter('=').trim() }?.firstOrNull { it.length >= 32 }
+                        f.delete()
+                        if (token == null) android.util.Log.i("Sync", "ray-setup: no token (push files/$RAY_HANDOFF first)")
+                        else {
+                            Sync.setupServer(context, intent.getStringExtra("url") ?: DEFAULT_RAY_URL, token,
+                                if (intent.hasExtra("main")) intent.getBooleanExtra("main", true) else null)
+                            android.util.Log.i("Sync", "ray server configured")
+                        }
+                    }
+                    "ray-clear" -> { Store.clearRayServer(context); Store.saveRayCursor(context, null); android.util.Log.i("Sync", "ray server cleared") }
+                    // a spoken question/log through the server, as the voice shortcuts send it (logs the speech; may save entries)
+                    "voice-test" -> Store.rayServer(context)?.let { cfg ->
+                        android.util.Log.i("Voice", "voice-test → " + runCatching { RayServer.voice(cfg, intent.getStringExtra("text").orEmpty()) }.getOrElse { "failed: ${it.message}" })
+                    }
                     // Runs the assistant on --es text without saving anything; logs the result.
                     // chat as someone, e.g. --es text "how was last week?" --es author geoff [--es thread <id>]; logs Ray's reply
                     "chat-test" -> chatTest(context, intent.getStringExtra("text").orEmpty(), intent.getStringExtra("author") ?: AUTHOR_GEOFF, intent.getStringExtra("thread"))
+                    // remove a test thread from both phones (a delete event, like the drawer's Delete)
+                    "chat-thread-delete" -> intent.getStringExtra("thread")?.let { ChatStore.threadEvent(context, it, deleted = true) }
                     "chat-author" -> intent.getStringExtra("author")?.takeIf { it == AUTHOR_FRANCINE || it == AUTHOR_GEOFF }?.let { Store.saveChatAuthor(context, it) }
                     "ask-test" -> askTest(context, intent.getStringExtra("text").orEmpty(), intent.getBooleanExtra("watch", false), intent.getStringExtra("replyTo"))
                     "describe-test" -> describeTest(context, intent.getStringExtra("text").orEmpty())
@@ -217,3 +243,4 @@ class IngestReceiver : BroadcastReceiver() {
 
 private const val CREDS_HANDOFF = "creds-handoff"
 private const val AI_HANDOFF = "ai-handoff"
+private const val RAY_HANDOFF = "ray-handoff"

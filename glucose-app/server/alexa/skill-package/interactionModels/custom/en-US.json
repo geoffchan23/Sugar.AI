@@ -1,0 +1,210 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "ray",
+      "intents": [
+        {
+          "name": "SugarIntent",
+          "slots": [],
+          "samples": [
+            "what's Francine's sugar",
+            "what is Francine's sugar",
+            "what's Francine's blood sugar",
+            "what is Francine's blood sugar",
+            "what's her sugar",
+            "what is her sugar",
+            "what's her blood sugar",
+            "what's her number",
+            "what's Francine's number",
+            "what's her glucose",
+            "what's Francine's glucose",
+            "Francine's sugar",
+            "her sugar",
+            "for her sugar",
+            "for Francine's sugar",
+            "for her number",
+            "how is Francine's sugar",
+            "how's her sugar",
+            "how's Francine's sugar",
+            "Francine's blood sugar",
+            "her blood sugar"
+          ]
+        },
+        {
+          "name": "LastDoseIntent",
+          "slots": [],
+          "samples": [
+            "when did she last take insulin",
+            "when did Francine last take insulin",
+            "when was her last dose",
+            "when was Francine's last dose",
+            "when did she last take medicine",
+            "when did Francine last take medicine",
+            "when was the last time Francine took medicine",
+            "when was the last time she took medicine",
+            "when was the last time she took insulin",
+            "what was her last dose",
+            "what was Francine's last dose",
+            "her last dose",
+            "Francine's last dose",
+            "about her last dose"
+          ]
+        },
+        {
+          "name": "LastMealIntent",
+          "slots": [],
+          "samples": [
+            "when did she last eat",
+            "when did Francine last eat",
+            "what did she last eat",
+            "what did Francine last eat",
+            "what was her last meal",
+            "when was her last meal",
+            "what did she eat last",
+            "her last meal"
+          ]
+        },
+        {
+          "name": "HowIntent",
+          "slots": [
+            {
+              "name": "query",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "how {query}"
+          ]
+        },
+        {
+          "name": "WhyIntent",
+          "slots": [
+            {
+              "name": "query",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "why {query}"
+          ]
+        },
+        {
+          "name": "WhatIntent",
+          "slots": [
+            {
+              "name": "query",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "what {query}"
+          ]
+        },
+        {
+          "name": "WhenIntent",
+          "slots": [
+            {
+              "name": "query",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "when {query}"
+          ]
+        },
+        {
+          "name": "DidIntent",
+          "slots": [
+            {
+              "name": "query",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "did {query}"
+          ]
+        },
+        {
+          "name": "WasIntent",
+          "slots": [
+            {
+              "name": "query",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "was {query}"
+          ]
+        },
+        {
+          "name": "IsIntent",
+          "slots": [
+            {
+              "name": "query",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "is {query}"
+          ]
+        },
+        {
+          "name": "TellIntent",
+          "slots": [
+            {
+              "name": "query",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "tell me {query}",
+            "to tell me {query}"
+          ]
+        },
+        {
+          "name": "LogIntent",
+          "slots": [
+            {
+              "name": "query",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "log {query}",
+            "to log {query}",
+            "she had {query}",
+            "she took {query}",
+            "she ate {query}",
+            "Francine had {query}",
+            "Francine took {query}",
+            "Francine ate {query}",
+            "that she had {query}",
+            "that she took {query}",
+            "add {query}"
+          ]
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        }
+      ],
+      "types": []
+    }
+  }
+}

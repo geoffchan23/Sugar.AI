@@ -1,0 +1,53 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "en-CA": {
+          "name": "Ray",
+          "summary": "Francine's diabetes assistant (private)",
+          "description": "Private skill for one household.",
+          "examplePhrases": [
+            "Alexa, open Ray",
+            "Alexa, ask Ray what's Francine's sugar",
+            "Alexa, ask Ray when she last took insulin"
+          ],
+          "keywords": []
+        },
+        "en-US": {
+          "name": "Ray",
+          "summary": "Francine's diabetes assistant (private)",
+          "description": "Private skill for one household.",
+          "examplePhrases": [
+            "Alexa, open Ray",
+            "Alexa, ask Ray what's Francine's sugar",
+            "Alexa, ask Ray when she last took insulin"
+          ],
+          "keywords": []
+        }
+      },
+      "isAvailableWorldwide": false,
+      "distributionCountries": [
+        "CA"
+      ],
+      "testingInstructions": "Private",
+      "category": "HEALTH_AND_FITNESS"
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "uri": "https://ray.geoffreychan.com/v1/alexa",
+          "sslCertificateType": "Trusted"
+        }
+      }
+    },
+    "manifestVersion": "1.0",
+    "privacyAndCompliance": {
+      "allowsPurchases": false,
+      "usesPersonalInfo": false,
+      "isChildDirected": false,
+      "isExportCompliant": true,
+      "containsAds": false,
+      "locales": {}
+    }
+  }
+}

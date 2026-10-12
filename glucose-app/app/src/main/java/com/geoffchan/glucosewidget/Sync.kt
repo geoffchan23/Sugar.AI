@@ -12,6 +12,8 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -56,14 +58,14 @@ object Sync {
 
     /** Called after every local journal write. */
     suspend fun localChanged(context: Context, rows: List<JournalEntity>, deleted: List<JournalTombstone>) {
-        if (Store.syncConfig(context) == null) return
+        if (!active(context)) return
         Store.addToOutbox(context, rows.map { it.uid } + deleted.map { it.uid })
         enqueue(context, delaySeconds = 5) // coalesce a burst (e.g. a describe-in-words save)
     }
 
     /** Called after an interaction record is created or its outcome changes. */
     suspend fun interactionChanged(context: Context, uid: String) {
-        if (Store.syncConfig(context) == null) return
+        if (!active(context)) return
         Store.addToOutbox(context, listOf(INTERACTION_PREFIX + uid))
         enqueue(context, delaySeconds = 5)
     }
@@ -73,19 +75,23 @@ object Sync {
 
     /** Called after a chat message is written (sent, or a card saved). Sends right away. */
     suspend fun chatChanged(context: Context, uid: String) {
-        if (Store.syncConfig(context) == null) return
+        if (!active(context)) return
         Store.addToOutbox(context, listOf(CHAT_PREFIX + uid))
         enqueue(context, delaySeconds = 1)
     }
 
-    /** Run a sync soon, when there's a network; retried with backoff on failure. */
-    fun enqueue(context: Context, delaySeconds: Long = 0) {
+    /**
+     * Run a sync soon, when there's a network; retried with backoff on failure.
+     * [now]: replace whatever is queued, including a run waiting out a long
+     * backoff (otherwise the new run waits behind it — 2026-10-12).
+     */
+    fun enqueue(context: Context, delaySeconds: Long = 0, now: Boolean = false) {
         val req = OneTimeWorkRequestBuilder<SyncWorker>()
             .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
             .setInitialDelay(delaySeconds, TimeUnit.SECONDS)
             .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 30, TimeUnit.SECONDS)
             .build()
-        WorkManager.getInstance(context).enqueueUniqueWork("sync", ExistingWorkPolicy.APPEND_OR_REPLACE, req)
+        WorkManager.getInstance(context).enqueueUniqueWork("sync", if (now) ExistingWorkPolicy.REPLACE else ExistingWorkPolicy.APPEND_OR_REPLACE, req)
     }
 
     /**
@@ -115,17 +121,98 @@ object Sync {
         return true
     }
 
+    /**
+     * Configure from ADB (`op ray-setup`): sync through the Ray server from now
+     * on. The outbox is kept (anything the relay never delivered goes to the
+     * server); the first exchange brings this phone the last 30 days.
+     */
+    suspend fun setupServer(context: Context, url: String, token: String, main: Boolean?) {
+        Store.saveRayServer(context, url, token)
+        Store.saveRayCursor(context, null)
+        main?.let { Store.saveIsMainPhone(context, it) }
+        queueRecent(context, RESEND_WINDOW_MS) // the server merges idempotently; covers anything the relay dropped
+        enqueue(context, now = true)
+    }
+
     suspend fun reset(context: Context) {
         Store.clearSyncConfig(context)
         Store.resetSyncState(context)
         WorkManager.getInstance(context).cancelUniqueWork("sync")
     }
 
+    /** Sync is set up: through the Ray server, or (older setup) the ntfy relay. */
+    fun active(context: Context): Boolean = Store.rayServer(context) != null || Store.syncConfig(context) != null
+
+    private val serverLock = Mutex()
+
     /**
-     * One full cycle: publish the outbox, pull the other phone's changes,
-     * then the daily digest if due. Throws on network failure (callers retry).
+     * Sync through the Ray server (cloud Ray): send everything in the outbox
+     * (full records — no relay size limit), apply what other devices changed
+     * since this phone's cursor, page until caught up. The server is the
+     * durable copy, so there's no daily digest. Throws on failure (callers retry).
+     */
+    suspend fun serverCycle(context: Context, cfg: Store.RayServerConfig) = serverLock.withLock {
+        try {
+            val dao = GlucoseDb.get(context).dao()
+            val device = Store.deviceId(context)
+            var cursor = Store.rayCursor(context)
+            var changed = false
+            val incoming = mutableListOf<ChatMessageEntity>()
+            var outbox = Store.syncOutbox(context).toList()
+            var more = true // always ask at least once
+            while (outbox.isNotEmpty() || more) {
+                val batch = outbox.take(SERVER_BATCH)
+                outbox = outbox.drop(SERVER_BATCH)
+                val payload = if (batch.isEmpty()) null else serverPayload(dao, device, batch)
+                val reply = RayServer.sync(cfg, cursor, payload)
+                if (batch.isNotEmpty()) { Store.removeFromOutbox(context, batch); Store.markPublished(context) }
+                if (apply(context, reply.payload, incoming)) changed = true
+                cursor = reply.cursor
+                Store.saveRayCursor(context, cursor)
+                more = reply.more
+            }
+            Store.markPolled(context)
+            Store.saveSyncError(context, null)
+            if (changed) GlucoseWidget().updateAll(context)
+            if (incoming.isNotEmpty()) ChatNotification.newMessages(context, incoming)
+        } catch (e: Exception) {
+            Store.saveSyncError(context, "${e.javaClass.simpleName}: ${e.message}".take(200))
+            throw e
+        }
+    }
+
+    private const val SERVER_BATCH = 200
+
+    private suspend fun serverPayload(dao: GlucoseDao, device: String, uids: List<String>): SyncPayload {
+        val (chatUids, rest) = uids.partition { it.startsWith(CHAT_PREFIX) }
+        val (interUids, rowUids) = rest.partition { it.startsWith(INTERACTION_PREFIX) }
+        val rows = mutableListOf<SyncRow>()
+        val tombs = mutableListOf<SyncTomb>()
+        for (uid in rowUids) {
+            val row = dao.journalByUid(uid)
+            if (row != null) rows += row.toSyncRow() else dao.tombstone(uid)?.let { tombs += SyncTomb(it.uid, it.deletedAtMs) }
+        }
+        return SyncPayload(
+            device, rows, tombs,
+            inter = interUids.mapNotNull { dao.interaction(it.removePrefix(INTERACTION_PREFIX))?.toSyncInteraction() },
+            chat = chatUids.mapNotNull { dao.chatMessage(it.removePrefix(CHAT_PREFIX))?.toSyncChat() },
+        )
+    }
+
+    /** Before Ray answers on the server: send this phone's pending changes, briefly. Never throws. */
+    suspend fun pushBeforeAsk(context: Context, timeoutMs: Long = 4_000) {
+        val cfg = Store.rayServer(context) ?: return
+        runCatching { kotlinx.coroutines.withTimeout(timeoutMs) { serverCycle(context, cfg) } }
+            .onFailure { android.util.Log.w("Sync", "push before ask: ${it.message}") }
+    }
+
+    /**
+     * One full cycle: through the Ray server when this phone has one, else the
+     * relay: publish the outbox, pull the other phone's changes, then the daily
+     * digest if due. Throws on network failure (callers retry).
      */
     suspend fun runOnce(context: Context) {
+        Store.rayServer(context)?.let { return serverCycle(context, it) }
         val cfg = Store.syncConfig(context) ?: return
         try {
             val status = Store.syncStatus(context)

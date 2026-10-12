@@ -166,6 +166,33 @@ object Store {
         securePrefs(context).edit().remove("syncKey").remove("syncTopic").commit()
     }
 
+    // --- the Ray server (cloud Ray): URL + this phone's device token, in encrypted prefs ---
+
+    data class RayServerConfig(val url: String, val token: String)
+
+    /** Null = no Ray server: sync goes through the ntfy relay (if set up) and Ray runs on the phone. */
+    fun rayServer(context: Context): RayServerConfig? {
+        val p = securePrefs(context)
+        val token = p.getString("rayToken", null)?.takeIf { it.isNotBlank() } ?: return null
+        return RayServerConfig(p.getString("rayUrl", null) ?: DEFAULT_RAY_URL, token)
+    }
+
+    fun saveRayServer(context: Context, url: String, token: String) {
+        securePrefs(context).edit().putString("rayUrl", url.trimEnd('/')).putString("rayToken", token).commit()
+    }
+
+    fun clearRayServer(context: Context) {
+        securePrefs(context).edit().remove("rayUrl").remove("rayToken").commit()
+    }
+
+    private val KEY_RAY_CURSOR = longPreferencesKey("rayCursor")
+
+    /** The server's change-log position this phone has applied; null = never synced with it. */
+    suspend fun rayCursor(context: Context): Long? = context.dataStore.data.first()[KEY_RAY_CURSOR]
+    suspend fun saveRayCursor(context: Context, cursor: Long?) {
+        context.dataStore.edit { if (cursor == null) it.remove(KEY_RAY_CURSOR) else it[KEY_RAY_CURSOR] = cursor }
+    }
+
     // --- assistant (OpenAI): key, model and effort, all in encrypted prefs ---
 
     /** Null = assistant not set up; Nano and the rule parser handle everything. */
