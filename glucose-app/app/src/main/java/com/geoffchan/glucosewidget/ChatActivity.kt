@@ -510,15 +510,23 @@ private fun CardView(uid: String, card: ChatCard, me: String) {
                             me,
                         )
                         saving = false
+                        Sync.enqueue(context, now = true) // send it straight away; the line below turns to "synced ✓"
                     }
                 }) { Text("Save $picked") }
                 TextButton(enabled = !saving, onClick = { scope.launch { ChatStore.dismissCard(context, uid, me) } }) { Text("Dismiss") }
             }
         } else {
             Spacer(Modifier.size(2.dp))
+            // a save made on this phone shows when the server has it (Geoff, 2026-10-13)
+            val syncing by remember { Store.syncOutboxFlow(context) }.collectAsState(initial = emptySet())
+            val syncs = remember { Sync.active(context) }
             Text(
                 when (card.state) {
-                    CARD_SAVED -> "${card.result ?: "Saved"} by ${authorName(card.by ?: "")}"
+                    CARD_SAVED -> "${card.result ?: "Saved"} by ${authorName(card.by ?: "")}" + when {
+                        !syncs -> ""
+                        Sync.CHAT_PREFIX + uid in syncing -> " · syncing…"
+                        else -> " · synced ✓"
+                    }
                     else -> "Dismissed by ${authorName(card.by ?: "")}"
                 },
                 style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary,

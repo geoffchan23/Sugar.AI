@@ -12,6 +12,7 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
@@ -71,7 +72,21 @@ object Sync {
     }
 
     private const val INTERACTION_PREFIX = "i:"
-    private const val CHAT_PREFIX = "c:"
+    const val CHAT_PREFIX = "c:"
+
+    /**
+     * After she saves something: sync right away and wait (up to [timeoutMs])
+     * until [uids] have left the outbox, i.e. the server has them. Null when
+     * this phone doesn't sync; false when they're still waiting (no network,
+     * server down: they go with the next sync).
+     */
+    suspend fun sendNow(context: Context, uids: Collection<String>, timeoutMs: Long = 12_000): Boolean? {
+        if (!active(context)) return null
+        enqueue(context, now = true)
+        return kotlinx.coroutines.withTimeoutOrNull(timeoutMs) {
+            Store.syncOutboxFlow(context).first { pending -> uids.none { it in pending } }
+        } != null
+    }
 
     /** Called after a chat message is written (sent, or a card saved). Sends right away. */
     suspend fun chatChanged(context: Context, uid: String) {

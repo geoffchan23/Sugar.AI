@@ -44,8 +44,8 @@ const val TAB_RAY = "ray"
 const val TAB_REPORTS = "reports"
 
 /**
- * The whole app: three tabs — Today ([TodayScreen]), Ray ([RayScreen]) and
- * Reports ([ReportsScreen]); Settings is the gear on Today. Notifications
+ * The whole app: three tabs — Today ([TodayScreen]), Reports ([ReportsScreen]) and
+ * Ray ([RayScreen]); Settings is the gear on Today. Notifications
  * reach a tab through intent extras (ChatActivity / ReportsActivity just
  * forward here).
  */
@@ -129,12 +129,12 @@ class MainActivity : ComponentActivity() {
                             icon = { Icon(Icons.Filled.Home, null) }, label = { Text("Today") }, colors = colors,
                         )
                         NavigationBarItem(
-                            selected = tab == TAB_RAY, onClick = { tab = TAB_RAY },
-                            icon = { RayAvatar(26.dp) }, label = { Text("Ray") }, colors = colors,
-                        )
-                        NavigationBarItem(
                             selected = tab == TAB_REPORTS, onClick = { tab = TAB_REPORTS },
                             icon = { Icon(Icons.AutoMirrored.Filled.List, null) }, label = { Text("Reports") }, colors = colors,
+                        )
+                        NavigationBarItem(
+                            selected = tab == TAB_RAY, onClick = { tab = TAB_RAY },
+                            icon = { RayAvatar(26.dp) }, label = { Text("Ray") }, colors = colors,
                         )
                     }
                 }

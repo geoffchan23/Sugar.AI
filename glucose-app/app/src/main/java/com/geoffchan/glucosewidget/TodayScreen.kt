@@ -136,6 +136,16 @@ fun TodayScreen(snackbar: SnackbarHostState, onOpenSettings: () -> Unit) {
     val latest by dao.latestReading().collectAsState(initial = null)
     val recent by dao.dayJournalInRange(today.minusDays(3).toString(), today.toString()).collectAsState(initial = emptyList())
     val settings = remember { runBlocking { Store.settings(context) } }
+    val unsynced by remember { Store.syncOutboxFlow(context) }.collectAsState(initial = emptySet())
+
+    /** After a save: sync now and tell her whether it reached the server (Geoff, 2026-10-13). */
+    fun confirmSynced(uid: String) = scope.launch {
+        when (Sync.sendNow(context, listOf(uid))) {
+            true -> snackbar.showSnackbar("Saved ✓ Synced")
+            false -> snackbar.showSnackbar("Saved on this phone. It will sync when there's a connection.")
+            null -> Unit // this phone doesn't sync
+        }
+    }
     val now by produceState(System.currentTimeMillis()) {
         while (true) { delay(30_000); value = System.currentTimeMillis() }
     }
@@ -282,6 +292,8 @@ fun TodayScreen(snackbar: SnackbarHostState, onOpenSettings: () -> Unit) {
                 item(entry.id) {
                     LogRow(
                         entry,
+                        unsynced = entry.uid in unsynced,
+                        now = now,
                         onEdit = {
                             when {
                                 parseDoseNote(entry.text) != null -> { editingDose = entry; dosing = true }
@@ -293,6 +305,7 @@ fun TodayScreen(snackbar: SnackbarHostState, onOpenSettings: () -> Unit) {
                             scope.launch {
                                 Journal.update(context, entry.copy(text = confirmGuess(entry.text), updatedAtMs = System.currentTimeMillis()))
                                 GlucoseWidget().updateAll(context)
+                                confirmSynced(entry.uid)
                             }
                         },
                         onDelete = {
@@ -382,6 +395,7 @@ fun TodayScreen(snackbar: SnackbarHostState, onOpenSettings: () -> Unit) {
                             if (editing != null) Journal.update(context, toSave) else Journal.insert(context, toSave)
                             GlucoseWidget().updateAll(context)
                             adding = false; editing = null
+                            confirmSynced(toSave.uid)
                         }
                     },
                 ) { Text("Save") }
@@ -467,22 +481,23 @@ fun TodayScreen(snackbar: SnackbarHostState, onOpenSettings: () -> Unit) {
                         val text = doseNoteText(insulinType, "${units}u", time)
                         val toEdit = editingDose
                         scope.launch {
-                            if (toEdit != null) {
+                            val saved = if (toEdit != null) {
                                 // Edit keeps the entry's day and creation time; only the note changes.
-                                Journal.update(context, toEdit.copy(text = text, updatedAtMs = now2))
+                                toEdit.copy(text = text, updatedAtMs = now2).also { Journal.update(context, it) }
                             } else {
                                 // Like food logs: the day being viewed (day mode), so
                                 // yesterday's dose can be backfilled; today in week mode.
-                                Journal.insert(context,
-                                    JournalEntity(
-                                        day = (if (isWeek) LocalDate.now(zone) else day).toString(), text = text,
-                                        createdAtMs = now2, updatedAtMs = now2, scope = SCOPE_DAY,
-                                    ),
-                                )
-                                Store.saveLastMedication(context, insulinType)
+                                JournalEntity(
+                                    day = (if (isWeek) LocalDate.now(zone) else day).toString(), text = text,
+                                    createdAtMs = now2, updatedAtMs = now2, scope = SCOPE_DAY,
+                                ).also {
+                                    Journal.insert(context, it)
+                                    Store.saveLastMedication(context, insulinType)
+                                }
                             }
                             GlucoseWidget().updateAll(context)
                             closeDose()
+                            confirmSynced(saved.uid)
                         }
                     },
                 ) { Text("Save") }
@@ -523,19 +538,18 @@ fun TodayScreen(snackbar: SnackbarHostState, onOpenSettings: () -> Unit) {
                         val text = eventNoteText(what, logTime.format(DateTimeFormatter.ofPattern("HH:mm")))
                         val toEdit = editingLog
                         scope.launch {
-                            if (toEdit != null) {
-                                Journal.update(context, toEdit.copy(text = text, updatedAtMs = now2))
+                            val saved = if (toEdit != null) {
+                                toEdit.copy(text = text, updatedAtMs = now2).also { Journal.update(context, it) }
                             } else {
                                 // Logs go to the day being viewed, so yesterday can be backfilled.
-                                Journal.insert(context,
-                                    JournalEntity(
-                                        day = (if (isWeek) LocalDate.now(zone) else day).toString(), text = text,
-                                        createdAtMs = now2, updatedAtMs = now2, scope = SCOPE_DAY,
-                                    ),
-                                )
+                                JournalEntity(
+                                    day = (if (isWeek) LocalDate.now(zone) else day).toString(), text = text,
+                                    createdAtMs = now2, updatedAtMs = now2, scope = SCOPE_DAY,
+                                ).also { Journal.insert(context, it) }
                             }
                             GlucoseWidget().updateAll(context)
                             closeLog()
+                            confirmSynced(saved.uid)
                         }
                     },
                 ) { Text("Save") }
@@ -697,7 +711,7 @@ private fun rowView(text: String): RowView {
  * (Geoff, 2026-10-10: the old swipe-to-delete fired by accident).
  */
 @Composable
-private fun LogRow(entry: JournalEntity, onEdit: () -> Unit, onKeep: () -> Unit, onDelete: () -> Unit) {
+private fun LogRow(entry: JournalEntity, unsynced: Boolean, now: Long, onEdit: () -> Unit, onKeep: () -> Unit, onDelete: () -> Unit) {
     val v = remember(entry.text) { rowView(entry.text) }
     val c = LocalSugar.current
     val scope = rememberCoroutineScope()
@@ -757,6 +771,11 @@ private fun LogRow(entry: JournalEntity, onEdit: () -> Unit, onKeep: () -> Unit,
             Column(Modifier.weight(1f)) {
                 Text(v.title, style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold))
                 if (v.guess) Text("Guess from the curve", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                // still only on this phone: the server (and the other phone) don't have it yet
+                if (unsynced) Text(
+                    if (now - entry.updatedAtMs < 60_000) "Syncing…" else "Not synced yet",
+                    style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
             }
             if (v.guess) {
                 Surface(onClick = onKeep, shape = CircleShape, color = c.soft, contentColor = c.onSoft) {

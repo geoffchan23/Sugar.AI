@@ -9,7 +9,9 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 
 private val Context.dataStore by preferencesDataStore(name = "glucose")
 
@@ -119,6 +121,7 @@ object Store {
 
     /** uids whose current state (row or tombstone) still has to be published. */
     suspend fun syncOutbox(context: Context): Set<String> = context.dataStore.data.first()[KEY_SYNC_OUTBOX] ?: emptySet()
+    fun syncOutboxFlow(context: Context): Flow<Set<String>> = context.dataStore.data.map { it[KEY_SYNC_OUTBOX] ?: emptySet() }
     suspend fun addToOutbox(context: Context, uids: Collection<String>) {
         if (uids.isEmpty()) return
         context.dataStore.edit { it[KEY_SYNC_OUTBOX] = (it[KEY_SYNC_OUTBOX] ?: emptySet()) + uids }
