@@ -52,7 +52,7 @@ class Alexa(private val skillId: String?, private val userIds: Set<String>, priv
                     "AMAZON.YesIntent" -> return speak("Go ahead.", end = false, reprompt = "What would you like to know?")
                     "AMAZON.FallbackIntent" -> {
                         db?.logVoice("alexa", "AMAZON.FallbackIntent", "", "fallback", 0, null) // no words: Alexa doesn't send them
-                        return speak("Sorry, I didn't catch that. Try: ask Sugar Ray what's Francine's sugar.")
+                        return speak("Sorry, I didn't catch that. Try: open Sugar Ray skill.")
                     }
                     else -> ""
                 }
@@ -69,7 +69,8 @@ class Alexa(private val skillId: String?, private val userIds: Set<String>, priv
         val spoken = ray.voice(text, "Alexa", RayService.SOURCE_ALEXA, DEADLINE_MS)
         db?.logVoice("alexa", intentName, text, spoken.path, System.currentTimeMillis() - t0, spoken.interaction)
         log("alexa: ${type}${if (spoken.interaction != null) " record ${spoken.interaction}" else " (quick)"}")
-        // "open Sugar Ray" is the reliable way in (Alexa+ tends to answer one-shot "ask …" questions itself),
+        // "open Sugar Ray skill" is the reliable way in (Alexa+ answers one-shot "ask …" questions itself, and since
+        // 2026-10-14 plain "open Sugar Ray" no longer reaches the skill on Geoff's Echo),
         // so the launch gives her number and keeps listening for one follow-up
         if (type == "LaunchRequest") return speak("${spoken.speech} Anything else?", end = false, reprompt = "You can ask when she last took insulin, how her night was, or tell me what she had.")
         return speak(spoken.speech)

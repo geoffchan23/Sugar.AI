@@ -36,11 +36,12 @@ a `seq`, and it never gets its own changes back. Merging uses the same rules as 
 - It has locales en-CA and en-US, and testing is enabled in Development.
 - To change the phrases, PUT `skill-package/interactionModels/custom/<locale>.json` to
   `/v1/skills/{id}/stages/development/interactionModel/locales/{locale}`.
-- **"Open Sugar Ray" is the way in.** On Geoff's Echo (an Alexa+ era device), "open Sugar Ray" reaches the server but
-  one-shot "ask Sugar Ray <question>" never does. Alexa answers those itself.
+- **"Open Sugar Ray skill" is the way in.** On Geoff's Echo (an Alexa+ era device), one-shot "ask Sugar Ray <question>"
+  never reaches the server; Alexa answers those itself. Plain "open Sugar Ray" worked on 2026-10-12, then stopped by
+  2026-10-15 (nothing reached the server; "launch"/"start Sugar Ray" don't either). Only "open Sugar Ray skill" works.
   - So the launch says her reading, then "Anything else?", and keeps listening for one follow-up: any intent. Yes and
     No are handled.
-  - Routines should use "open Sugar Ray".
+  - Routines should use "open Sugar Ray skill".
 - **The invocation name is "sugar ray"** (changed 2026-10-12): on a real Echo, "ask Ray …" never reached the server,
   most likely because "Ray" collides with a contact's name.
   - Amazon's NLU profiler (`…/interactionModel/locales/en-CA/profileNlu`) maps the phrases to the right intents.
@@ -50,7 +51,7 @@ a `seq`, and it never gets its own changes back. Merging uses the same rules as 
   - These reach the server: "ask ray what's francine's sugar", "…when did she last take insulin", "…when did she last
     eat", "…how was her night" (full Ray, in time), "ask ray for her sugar".
   - "open ray" and "ask ray what's her number" fail inside Amazon before reaching us. A launch request sent directly
-    is answered fine. Routines use "open Sugar Ray".
+    is answered fine. Routines use "open Sugar Ray skill".
 
 The manual way, kept for reference (in Geoff's Amazon developer account):
 
@@ -69,7 +70,7 @@ A skill in development only works on its developer's own Amazon account, so it s
    `server/deploy/put-secrets.sh && server/deploy/deploy.sh`
 5. **Test** tab: set "Skill testing is enabled in" to **Development**, then type "open ray".
 6. In the Alexa app, add routines so no "ask Ray" is needed:
-   - When you say "what's Francine's blood sugar", the action is **Customized**: "open Sugar Ray".
+   - When you say "what's Francine's blood sugar", the action is **Customized**: "open Sugar Ray skill".
    - When you say "when did Francine last take insulin", the action is **Customized**: "ask Sugar Ray when she last took
      insulin".
 
