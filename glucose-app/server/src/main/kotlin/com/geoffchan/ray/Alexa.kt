@@ -72,7 +72,9 @@ class Alexa(private val skillId: String?, private val userIds: Set<String>, priv
         // "open Sugar Ray skill" is the reliable way in (Alexa+ answers one-shot "ask …" questions itself, and since
         // 2026-10-14 plain "open Sugar Ray" no longer reaches the skill on Geoff's Echo),
         // so the launch gives her number and keeps listening for one follow-up
-        if (type == "LaunchRequest") return speak("${spoken.speech} Anything else?", end = false, reprompt = "You can ask when she last took insulin, how her night was, or tell me what she had.")
+        if (type == "LaunchRequest") return speak("${spoken.speech} Anything else?", end = false, reprompt = "You can tell me what she took or ate, or ask when she last took insulin.")
+        // Ray asking back ("short or long acting?") keeps the mic open for the answer
+        if (spoken.path == "ray" && spoken.speech.trimEnd().endsWith("?")) return speak(spoken.speech, end = false, reprompt = spoken.speech)
         return speak(spoken.speech)
     }
 

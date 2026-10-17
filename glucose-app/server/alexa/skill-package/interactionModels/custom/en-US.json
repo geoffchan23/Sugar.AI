@@ -180,7 +180,18 @@
             "Francine ate {query}",
             "that she had {query}",
             "that she took {query}",
-            "add {query}"
+            "add {query}",
+            "I took {query}",
+            "I had {query}",
+            "I ate {query}",
+            "I just took {query}",
+            "I just had {query}",
+            "I just ate {query}",
+            "I've taken {query}",
+            "I've had {query}",
+            "that I took {query}",
+            "that I had {query}",
+            "that I ate {query}"
           ]
         },
         {
