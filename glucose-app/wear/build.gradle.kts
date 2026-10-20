@@ -50,6 +50,8 @@ dependencies {
     implementation("androidx.wear.protolayout:protolayout:1.2.1")
     implementation("androidx.wear.protolayout:protolayout-material:1.2.1")
     implementation("androidx.concurrent:concurrent-futures:1.2.0")
+    // The ✓ on the Big Glucose face after a voice log (LogStatusComplicationService).
+    implementation("androidx.wear.watchface:watchface-complications-data-source-ktx:1.2.1")
     implementation("com.google.android.gms:play-services-wearable:19.0.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
     // Retries entries held while her phone was out of reach.

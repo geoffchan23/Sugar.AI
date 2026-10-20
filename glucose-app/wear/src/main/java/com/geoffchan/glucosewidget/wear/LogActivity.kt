@@ -156,6 +156,7 @@ class LogActivity : ComponentActivity() {
                     p.rows.isEmpty() -> Ui.Error("Didn't catch any doses or food — try again.\n\n“$transcript”")
                     p.saved != null -> {
                         buzz()
+                        LogStatus.saved(applicationContext, faceSaved(p.saved))
                         Ui.Logged(transcript, p.rows, savedSummary(p.saved), p.answer, p.changes).also { autoClose(it) }
                     }
                     else -> {
@@ -168,6 +169,7 @@ class LogActivity : ComponentActivity() {
             } catch (e: PhoneUnreachable) {
                 // Don't lose it: hold it here; the phone saves it as a guess when it's back.
                 WatchQueue.add(applicationContext, transcript, parseId = id)
+                LogStatus.refresh(applicationContext)
                 Ui.Queued(transcript)
             } catch (e: Exception) {
                 Ui.Error(READ_FAILED)
@@ -186,6 +188,7 @@ class LogActivity : ComponentActivity() {
                 interactionId = null // the save is the outcome
                 if (!s.ok) { ui = Ui.Error(s.error ?: SAVE_FAILED); return@launch }
                 ui = Ui.Done(savedSummary(s))
+                LogStatus.saved(applicationContext, faceSaved(s))
                 buzz()
                 delay(1_500)
                 finish()
@@ -214,7 +217,7 @@ class LogActivity : ComponentActivity() {
             ui = try {
                 val (ok, removed) = decodeUndone(link.request(Protocol.PATH_UNDO, encodeUndo(id), Protocol.PATH_UNDONE))
                 if (!ok) Ui.Error("Your phone couldn't undo that — fix it in the app.")
-                else Ui.Done(if (removed == 1) "Removed 1" else "Removed $removed")
+                else Ui.Done(if (removed == 1) "Removed 1" else "Removed $removed").also { LogStatus.clear(applicationContext) }
             } catch (e: Exception) {
                 Ui.Error("Couldn't reach your phone — fix it in the app.")
             }

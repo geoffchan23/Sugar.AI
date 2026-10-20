@@ -436,7 +436,12 @@ over the Wearable Data Layer; **the phone saves the rows to today via
 what went in, plus **Undo** (`/log/undo`: removes the rows that record
 inserted) — no confirm screen since 2026-10-11 (Geoff: "assume it gets it
 right, we correct after the fact"). A plain log closes itself after 5 s;
-an answer waits for Done. The watch asks for this with `autoSave` on
+an answer waits for Done. **The face keeps the tick** (2026-10-20): the wear
+app is also a SHORT_TEXT complication provider (`LogStatusComplicationService`,
+`LogStatus.kt`) that the Big Glucose face shows under the reading — "✓ Logged 2"
+for 10 min after a save (valid time range, plus a WorkManager refresh as a
+backstop), "Held on watch" while `WatchQueue` has entries, nothing otherwise;
+Undo clears it. The watch asks for this with `autoSave` on
 /log/parse; an older watch without it still gets the tick-and-Save screen. Paths and JSON are in
 `WatchProtocol.kt` (phone) and `wear/…/Protocol.kt` (watch) — change
 both together. The wear APK must keep applicationId

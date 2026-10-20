@@ -41,5 +41,25 @@
                 android:name="androidx.wear.tiles.PREVIEW"
                 android:resource="@drawable/tile_preview" />
         </service>
+
+        <!-- "✓ Logged 2" under the glucose on the Big Glucose face for 10 min
+             after a voice log (its slot 1 defaults to this). -->
+        <service
+            android:name=".LogStatusComplicationService"
+            android:exported="true"
+            android:label="@string/complication_label"
+            android:icon="@drawable/ic_mic"
+            android:permission="com.google.android.wearable.permission.BIND_COMPLICATION_PROVIDER">
+            <intent-filter>
+                <action android:name="android.support.wearable.complications.ACTION_COMPLICATION_UPDATE_REQUEST" />
+            </intent-filter>
+            <meta-data
+                android:name="android.support.wearable.complications.SUPPORTED_TYPES"
+                android:value="SHORT_TEXT" />
+            <!-- pushed by LogStatus, never polled -->
+            <meta-data
+                android:name="android.support.wearable.complications.UPDATE_PERIOD_SECONDS"
+                android:value="0" />
+        </service>
     </application>
 </manifest>

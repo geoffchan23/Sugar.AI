@@ -86,6 +86,13 @@ rendered much bigger, with `mmol/L` and the timestamp dropped.
   Store — install `wear-debug.apk` first. `Launch` is valid in any `Part*`
   (validator v1.7.0, format 2).
 
+- **Last voice log under the glucose** (2026-10-20): slot 1 (x=75 y=370,
+  300x42, periwinkle size 28) defaults to Sugar.AI's
+  `com.geoffchan.glucosewidget/.wear.LogStatusComplicationService`: "✓ Logged 2"
+  for 10 min after she logs by voice, "Held on watch" while the phone is away,
+  empty otherwise. Install the wear APK first; if the slot comes up empty after
+  updating the face, long-press → Customize → pick "Last voice log" for it.
+
 ## Remaining deltas / possible next steps
 
 - **Font.** SYNC_TO_DEVICE renders Roboto-ish; the stock clock uses Google's

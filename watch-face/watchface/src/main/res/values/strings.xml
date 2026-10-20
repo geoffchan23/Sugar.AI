@@ -3,4 +3,5 @@
     <string name="app_name">Big Glucose</string>
     <string name="watch_face_name">Big Glucose</string>
     <string name="complication_glucose">Glucose</string>
+    <string name="complication_last_log">Last voice log</string>
 </resources>

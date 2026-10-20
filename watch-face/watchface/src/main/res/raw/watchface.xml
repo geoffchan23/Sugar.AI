@@ -226,6 +226,44 @@
         </ComplicationSlot>
 
         <!-- ============================================================
+             LAST VOICE LOG - "✓ Logged 2" under the glucose
+
+             Fed by Sugar.AI's watch app (glucose-app wear module,
+             LogStatusComplicationService): after she logs by voice the
+             logger closes itself in 5 s, so the tick stays here for
+             10 minutes. "Held on watch" while entries wait for her
+             phone. Nothing at all otherwise (NO_DATA draws nothing).
+             Same periwinkle as the clock.
+             ============================================================ -->
+        <ComplicationSlot
+            slotId="1"
+            x="75" y="370" width="300" height="42"
+            displayName="@string/complication_last_log"
+            supportedTypes="SHORT_TEXT"
+            isCustomizable="TRUE"
+            alpha="255">
+
+            <DefaultProviderPolicy
+                primaryProvider="com.geoffchan.glucosewidget/com.geoffchan.glucosewidget.wear.LogStatusComplicationService"
+                primaryProviderType="SHORT_TEXT"
+                defaultSystemProvider="EMPTY"
+                defaultSystemProviderType="SHORT_TEXT" />
+
+            <BoundingBox x="0" y="0" width="300" height="42" />
+
+            <Complication type="SHORT_TEXT">
+                <PartText x="0" y="0" width="300" height="42" alpha="255">
+                    <Text align="CENTER">
+                        <Font family="SYNC_TO_DEVICE" size="28" weight="BOLD" color="#ffa0a7ff">
+                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                        </Font>
+                    </Text>
+                </PartText>
+            </Complication>
+
+        </ComplicationSlot>
+
+        <!-- ============================================================
              TAP LAYER - the whole face opens the assistant
 
              An invisible full-face rectangle, last so it sits on top of

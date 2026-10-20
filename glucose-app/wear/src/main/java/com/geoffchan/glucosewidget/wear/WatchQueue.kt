@@ -54,7 +54,10 @@ object WatchQueue {
                 break // phone still away; try later
             }
         }
-        return all(context).size
+        val left = all(context).size
+        // the face's "Held on watch" goes once the phone has them
+        if (left == 0) LogStatus.refresh(context)
+        return left
     }
 }
 

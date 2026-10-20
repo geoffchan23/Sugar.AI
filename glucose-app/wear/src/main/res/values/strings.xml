@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">Sugar.AI</string>
     <string name="tile_label">Sugar.AI</string>
+    <string name="complication_label">Last voice log</string>
 </resources>
