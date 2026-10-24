@@ -294,8 +294,29 @@ The old "no cloud / never an LLM API" rule is gone (Geoff, 2026-10-08).
   exchanges rebuilt from the interaction log (`historyAfter`); the asking
   record's outcome becomes `replied`. ADB: `ask-test … --es replyTo <id>`
   (the id is logged). For real conversations use the chat (below).
-- Safety: explains patterns, never recommends doses or treatment changes
-  (refers to her endo); tells her to treat a low first.
+- **Voice** (from 2026-10-24; Geoff: answers were "too technical and
+  robotic"): Ray talks like her diabetes educator, per `docs/ray-voice.md`
+  (Language Matters, DATAA, motivational interviewing). Rules live in
+  `RAY_CORE` ("How you talk about her glucose"): open with something going
+  well, one pattern (lows first) in plain words with at most two numbers,
+  1–3 concrete things to try, name the insulin lever and say how soon to
+  call her team (today / this week / next appointment), no stats dumps,
+  no lecturing. How-to questions get a direct answer fitted to her.
+- **Playbook** (`get_strategies`, `Strategies.kt`,
+  `core/src/main/resources/ray/strategies.json`): ~165 tactics from
+  guidelines (ADA 2026, Diabetes Canada, CGM and exercise consensus),
+  dietitians, educators and the community, tagged by pattern and food,
+  ranked by match then evidence. Rebuild with
+  `tools/merge-strategies.py <research json…>` (post-review fixes go in its
+  OVERRIDES). Reddit itself couldn't be read (blocked to scripts and the
+  Chrome extension); community entries come from other forums.
+- **Voice eval:** `tools/ray-voice-eval.sh` pulls a copy of the server DB
+  into `data/` and runs `tools/ray-voice-questions.txt` through the real
+  chat/watch loop (answers + tools used → `data/ray-voice-eval.jsonl`).
+  Run it after touching the prompt.
+- Safety: explains patterns and everyday tactics; never gives insulin
+  doses, dose changes, ratios or correction factors (names the lever, the
+  team sets the amount); tells her to treat a low first.
 - **What goes to OpenAI:** her message, the current reading, and whatever
   the tools return for that question (readings, stats, logs). Nothing else.
 - Logcat tag `Assistant`: model, effort, latency, tokens, estimated cost.

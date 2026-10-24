@@ -117,7 +117,7 @@ class AssistantToolsTest {
         val names = (0 until defs.length()).map { defs.getJSONObject(it) }.onEach {
             assertTrue(it.getBoolean("strict")); check(it.getJSONObject("parameters"))
         }.map { it.getString("name") }
-        assertEquals(listOf("get_readings", "get_stats", "get_journal", "get_lows", "propose_entries", "propose_changes", "reply"), names)
+        assertEquals(listOf("get_readings", "get_stats", "get_journal", "get_lows", "get_strategies", "propose_entries", "propose_changes", "reply"), names)
     }
 
     @Test fun `proposals go through the same strict validation as the on-device path`() {
@@ -134,7 +134,8 @@ class AssistantToolsTest {
 class AssistantPromptTest {
     @Test fun `instructions forbid dose advice and keep the standing recipes`() {
         val p = ASSISTANT_INSTRUCTIONS
-        assertTrue(p.contains("Never recommend an insulin dose"))
+        assertTrue(p.contains("Never give an insulin dose, an amount to change a dose by, a ratio or a correction factor"))
+        assertTrue(p.contains("never insulin units"))
         assertTrue(p.contains("endocrinologist"))
         assertTrue(p.contains("treat the low first"))
         assertTrue(p.contains("\"coffee\"") && p.contains("\"chicken burger\""))

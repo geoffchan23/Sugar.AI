@@ -1,0 +1,8 @@
+# How Ray sounds (tools/ray-voice-eval.sh). One per line: `chat geoff|francine <text>` or `watch <text>`.
+chat geoff based on Francine's blood sugars and how she's been eating and what medicine she's been taking the past few weeks. what suggestions do you have?
+chat geoff how was Francine's sugar last week
+chat francine why do I keep going low at night?
+chat francine I always spike after pizza on Fridays, any tips?
+chat francine what's the best way to treat a low without bouncing high after?
+watch how am I doing today
+watch any tips for tonight

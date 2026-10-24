@@ -36,6 +36,7 @@ object AssistantTools {
     const val STATS = "get_stats"
     const val JOURNAL = "get_journal"
     const val LOWS = "get_lows"
+    const val STRATEGIES = "get_strategies"
     const val PROPOSE = "propose_entries"
     const val PROPOSE_CHANGES = "propose_changes"
     const val REPLY = "reply"
@@ -75,6 +76,13 @@ object AssistantTools {
         fn(STATS, "Standard CGM metrics for a range of days: time in range 3.9-10, below 3.9 / 3.0, above 10 / 13.9, mean, CV, GMI, coverage.", DAY_RANGE),
         fn(JOURNAL, "Logged doses and food/activity for a range of days, in time order, each with its id (for propose_changes). Entries marked guess=true were inferred from the glucose curve and not confirmed.", DAY_RANGE),
         fn(LOWS, "Every low (below 3.9) in a range of days with its nadir and duration, what was logged in the 3 hours before it, and the glucose 3h/2h/1h before.", DAY_RANGE),
+        fn(STRATEGIES, "What people with type 1 on injections do about a pattern: practical tactics from diabetes guidelines, dietitians, educators and other people with T1D. Call it before giving suggestions, tips or a 'why does this keep happening', with the patterns you found in her data and any foods involved; pick the one to three that fit her best.",
+            obj(
+                "patterns" to JSONObject().put("type", "array").put("items", JSONObject().put("type", "string").put("enum", JSONArray(Strategies.PATTERNS)))
+                    .put("description", "The patterns you saw or were asked about, most important first"),
+                "foods" to JSONObject().put("type", "array").put("items", JSONObject().put("type", "string"))
+                    .put("description", "Foods or drinks involved, lowercase (pizza, coffee, nachos); empty if none"),
+            )),
         fn(PROPOSE, "Propose new journal entries for the day entries go on, for her to confirm on screen. Call once with every entry from the message. Nothing is saved unless she confirms.",
             obj("entries" to JSONObject().put("type", "array").put("items", obj(*ENTRY_FIELDS)))),
         fn(PROPOSE_CHANGES, "Propose changes to her log for her to confirm on screen: edit or delete existing entries (by id from get_journal), or add entries on any of the last $MAX_CHANGE_DAYS days. Call once with every change. Nothing is saved unless she confirms.",
@@ -99,6 +107,7 @@ object AssistantTools {
             STATS -> stats(data, zone, days(a))
             JOURNAL -> journal(data, days(a))
             LOWS -> lows(data, zone, days(a))
+            STRATEGIES -> strategies(a)
             else -> JSONObject().put("error", "unknown tool $name")
         }.toString()
     } catch (e: Exception) {
@@ -217,6 +226,12 @@ object AssistantTools {
         }
         return JSONObject().put("from_day", from.toString()).put("to_day", to.toString())
             .put("count", episodes.size).put("lows", JSONArray(episodes))
+    }
+
+    fun strategies(a: JSONObject): JSONObject {
+        fun list(k: String) = a.optJSONArray(k)?.let { x -> (0 until x.length()).map { x.getString(it) } }.orEmpty()
+        val found = Strategies.find(list("patterns"), list("foods"))
+        return JSONObject().put("count", found.size).put("strategies", JSONArray(found.map { Strategies.toJson(it) }))
     }
 
     /** Rows from a [PROPOSE] call, validated like the Nano path's [parseBreakdown]. */

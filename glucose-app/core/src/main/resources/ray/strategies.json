@@ -1,0 +1,3631 @@
+[
+ {
+  "id": "a1c-target-individualized",
+  "title": "A1C goals bend to avoid lows",
+  "patterns": [
+   "general",
+   "hypo-unawareness"
+  ],
+  "foods": [],
+  "advice": "The usual A1C goal is about 7% or a bit under. Guidelines are clear that it should be relaxed when lows are frequent or severe. A slightly higher A1C with far fewer lows is a better result.",
+  "how": "ADA: A1C below 7% for many adults without significant hypoglycemia, and less stringent goals (for example below 8%) for those with frequent or severe lows or unawareness. Diabetes Canada: 7.0% or below for most; 7.1-8.5% for people with recurrent severe hypoglycemia or unawareness. Time in range and time below range on CGM now sit alongside A1C.",
+  "why": "A1C is an average, so it can look good while lows cancel out highs, which hides danger.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "ADA Standards of Care 2026, Sec. 6, https://doi.org/10.2337/dc26-S006",
+   "Diabetes Canada CPG Ch. 8 Targets for Glycemic Control, 2018, https://www.diabetes.ca/for-professionals/full-guidelines/chapter-8"
+  ]
+ },
+ {
+  "id": "after-low-follow-up-snack",
+  "title": "After the low: the follow-up snack",
+  "patterns": [
+   "treating-lows",
+   "overnight-lows"
+  ],
+  "foods": [],
+  "advice": "Once you're back above 4, eat your usual meal if it's due. If the next meal is more than an hour away, have a small snack with some carbs and protein so you don't slide down again.",
+  "how": "Diabetes Canada Rec. 8: once the low is reversed, eat the usual meal or snack due at that time. If the meal is more than 1 hour away, have a snack with 15 g of carbohydrate plus protein (for example 7 crackers with cheese, or 1 slice of bread with peanut butter). This matters most overnight and when a lot of insulin is still active.",
+  "why": "The fast sugar is used up within about an hour, while long-acting and recent rapid insulin keep working.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Diabetes Canada CPG Ch. 14 Hypoglycemia, Rec. 8, 2018, https://www.diabetes.ca/for-professionals/full-guidelines/chapter-14"
+  ]
+ },
+ {
+  "id": "agp-read-lows-first",
+  "title": "How clinicians read an AGP report",
+  "patterns": [
+   "cgm-use",
+   "general",
+   "high-variability"
+  ],
+  "foods": [],
+  "advice": "When an endocrinologist opens your report, they check that there's enough data, then go straight to the lows: when they happen and how deep they go. Only after that do they look at highs and then at the swings.",
+  "how": "Step 1: confirm 14 days of data with 70% or more sensor wear. Step 2: time below range, and which time blocks it falls in (overnight, late morning, after meals). Step 3: time above range and the time of day of the highs. Step 4: variability (CV; the width of the shaded 25-75% and 5-95% bands). Step 5: tie each pattern to insulin timing, food and activity. Fix one pattern at a time, starting with the lows.",
+  "why": "Highs are often caused by lows (rebound and over-treatment) and by fear of going low, so fixing the lows first takes away the reason for many of the highs.",
+  "involves_dose_change": false,
+  "evidence": "consensus",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Danne T et al., International Consensus on Use of Continuous Glucose Monitoring, Diabetes Care 2017, https://doi.org/10.2337/dc17-1600",
+   "Battelino T et al., International Consensus on Time in Range, Diabetes Care 2019, https://doi.org/10.2337/dci19-0028"
+  ]
+ },
+ {
+  "id": "aid-pump-conversation",
+  "title": "Ask about an automated insulin system",
+  "patterns": [
+   "overnight-lows",
+   "high-variability",
+   "hypo-unawareness",
+   "general"
+  ],
+  "foods": [],
+  "advice": "Given how many lows you're having, it's worth asking your team about an automated insulin delivery (AID) system: a pump that talks to your Dexcom and turns insulin down when you're heading low. Guidelines now recommend offering these to adults with type 1.",
+  "how": "ADA 2026: offer automated insulin delivery to all adults with T1D who can use it safely. Systems available in Canada work with Dexcom (for example Omnipod 5, t:slim X2 Control-IQ). Provincial pump programs (for example Ontario ADP) cover much of the cost; ask your clinic how to be referred. Overnight is where these systems help most.",
+  "why": "Automated systems adjust basal insulin every 5 minutes based on CGM readings and can suspend it before a low.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "ADA Standards of Care 2026, Sec. 7 Diabetes Technology, https://doi.org/10.2337/dc26-S007",
+   "Holt RIG et al., ADA/EASD T1D Consensus, Diabetes Care 2021, https://doi.org/10.2337/dci21-0043"
+  ]
+ },
+ {
+  "id": "alcohol-delayed-lows",
+  "title": "Alcohol and delayed lows",
+  "patterns": [
+   "alcohol",
+   "overnight-lows"
+  ],
+  "foods": [],
+  "advice": "Alcohol can cause a low many hours later, often overnight or the next morning, even if you went to bed with a good number. Drink with food, have a snack before bed, and set your alerts higher.",
+  "how": "Eat carbs while drinking and don't drink on an empty stomach. Be careful with corrections for highs from sugary drinks. Go to bed above about 7 mmol/L with a carb-plus-protein snack. Raise the Dexcom low alert for that night. Tell someone with you that you have T1D, because a low can look like being drunk. Glucagon works less well after more than 2 drinks. The risk window lasts up to about 24 hours.",
+  "why": "While the liver is busy clearing alcohol, it stops making new glucose, which removes the body's main defence against an overnight low.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "ADA Standards of Care 2026, Sec. 5 Facilitating Positive Health Behaviors, https://doi.org/10.2337/dc26-S005",
+   "Diabetes Canada CPG Ch. 14 Hypoglycemia, 2018, https://www.diabetes.ca/for-professionals/full-guidelines/chapter-14",
+   "Diabetes Canada CPG Ch. 11 Nutrition Therapy, 2018, https://www.diabetes.ca/for-professionals/full-guidelines/chapter-11"
+  ]
+ },
+ {
+  "id": "alcohol-eat-while-drinking",
+  "title": "Eat while you drink",
+  "patterns": [
+   "alcohol",
+   "overnight-lows"
+  ],
+  "foods": [
+   "beer",
+   "wine",
+   "nachos",
+   "pizza",
+   "pretzels"
+  ],
+  "advice": "Having food with alcohol is one of the simplest ways to make drinking safer with T1D. It also helps you notice and treat lows, since alcohol symptoms and low symptoms can look alike.",
+  "how": "Plan to drink with a meal or snack containing carbs. Avoid drinking on an empty stomach or after exercise. If you've had more than a couple of drinks, check before bed and consider a snack with 15-30 g of slow carbs plus protein.",
+  "why": "Food provides absorbed glucose while the liver's own glucose output is suppressed by alcohol.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Diabetes Canada. Alcohol and diabetes, n.d., https://diabetes.ca/managing-my-diabetes/tools---resources/alcohol",
+   "Tetzschner R et al. Effects of alcohol on plasma glucose and prevention of alcohol-induced hypoglycemia in type 1 diabetes: systematic review with GRADE. Diabetes Metab Res Rev, 2018, https://pubmed.ncbi.nlm.nih.gov/?term=Tetzschner+alcohol+hypoglycemia+type+1+GRADE"
+  ]
+ },
+ {
+  "id": "alcohol-night-low-plan",
+  "title": "Plan for a low after drinking, even hours later",
+  "patterns": [
+   "alcohol",
+   "overnight-lows"
+  ],
+  "foods": [],
+  "advice": "A glass or two of wine with dinner can drop you in the night or next morning, because your liver gets busy clearing alcohol instead of releasing sugar.",
+  "how": "Eat carbs with drinks, have a slower snack (toast with peanut butter, crackers and cheese) before bed even if you're in range, set the overnight Low alert a bit higher, and ask your husband to keep an eye on Follow. Some people discuss reducing basal or dinner insulin on drinking nights with their team.",
+  "why": "Alcohol suppresses the liver's glucose output for up to 12-24 hours.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "Beer and sweet drinks may raise you first, then drop you later. Glucagon is less effective after heavy drinking.",
+  "research": "community",
+  "sources": [
+   "Joslin Diabetes Center, 'Drinking with type 1: four tips', 2020, https://joslin.org/news-stories/all-news-stories/education/2020/12/drinking-type-1-four-tips-making-it",
+   "JDRF/Breakthrough T1D, 'Alcohol and Type 1 Diabetes: How to Manage a Night Out and the Morning After', https://www.jdrf.org/?p=138291",
+   "Diabetes UK Forum, 'Red wine' thread, https://forum.diabetes.org.uk/boards/threads/red-wine.78531"
+  ]
+ },
+ {
+  "id": "alcohol-types",
+  "title": "Beer vs wine vs spirits",
+  "patterns": [
+   "alcohol",
+   "carb-counting",
+   "post-meal-spikes"
+  ],
+  "foods": [
+   "beer",
+   "wine",
+   "spirits",
+   "cider",
+   "coolers",
+   "cocktails"
+  ],
+  "advice": "Different drinks act differently: regular beer, cider and coolers carry carbs that can raise glucose at first, while dry wine and straight spirits have little carb and lean toward lows later.",
+  "how": "Approximate carbs: regular beer (341 mL) 10-15 g, light beer 3-6 g, dry wine (150 mL) 3-5 g, spirits 0 g, coolers/cider 20-35 g, mixed with regular pop 25-40 g. Many people choose not to fully dose for drink carbs because of the later-low risk - talk with your team about your approach.",
+  "why": "Carbs in drinks raise glucose early, while the alcohol itself lowers it hours later, so the net effect depends on the drink.",
+  "involves_dose_change": true,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Diabetes Canada. Alcohol and diabetes, n.d., https://diabetes.ca/managing-my-diabetes/tools---resources/alcohol",
+   "Tetzschner R et al. Effects of alcohol on plasma glucose and prevention of alcohol-induced hypoglycemia in type 1 diabetes: systematic review with GRADE. Diabetes Metab Res Rev, 2018, https://pubmed.ncbi.nlm.nih.gov/?term=Tetzschner+alcohol+hypoglycemia+type+1+GRADE"
+  ]
+ },
+ {
+  "id": "artificial-sweeteners",
+  "title": "Sugar-free sweeteners",
+  "patterns": [
+   "carb-counting",
+   "post-meal-spikes",
+   "general"
+  ],
+  "foods": [
+   "sweetener",
+   "diet pop",
+   "splenda",
+   "stevia",
+   "sugar-free syrup"
+  ],
+  "advice": "Health Canada-approved sweeteners like sucralose, aspartame and stevia don't raise blood sugar and are a reasonable way to keep a sweet coffee without the carbs. Guidelines see them as fine in moderation, especially to replace sugar.",
+  "how": "Use sweetener in coffee instead of sugar to save ~4 g carbs per teaspoon. Watch 'sugar alcohols' (maltitol, sorbitol) in sugar-free candy - they can still raise glucose a bit and cause tummy upset. Keep regular pop for treating lows, diet pop for everyday.",
+  "why": "Non-nutritive sweeteners are not metabolized into glucose, so they have negligible glycemic effect.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Diabetes Canada CPG Ch.11 Nutrition Therapy (Sievenpiper et al.), 2018, https://guidelines.diabetes.ca/cpg/chapter11",
+   "Evert AB et al. Nutrition Therapy for Adults With Diabetes or Prediabetes: A Consensus Report. Diabetes Care, 2019, https://doi.org/10.2337/dci19-0014",
+   "WHO. Use of non-sugar sweeteners guideline, 2023, https://www.who.int/publications/i/item/9789240073616"
+  ]
+ },
+ {
+  "id": "avoid-bedtime-corrections",
+  "title": "Go easy on corrections at bedtime",
+  "patterns": [
+   "overnight-lows",
+   "corrections-stacking"
+  ],
+  "foods": [],
+  "advice": "A big correction right before bed is a common hidden cause of a 3 a.m. low. If you're high at bedtime, a more cautious correction is usually safer. Ask your team how they'd like you to handle bedtime highs.",
+  "how": "Check when you last took rapid insulin; if it was within about 3-4 hours, some of it is still working. Ask your team for a 'bedtime correction rule' (many use a reduced correction or a higher threshold at night). If you do correct, set the Dexcom low alert higher that night. The exercise consensus specifically advises against a correction near bedtime after exercise.",
+  "why": "Insulin taken at bedtime peaks while you're asleep and not noticing symptoms, often on top of insulin still active from supper.",
+  "involves_dose_change": true,
+  "evidence": "consensus",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Moser O et al., Glucose management for exercise using CGM and isCGM in T1D: EASD/ISPAD position statement, Diabetologia 2020, https://doi.org/10.1007/s00125-020-05263-9"
+  ]
+ },
+ {
+  "id": "avoid-chocolate-for-lows",
+  "title": "Skip chocolate, cookies and peanut butter as low treatments",
+  "patterns": [
+   "treating-lows",
+   "rebound-highs"
+  ],
+  "foods": [],
+  "advice": "It's tempting to grab whatever's around, but fat slows sugar down, so you stay low longer and then eat more.",
+  "how": "Save chocolate and cookies for after you're back over 4.0. Treat with something fat-free first (tabs, juice, candies), then if a meal is far off, have a small protein snack.",
+  "why": "Fat delays stomach emptying, so the carbs arrive late, often after you've already over-treated.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "DiabetesNet (Walsh), 'Low blood sugar treatment', https://www.diabetesnet.com/diabetes-control/low-blood-sugars/treatment/",
+   "diaTribe, 'Defeating the Hypoglycemia Binge', https://diatribe.org/diabetes-management/defeating-hypoglycemia-binge"
+  ]
+ },
+ {
+  "id": "avoid-lows-restore-awareness",
+  "title": "Fewer lows can bring back your warning signs",
+  "patterns": [
+   "hypo-unawareness",
+   "overnight-lows"
+  ],
+  "foods": [],
+  "advice": "If you've noticed you don't feel lows the way you used to, there's real hope: a few weeks of carefully avoiding lows often brings some of those warning symptoms back.",
+  "how": "People aim to keep everything above ~4.0-4.5 for 2-4 weeks (slightly higher targets, earlier alerts, careful corrections) and many report shakes and sweats returning.",
+  "why": "Each low resets the brain's threshold lower; avoiding them lets it reset back up.",
+  "involves_dose_change": false,
+  "evidence": "study",
+  "caveat": "This means running a little higher for a while; that's expected and okay.",
+  "research": "community",
+  "sources": [
+   "Adam Brown / diaTribe, 'Bright Spots & Landmines' (free book), 2017, https://diatribe.org/bright-spots-and-landmines",
+   "Dexcom Canada FAQ, 'How could I prevent nighttime lows with earlier alerts?', https://www.dexcom.com/en-ca/faqs/g7/how-could-i-prevent-nighttime-lows-with-earlier-alerts"
+  ]
+ },
+ {
+  "id": "avoid-overtreating",
+  "title": "Avoiding overtreatment of lows",
+  "patterns": [
+   "treating-lows",
+   "rebound-highs",
+   "high-variability"
+  ],
+  "foods": [
+   "juice",
+   "candy",
+   "cookies"
+  ],
+  "advice": "It's really common to keep eating during a low because you still feel awful - the symptoms often last after glucose has started rising. Overtreating then leads to a rebound high and sometimes a correction that causes the next low.",
+  "how": "Pre-measure your 15 g so you stop there. Set a 15-minute timer and wait it out (sit down, drink water). Use your CGM arrow: if it's turning up, give it more time. If you rebound high after treating, don't rush a correction - talk to your team about a plan.",
+  "why": "Glucose absorption takes 10-15 minutes and adrenaline symptoms linger, so extra eating stacks carbs that all arrive later.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Diabetes Canada CPG Ch.14 Hypoglycemia, 2018, https://guidelines.diabetes.ca/cpg/chapter14",
+   "ADA Standards of Care in Diabetes-2026, Section 6 Glycemic Goals and Hypoglycemia, 2026, https://doi.org/10.2337/dc26-S006"
+  ]
+ },
+ {
+  "id": "avoid-overtreating-lows",
+  "title": "Don't eat until you feel better",
+  "patterns": [
+   "treating-lows",
+   "rebound-highs",
+   "high-variability"
+  ],
+  "foods": [],
+  "advice": "The shaky, hungry feeling lasts longer than the low itself, so eating until it passes nearly always sends you high. Take the measured amount, then sit it out for 15 minutes.",
+  "how": "Take a fixed 15-20 g and set a 15-minute timer. Re-check with a fingerstick or watch the CGM trend arrow; the CGM lags blood by about 5-15 minutes. Repeat only if you're still below 4.0. A flat or upward arrow means the treatment is working, even while the number still looks low.",
+  "why": "Adrenaline and symptoms linger after glucose has started to rise, and the extra food on top of the hormonal (counter-regulatory) rise drives a rebound high.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Diabetes Canada CPG Ch. 14 Hypoglycemia, 2018, https://www.diabetes.ca/for-professionals/full-guidelines/chapter-14",
+   "ADA Standards of Care 2026, Sec. 6, https://doi.org/10.2337/dc26-S006"
+  ]
+ },
+ {
+  "id": "bagel-carbs",
+  "title": "Bagels are bigger than they look",
+  "patterns": [
+   "carb-counting",
+   "post-meal-spikes",
+   "morning-highs"
+  ],
+  "foods": [
+   "bagel",
+   "cream cheese"
+  ],
+  "advice": "A lot of people are surprised that a big bakery or coffee-shop bagel can carry 50-60 g of carbs or more - about the same as three or four slices of bread. That's one of the most common sources of a morning spike.",
+  "how": "Check the nutrition info for your usual brand (Tim Hortons, grocery-store, Montreal-style vary a lot). Options: half a bagel with an egg or peanut butter, a thin/mini bagel, or a whole-grain version. Pairing with protein (egg, smoked salmon) can soften the rise.",
+  "why": "Bagels are dense, low-fibre refined starch that digests quickly, so the carbs hit fast and in a large amount.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Tim Hortons Canada. Nutrition & Allergens, n.d., https://www.timhortons.ca/nutrition-and-allergens",
+   "Health Canada. Canadian Nutrient File, n.d., https://food-nutrition.canada.ca/cnf-fce/"
+  ]
+ },
+ {
+  "id": "basal-check-overnight-test",
+  "title": "The overnight basal check (flat-line test)",
+  "patterns": [
+   "overnight-lows",
+   "morning-highs",
+   "cgm-use"
+  ],
+  "foods": [],
+  "advice": "Educators use a simple test to see whether the long-acting is right: a clean night with no late food or correction, and see whether your line stays flat. If it falls a lot, the long-acting is probably strong. If it climbs, it may be weak.",
+  "how": "Eat supper early (finish by about 18:00-19:00) and keep it low in fat. No snacks after it and no correction insulin after supper. Go to bed in range (not low), and don't do it after a day of exercise or alcohol, or while sick. Watch the CGM from about 4 hours after the supper bolus until breakfast. A change of more than about 1.5-2 mmol/L up or down overnight suggests the basal needs looking at. Repeat on 2-3 nights before drawing a conclusion. If you go below 4.0, stop the test and treat the low; that itself is the answer. Share the results with your team rather than adjusting on your own.",
+  "why": "Removing food and rapid insulin isolates the effect of the basal insulin, so the shape of the line shows whether basal matches what the liver releases overnight.",
+  "involves_dose_change": true,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Holt RIG et al., ADA/EASD T1D Consensus, Diabetes Care 2021, https://doi.org/10.2337/dci21-0043",
+   "Diabetes Canada CPG Ch. 12 Glycemic Management in Adults with T1D, 2018, https://www.diabetes.ca/for-professionals/full-guidelines/chapter-12"
+  ]
+ },
+ {
+  "id": "basal-test-overnight",
+  "title": "Do a simple overnight basal check",
+  "patterns": [
+   "overnight-lows",
+   "morning-highs",
+   "general"
+  ],
+  "foods": [],
+  "advice": "Before changing anything, a clean overnight test tells you whether your long-acting dose is right.",
+  "how": "Eat an early, simple, low-fat dinner (by 6 p.m.), no snacks or corrections after, and watch the G7 overnight. Ideally you stay within about 1.5-2 mmol/L of where you went to bed. Repeat on 2-3 nights; stop and treat if you go under 4.",
+  "why": "Removing food and rapid insulin isolates what the background insulin is doing.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "Don't do it while sick, after a hard workout day, or after drinking.",
+  "research": "community",
+  "sources": [
+   "Gary Scheiner, 'Think Like a Pancreas' (book, 3rd ed.), 2020 (basal testing, exercise and meal-dosing chapters)",
+   "Juicebox Podcast (Scott Benner), 'Type 1 Diabetes Pro Tips' series: Pre Bolus, Bump and Nudge (#34, #44), Setting Basal Insulin (#37), Fat and Protein (#39), https://podbay.fm/p/type-1-diabetes-pro-tips",
+   "Diabetes UK Forum, 'Splitting Lantus dose' thread, https://forum.diabetes.org.uk/boards/threads/splitting-lantus-dose.15061"
+  ]
+ },
+ {
+  "id": "basal-timing-option",
+  "title": "When you take the long-acting matters",
+  "patterns": [
+   "overnight-lows",
+   "late-morning-lows",
+   "morning-highs"
+  ],
+  "foods": [],
+  "advice": "Long-acting insulins aren't perfectly flat, and the timing of the dose can put more of its effect overnight or in the morning. If your lows cluster at one time of day, ask your team whether moving the dose or splitting it would help.",
+  "how": "Take it at the same time every day; set a phone alarm. If you take it at bedtime and the lows are in the early morning, or you take it in the morning and the lows are late morning to midday, mention that pattern. Your team may suggest moving or splitting the dose. Don't move it by more than an hour or two on your own without a plan, because you can end up with overlap or a gap.",
+  "why": "Glargine U100 and detemir can have a mild peak and may last less than 24 hours in some people, which puts more effect at certain times.",
+  "involves_dose_change": true,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Holt RIG et al., ADA/EASD T1D Consensus, Diabetes Care 2021, https://doi.org/10.2337/dci21-0043"
+  ]
+ },
+ {
+  "id": "basal-vs-bolus-from-cgm",
+  "title": "Is it the long-acting or the mealtime insulin?",
+  "patterns": [
+   "overnight-lows",
+   "post-meal-lows",
+   "late-morning-lows",
+   "post-meal-spikes",
+   "general"
+  ],
+  "foods": [],
+  "advice": "A simple rule: problems that show up overnight or long after a meal point to the long-acting. Problems in the 1-4 hours after eating point to the mealtime dose, its timing, or the carb count.",
+  "how": "Basal window: overnight, and any stretch 4-5 hours or more after the last rapid dose with no food. Bolus window: 1-4 hours after a meal or correction. Look for the same thing happening at the same time on 3 or more days out of 14. Rough guide: a low 1-3 hours after a meal means the meal dose was too strong for that meal or the pre-bolus was too long. A high 1-2 hours after a meal that comes back to target means a timing issue. Still high 4 hours later means too little meal insulin or a fatty meal. Change one thing at a time, then wait several days before judging it.",
+  "why": "Rapid insulin peaks at about 1-2 hours and is mostly gone by 4-5 hours, so the timing of a problem tells you which insulin is responsible.",
+  "involves_dose_change": true,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Holt RIG et al., ADA/EASD T1D Consensus, Diabetes Care 2021, https://doi.org/10.2337/dci21-0043",
+   "Danne T et al., International Consensus on Use of CGM, Diabetes Care 2017, https://doi.org/10.2337/dc17-1600"
+  ]
+ },
+ {
+  "id": "bedtime-check-and-snack",
+  "title": "Bedtime check and a bedtime snack",
+  "patterns": [
+   "overnight-lows",
+   "sleep",
+   "eating-patterns"
+  ],
+  "foods": [],
+  "advice": "Look at your Dexcom before bed every night. If you're on the low side, or drifting down, have a small snack with some protein before you sleep. That's a short-term safety net while your team sorts out the bigger fix.",
+  "how": "Many educators suggest a snack of about 15 g of carbs with protein (for example toast with peanut butter, or crackers and cheese) when bedtime glucose is below about 7 mmol/L, falling, or after exercise or alcohol that day. Don't take bolus insulin for a snack whose purpose is preventing a low. Diabetes Canada recommends more checks, including some during sleep, for people with nocturnal lows. If you're having snacks every night just to stay safe, tell your team: it means the insulin needs adjusting.",
+  "why": "Slowly digested carbs with protein bridge the hours when basal insulin and any remaining meal insulin outpace the body's needs.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Diabetes Canada CPG Ch. 14 Hypoglycemia, Rec. 3.3, 2018, https://www.diabetes.ca/for-professionals/full-guidelines/chapter-14",
+   "ADA Standards of Care 2026, Sec. 6, https://doi.org/10.2337/dc26-S006"
+  ]
+ },
+ {
+  "id": "bedtime-snack-choices",
+  "title": "Good bedtime snack choices",
+  "patterns": [
+   "overnight-lows",
+   "eating-patterns"
+  ],
+  "foods": [
+   "whole grain toast",
+   "peanut butter",
+   "greek yogurt",
+   "cheese",
+   "crackers",
+   "milk",
+   "apple"
+  ],
+  "advice": "If you do have a bedtime snack, pick something that releases slowly rather than something sugary. Slow carb plus a bit of protein or fat tends to last longer through the night.",
+  "how": "Ideas with about 15-20 g carb: 1 slice whole-grain toast with peanut butter; 3/4 cup plain Greek yogurt with berries; 4-6 whole-grain crackers with cheese; a cup of milk with a few almonds; half an apple with peanut butter.",
+  "why": "Fibre, fat and protein slow digestion so the glucose arrives gradually over a few hours instead of all at once.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Kalergis M et al. Optimizing insulin delivery: role of bedtime snacks in nocturnal hypoglycemia in T1D (cornstarch vs standard snack). Diabetes Care, 2003, https://doi.org/10.2337/diacare.26.1.9",
+   "ISPAD Clinical Practice Consensus Guidelines 2022: Nutritional management in children and adolescents with diabetes (Annan et al.), 2022, https://www.ispad.org/page/ISPADGuidelines2022"
+  ]
+ },
+ {
+  "id": "bedtime-snack-evidence",
+  "title": "Bedtime snacks: what the evidence says",
+  "patterns": [
+   "overnight-lows",
+   "eating-patterns"
+  ],
+  "foods": [
+   "toast",
+   "peanut butter",
+   "yogurt",
+   "cheese",
+   "crackers"
+  ],
+  "advice": "Research on routine bedtime snacks in T1D is mixed - some studies show fewer overnight lows, others show no benefit and some higher mornings. They're a tool for certain nights, not a requirement.",
+  "how": "A bedtime snack tends to make sense when: glucose is under about 7 mmol/L at bed with insulin still active, after exercise in the afternoon or evening, or after alcohol. Otherwise, many people do fine without one.",
+  "why": "Slow carb plus protein provides glucose over several hours, but routine use adds calories and can mask an insulin mismatch.",
+  "involves_dose_change": false,
+  "evidence": "study",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Raju B et al. Nocturnal hypoglycemia in type 1 diabetes: an assessment of preventive bedtime treatments. J Clin Endocrinol Metab, 2006, https://academic.oup.com/jcem/article/91/6/2087/2843397",
+   "Kalergis M et al. Optimizing insulin delivery: role of bedtime snacks in nocturnal hypoglycemia in T1D (cornstarch vs standard snack). Diabetes Care, 2003, https://doi.org/10.2337/diacare.26.1.9",
+   "Axelsen M et al. Nocturnal glycaemic decline prevented by bedtime uncooked cornstarch in T1D. Diabet Med, 1999, https://gupea.ub.gu.se/handle/2077/12841"
+  ]
+ },
+ {
+  "id": "bedtime-snack-is-a-bandaid",
+  "title": "If you need a snack every night, it's probably the insulin",
+  "patterns": [
+   "overnight-lows"
+  ],
+  "foods": [],
+  "advice": "Snacking to stay safe is fine on occasion, but if it's every night, the overnight insulin is likely a bit strong for you. That's worth fixing at the source.",
+  "how": "Look at 3-4 nights where you didn't eat after dinner. If you drop more than ~1.5-2 mmol/L from bedtime to waking (or from 3 hours after dinner to 3 a.m.) with no food, bring that pattern to your diabetes team.",
+  "why": "A steady overnight fall without food or recent rapid insulin points to basal being more than you need.",
+  "involves_dose_change": true,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "Diabetes UK Forum, 'Bedtime snacks for type 1 diabetic', https://forum.diabetes.org.uk/boards/threads/bedtime-snacks-for-type-1-diabetic.114875",
+   "Gary Scheiner, 'Think Like a Pancreas' (book, 3rd ed.), 2020 (basal testing, exercise and meal-dosing chapters)",
+   "Diabetes UK Forum, 'Basal insulin at night' thread, https://forum.diabetes.org.uk/boards/threads/basal-insulin-at-night.94866/latest"
+  ]
+ },
+ {
+  "id": "bedtime-snack-protein-slow-carb",
+  "title": "A protein-plus-slow-carb snack when bedtime is lowish",
+  "patterns": [
+   "overnight-lows",
+   "eating-patterns",
+   "sleep"
+  ],
+  "foods": [],
+  "advice": "If you go to bed below about 7 and tend to drift down overnight, a small snack with protein and slow carbs is a classic, low-effort guard.",
+  "how": "Ideas people swear by: a slice of seeded/whole-grain toast with peanut butter, peanut butter on 4-5 crackers (~15 g carbs), Greek yogurt, an apple with peanut butter, a glass of milk with a couple of plain cookies, half a banana, oatcakes. Many use a threshold: snack if under ~7.0 at bed, no snack if over 8.",
+  "why": "Protein and fat slow absorption so the sugar trickles in over hours, matching a slow overnight drop.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "An uncovered snack night after night is a bandage. If you need one every night, the basal or dinner dose likely needs a look with your team.",
+  "research": "community",
+  "sources": [
+   "Diabetes UK Forum, 'Bedtime snacks for type 1 diabetic', https://forum.diabetes.org.uk/boards/threads/bedtime-snacks-for-type-1-diabetic.114875",
+   "Breakthrough T1D Forum, 'Tips for night time snacks', https://forum.breakthrought1d.org/t/tips-for-night-time-snacks/74280",
+   "Gluroo blog, '10 Bedtime Snack Ideas for Type 1 Diabetes', https://gluroo.com/blog/nutrition/bedtime-snack-ideas-type-1-diabetes/"
+  ]
+ },
+ {
+  "id": "bolus-after-when-unsure",
+  "title": "If you're not sure you'll finish the meal, dose after",
+  "patterns": [
+   "post-meal-lows",
+   "pre-bolus",
+   "carb-counting"
+  ],
+  "foods": [],
+  "advice": "If you're dropping before a meal, or not sure how much you'll eat (restaurant, a dinner party), it's okay to inject after you see what you actually ate.",
+  "how": "Inject as you finish, for what you ate. Fiasp/Lyumjev users often do this routinely.",
+  "why": "Dosing for food not eaten is a main cause of post-meal lows.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "Expect a larger spike than with a pre-bolus.",
+  "research": "community",
+  "sources": [
+   "Diabetes UK Forum, 'Swapping to Lyumjev from NovoRapid - your experiences please', https://forum.diabetes.org.uk/boards/threads/swapping-to-lyumjev-from-novor-your-experiences-please.118180/latest",
+   "diaTribe, 'Pizza and Blood Sugar Control: (Not Quite) Easy as Pie', https://diatribe.org/diet-and-nutrition/pizza-and-blood-sugar-control-not-quite-easy-pie"
+  ]
+ },
+ {
+  "id": "breakfast-hardest",
+  "title": "Why breakfast is often the hardest meal",
+  "patterns": [
+   "morning-highs",
+   "post-meal-spikes",
+   "eating-patterns"
+  ],
+  "foods": [
+   "cereal",
+   "bagel",
+   "toast",
+   "coffee",
+   "juice",
+   "muffin"
+  ],
+  "advice": "Lots of people with T1D find breakfast spikes the most, even with the same carbs as lunch. That's because the body is more insulin-resistant in the morning from overnight hormones - it's biology, not willpower.",
+  "how": "Options that often help: a lower-carb or higher-protein breakfast (eggs, Greek yogurt, peanut butter on whole-grain toast), avoiding juice and sweetened cereals in the morning, longer pre-bolus time. If mornings are consistently harder, your team may suggest a different insulin-to-carb ratio for breakfast.",
+  "why": "Cortisol and growth hormone rise in the early morning (dawn phenomenon), increasing insulin resistance for several hours.",
+  "involves_dose_change": false,
+  "evidence": "consensus",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Porcellati F et al. Pathophysiology of the dawn phenomenon / morning insulin resistance in T1D. Diabetes Care, 2013, https://pubmed.ncbi.nlm.nih.gov/?term=Porcellati+dawn+phenomenon+type+1+diabetes",
+   "ISPAD Clinical Practice Consensus Guidelines 2022: Nutritional management in children and adolescents with diabetes (Annan et al.), 2022, https://www.ispad.org/page/ISPADGuidelines2022"
+  ]
+ },
+ {
+  "id": "burnout-small-wins",
+  "title": "Burnout: focus on one small thing",
+  "patterns": [
+   "motivation-burnout"
+  ],
+  "foods": [],
+  "advice": "After 30 years, being tired of diabetes is normal. Picking just one thing to work on makes it manageable.",
+  "how": "Pick one pattern (e.g., overnight lows) and work on it for 2 weeks; ignore the rest. Adam Brown's 'Bright Spots': notice what's working and do more of it.",
+  "why": "Small achievable goals reduce overwhelm.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "If feelings of hopelessness last more than two weeks, talk to your care team.",
+  "research": "community",
+  "sources": [
+   "Adam Brown / diaTribe, 'Bright Spots & Landmines' (free book), 2017, https://diatribe.org/bright-spots-and-landmines",
+   "CDC, '10 Tips for Coping with Diabetes Distress', https://www.cdc.gov/diabetes/articles/10-tips-coping-diabetes-distress.html",
+   "NDSS (Australia), 'Diabetes distress and burnout', https://www.ndss.com.au/looking-after-your-mind/when-diabetes-makes-it-tough/diabetes-distress-and-burnout/"
+  ]
+ },
+ {
+  "id": "burnout-talk-team",
+  "title": "Tell your care team how you feel",
+  "patterns": [
+   "motivation-burnout"
+  ],
+  "foods": [],
+  "advice": "Diabetes distress is common and treatable. Your diabetes educator or doctor wants to hear about it.",
+  "how": "Mention it at your next appointment, or ask for a referral to a psychologist or social worker familiar with diabetes; in Canada, Diabetes Canada and Breakthrough T1D Canada have peer-support programs.",
+  "why": "Distress is linked to worse glucose outcomes; support helps both.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "CDC, '10 Tips for Coping with Diabetes Distress', https://www.cdc.gov/diabetes/articles/10-tips-coping-diabetes-distress.html",
+   "NDSS (Australia), 'Diabetes distress and burnout', https://www.ndss.com.au/looking-after-your-mind/when-diabetes-makes-it-tough/diabetes-distress-and-burnout/"
+  ]
+ },
+ {
+  "id": "carb-accuracy-matters",
+  "title": "How accurate does carb counting need to be?",
+  "patterns": [
+   "carb-counting",
+   "post-meal-lows",
+   "post-meal-spikes",
+   "high-variability"
+  ],
+  "foods": [],
+  "advice": "Being within about 10 g of a meal's true carbs usually doesn't make a big difference, but misses of 20 g or more often do. Adults with T1D tend to overestimate some foods and underestimate others, and bigger errors are linked to more glucose swings.",
+  "how": "Focus your accuracy effort on the big carb items (bagels, pizza crust, nachos, rice, pasta, sweet drinks) rather than small extras. If lows after a particular meal keep happening, re-check that meal's carb estimate first - it's often overestimated.",
+  "why": "Errors scale with portion size, so the largest carb sources produce the largest insulin-to-carb mismatches.",
+  "involves_dose_change": false,
+  "evidence": "study",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Brazeau AS et al. Carbohydrate counting accuracy and blood glucose variability in adults with type 1 diabetes. Diabetes Res Clin Pract, 2013, https://doi.org/10.1016/j.diabres.2012.10.024",
+   "Smart CE et al. Can children with type 1 diabetes and their caregivers estimate the carbohydrate content of meals and snacks? / carb-estimation error of 10 g vs 20 g. Diabet Med, 2009-2010, https://pubmed.ncbi.nlm.nih.gov/?term=Smart+CE+carbohydrate+counting+accuracy+type+1"
+  ]
+ },
+ {
+  "id": "carb-counting-accuracy",
+  "title": "Carb counting: close is good enough",
+  "patterns": [
+   "carb-counting",
+   "post-meal-lows",
+   "post-meal-spikes"
+  ],
+  "foods": [],
+  "advice": "You don't have to be perfect. Being within about 10 grams per meal is usually fine. Over-estimating carbs is a common hidden cause of after-meal lows.",
+  "how": "Re-check the counts for meals you eat often (weigh them once or twice, or use the label). A refresher with a dietitian helps after years of estimating. If a particular meal keeps dropping you low, recount it before blaming the ratio.",
+  "why": "Studies show that errors of about ±10 g per meal usually stay within target, while bigger errors cause predictable highs or lows.",
+  "involves_dose_change": false,
+  "evidence": "study",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Smart CE et al., Children and adolescents on intensive insulin therapy maintain postprandial glycaemic control without precise carbohydrate counting, Diabet Med 2009, https://doi.org/10.1111/j.1464-5491.2009.02669.x",
+   "Diabetes Canada CPG Ch. 11 Nutrition Therapy, 2018, https://www.diabetes.ca/for-professionals/full-guidelines/chapter-11"
+  ]
+ },
+ {
+  "id": "carb-counting-core-skill",
+  "title": "Carb counting is the core skill on MDI",
+  "patterns": [
+   "carb-counting",
+   "post-meal-spikes",
+   "post-meal-lows"
+  ],
+  "foods": [],
+  "advice": "On injections, carb counting is what lets you eat flexibly - so it's worth a periodic tune-up, even after 30 years. People often find their 'eyeball' estimates have drifted over time, especially for restaurant food.",
+  "how": "Once or twice a year, weigh or measure your usual foods for a week (your cereal bowl, bagel, pasta portion) and compare with your estimates. Read the 'Total carbohydrate' line on Canadian labels and check the serving size against what you actually eat.",
+  "why": "Mealtime insulin is matched to carbohydrate, so an under- or over-estimate shows up directly as a post-meal high or low.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Evert AB et al. Nutrition Therapy for Adults With Diabetes or Prediabetes: A Consensus Report. Diabetes Care, 2019, https://doi.org/10.2337/dci19-0014",
+   "Diabetes Canada CPG Ch.11 Nutrition Therapy (Sievenpiper et al.), 2018, https://guidelines.diabetes.ca/cpg/chapter11",
+   "ADA Standards of Care in Diabetes-2026, Section 5 Facilitating Positive Health Behaviors, 2026, https://doi.org/10.2337/dc26-S005"
+  ]
+ },
+ {
+  "id": "cgm-alert-settings-overnight",
+  "title": "Set your Dexcom alerts to catch lows early",
+  "patterns": [
+   "overnight-lows",
+   "cgm-use",
+   "hypo-unawareness",
+   "sleep"
+  ],
+  "foods": [],
+  "advice": "Your Dexcom can warn you before you're actually low, which matters most at night. Set the low alert higher than 3.9, and make sure the alarms are loud enough to wake you.",
+  "how": "In the G7 app: set the Low alert at 4.4 mmol/L or higher (the exercise consensus suggests 4.4 overnight, higher if you're at elevated risk, for example 5.0-5.6 after exercise or alcohol). Keep the 'Urgent Low Soon' alert on; it warns about 20 minutes before reaching 3.1. Turn on the falling rate alert. Check that the phone isn't on Do Not Disturb silencing alerts, and keep it near the bed. Consider Dexcom Follow so a partner gets the alerts too. When the low alert sounds with a down arrow, a small snack of 10-15 g can head the low off.",
+  "why": "An earlier alert gives a window to eat before going below 3.0, and lows that sit for hours usually mean the alarm wasn't heard or acted on.",
+  "involves_dose_change": false,
+  "evidence": "consensus",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Moser O et al., EASD/ISPAD position statement on exercise with CGM, Diabetologia 2020, https://doi.org/10.1007/s00125-020-05263-9",
+   "ADA Standards of Care 2026, Sec. 7 Diabetes Technology, https://doi.org/10.2337/dc26-S007"
+  ]
+ },
+ {
+  "id": "cgm-confirm-with-fingerstick",
+  "title": "When to double-check the Dexcom with a fingerstick",
+  "patterns": [
+   "cgm-use",
+   "treating-lows"
+  ],
+  "foods": [],
+  "advice": "Your Dexcom is very good, but check with a fingerstick when the reading doesn't match how you feel, during the first day of a new sensor, or while glucose is changing fast.",
+  "how": "Do a fingerstick when symptoms don't match the reading, on sensor day 1, after a compression-type drop, or before driving if the reading is borderline. Dexcom can be calibrated in the app if it's consistently off. CGM lags blood by about 5-15 minutes, more during rapid change or exercise.",
+  "why": "Interstitial fluid glucose trails blood glucose, especially when levels are changing rapidly.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "ADA Standards of Care 2026, Sec. 7, https://doi.org/10.2337/dc26-S007",
+   "Diabetes Canada CPG Ch. 9 Monitoring Glycemic Control, 2018, https://www.diabetes.ca/for-professionals/full-guidelines/chapter-9"
+  ]
+ },
+ {
+  "id": "cgm-food-experiments",
+  "title": "Using your CGM to learn your foods",
+  "patterns": [
+   "cgm-use",
+   "post-meal-spikes",
+   "post-meal-lows",
+   "carb-counting"
+  ],
+  "foods": [
+   "pizza",
+   "bagel",
+   "coffee",
+   "nachos"
+  ],
+  "advice": "Your CGM is a great tool for learning how your favourite foods behave - not to judge, just to understand. Many people find it really eye-opening.",
+  "how": "Pick one meal you eat often. For 3 times, record the carb estimate, dose time, and CGM at 0, 1, 2, 3 and 4 hours. Look for patterns: early dip? late rise? Share with your team. Most CGM apps let you add meal notes.",
+  "why": "Repeated observations show your personal response, which can differ from general averages.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "ADA Standards of Care in Diabetes-2026, Section 6 Glycemic Goals and Hypoglycemia, 2026, https://doi.org/10.2337/dc26-S006",
+   "Bell KJ et al. Impact of Fat, Protein, and Glycemic Index on Postprandial Glucose Control in Type 1 Diabetes. Diabetes Care, 2015, https://doi.org/10.2337/dc15-0100"
+  ]
+ },
+ {
+  "id": "cgm-targets-tir-tbr",
+  "title": "The CGM targets that matter",
+  "patterns": [
+   "general",
+   "cgm-use",
+   "high-variability"
+  ],
+  "foods": [],
+  "advice": "The international targets are more than 70% of the time between 3.9 and 10, less than 4% of the time below 3.9 and less than 1% below 3.0. Your lows are the number to work on first. Bringing them down usually helps everything else too.",
+  "how": "Targets for most adults with T1D: time in range (3.9-10.0 mmol/L) above 70% (about 17 h/day); time below 3.9 under 4% (under 1 h/day); time below 3.0 under 1% (under 15 min/day); time above 10.0 under 25%; time above 13.9 under 5%; CV 36% or less. Judge them on at least 14 days of data with the sensor worn 70% or more of the time. For people at high risk of hypoglycemia, the consensus loosens the goals to time in range above 50% and time below 3.9 under 1%. Every 5% gain in time in range is clinically meaningful.",
+  "why": "Time below range is the metric most directly tied to immediate danger, so the consensus treats cutting it as the first priority, ahead of raising time in range.",
+  "involves_dose_change": false,
+  "evidence": "consensus",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Battelino T et al., Clinical Targets for CGM Data Interpretation: International Consensus on Time in Range, Diabetes Care 2019, https://doi.org/10.2337/dci19-0028",
+   "ADA Standards of Care 2026, Sec. 6 Glycemic Goals, Hypoglycemia, and Hyperglycemic Crises, https://doi.org/10.2337/dc26-S006"
+  ]
+ },
+ {
+  "id": "change-one-thing-at-a-time",
+  "title": "Change one thing at a time",
+  "patterns": [
+   "general",
+   "high-variability",
+   "motivation-burnout"
+  ],
+  "foods": [],
+  "advice": "It works best to fix one pattern at a time, overnight first, then each meal, and give each change a few days before judging it. Lots of changes at once make it impossible to tell what worked.",
+  "how": "Order clinicians use: 1) stop the lows, especially overnight; 2) get fasting and overnight steady (basal); 3) then meals, one at a time; 4) then the variability. After any change agreed with your team, wait about 3-7 days before judging it. Review a 14-day AGP every 2-4 weeks.",
+  "why": "Basal changes take 2-3 days to settle, and day-to-day noise hides the effect of any single change.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Danne T et al., International Consensus on Use of CGM, Diabetes Care 2017, https://doi.org/10.2337/dc17-1600",
+   "Holt RIG et al., ADA/EASD T1D Consensus, Diabetes Care 2021, https://doi.org/10.2337/dci21-0043"
+  ]
+ },
+ {
+  "id": "check-dinner-bolus-tail",
+  "title": "Late lows can be the dinner shot, not the basal",
+  "patterns": [
+   "overnight-lows",
+   "post-meal-lows"
+  ],
+  "foods": [],
+  "advice": "Lows in the first half of the night are often the tail end of the dinner insulin, especially after a late dinner or an evening walk.",
+  "how": "Notice timing: a low 2-5 hours after dinner points to the meal dose or ratio; a low at 3-6 a.m. with nothing eaten after 8 p.m. points more to basal. Some people eat dinner earlier, or reduce the dinner dose on nights with an after-dinner walk (discuss with your team).",
+  "why": "Rapid insulin acts for 4-5 hours, so a 7 p.m. dinner shot can still be working at midnight.",
+  "involves_dose_change": true,
+  "evidence": "community",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "Diabetes UK Forum, 'Bedtime snacks for type 1 diabetic', https://forum.diabetes.org.uk/boards/threads/bedtime-snacks-for-type-1-diabetic.114875",
+   "Breakthrough T1D Forum, 'Tips for night time snacks', https://forum.breakthrought1d.org/t/tips-for-night-time-snacks/74280"
+  ]
+ },
+ {
+  "id": "chicken-burger-meal",
+  "title": "Chicken burger and fries",
+  "patterns": [
+   "high-fat-meals",
+   "carb-counting",
+   "post-meal-spikes"
+  ],
+  "foods": [
+   "chicken burger",
+   "fries",
+   "burger"
+  ],
+  "advice": "A crispy chicken burger is a carb-and-fat combo: the bun and breading both count, and fries add a lot. It's a meal where a late rise is common.",
+  "how": "Rough guide: bun 25-35 g carbs, breaded chicken patty 10-25 g, small fries 30-40 g, medium 45-55 g. Check the restaurant's online nutrition info. Grilled chicken, a side salad or swapping half the fries for veg can lower the load.",
+  "why": "Breading and bun are refined starch, and frying fat slows absorption, combining a fast and delayed rise.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "CalorieKing food database, n.d., https://www.calorieking.com",
+   "Bell KJ et al. Impact of Fat, Protein, and Glycemic Index on Postprandial Glucose Control in Type 1 Diabetes. Diabetes Care, 2015, https://doi.org/10.2337/dc15-0100"
+  ]
+ },
+ {
+  "id": "coffee-caffeine-effects",
+  "title": "Coffee and caffeine",
+  "patterns": [
+   "morning-highs",
+   "hypo-unawareness"
+  ],
+  "foods": [
+   "coffee",
+   "tea",
+   "energy drinks"
+  ],
+  "advice": "Black coffee has almost no carbs, but some people with T1D see a modest rise after it, especially in the morning. Caffeine can also make low symptoms feel stronger - which can be a helpful warning sign.",
+  "how": "Test it yourself: try black or unsweetened coffee on a few mornings without food and watch the CGM for 2 hours. If you see a consistent bump, mention it to your team. Remember: the carbs in coffee come from milk, cream, sugar and syrups.",
+  "why": "Caffeine raises adrenaline and can reduce insulin sensitivity short-term, and it heightens adrenergic hypo symptoms.",
+  "involves_dose_change": false,
+  "evidence": "study",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Watson JM et al. Influence of caffeine on the frequency and perception of hypoglycemia in free-living patients with type 1 diabetes. Diabetes Care, 2000, https://doi.org/10.2337/diacare.23.4.455"
+  ]
+ },
+ {
+  "id": "coffee-shop-drinks",
+  "title": "Coffee shop drinks carbs",
+  "patterns": [
+   "carb-counting",
+   "post-meal-spikes"
+  ],
+  "foods": [
+   "double double",
+   "latte",
+   "iced capp",
+   "frappuccino",
+   "coffee"
+  ],
+  "advice": "Specialty coffees can hold more carbs than a meal - an Iced Capp or flavoured latte can be 40-70 g. A plain coffee with milk is a whole different story.",
+  "how": "Tim Hortons medium Double Double is roughly 20-25 g carbs (mostly sugar); a medium Iced Capp is around 50-60 g. Check the Tim Hortons nutrition calculator for your exact order. Lower-carb choices: 'Double-Double' made with sweetener instead of sugar, plain latte, or an Americano with milk.",
+  "why": "Liquid sugars absorb quickly with nothing to slow them, producing a sharp rise.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Tim Hortons Canada. Nutrition & Allergens, n.d., https://www.timhortons.ca/nutrition-and-allergens"
+  ]
+ },
+ {
+  "id": "coffee-spike",
+  "title": "Black coffee can push some people up",
+  "patterns": [
+   "morning-highs",
+   "eating-patterns"
+  ],
+  "foods": [],
+  "advice": "Even black coffee can nudge sugar up for some people. Watch your own graph; it varies a lot.",
+  "how": "Check the G7 for an hour after coffee on a few no-breakfast mornings. If you rise, people either have coffee with breakfast so it's covered, or include it in their breakfast dose planning.",
+  "why": "Caffeine raises adrenaline and can cause short-term insulin resistance.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "A latte has milk carbs (~12 g per cup of milk) that need counting.",
+  "research": "community",
+  "sources": [
+   "T1D Exchange, 'What We Learned from the Online Community in August' (compression-low, alcohol-wipe and zero-sugar polls), 2022, https://t1dexchange.org/articles/top-questions-of-the-day-august-2022",
+   "TCOYD, 'How to Treat Foot to Floor Phenomenon', 2020, https://tcoyd.org/2020/07/how-to-manage-foot-to-floor-phenomenon/",
+   "Diabetes UK Forum, 'Morning spike in sugars', https://forum.diabetes.org.uk/boards/threads/morning-spike-in-sugars.96658/latest"
+  ]
+ },
+ {
+  "id": "compression-low-check",
+  "title": "Spot compression lows from lying on the sensor",
+  "patterns": [
+   "overnight-lows",
+   "cgm-use",
+   "sleep"
+  ],
+  "foods": [],
+  "advice": "Some 'lows' at night aren't real. If you sleep on your sensor, the pressure can make the G7 read falsely low.",
+  "how": "Tell-tale shape: a sudden straight drop, then a quick bounce back up when you roll over. Check with a finger prick before treating. Wear the sensor on the side you don't sleep on, high on the back of the arm, or try the upper buttock/abdomen if you're a side-sleeper.",
+  "why": "Pressure squeezes fluid away from the sensor wire for 15-20 minutes, so it reads low.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "A slow steady fall is more likely a true low; treat it.",
+  "research": "community",
+  "sources": [
+   "T1D Exchange, 'What We Learned from the Online Community in August' (compression-low, alcohol-wipe and zero-sugar polls), 2022, https://t1dexchange.org/articles/top-questions-of-the-day-august-2022",
+   "Diabetes UK Forum, 'Compression lows on Dexcom G7 vs Libre 3', https://forum.diabetes.org.uk/boards/threads/compression-lows-on-dexcom-g7-vs-libre-3.118389",
+   "Diabetes UK Forum, 'Compression lows', https://forum.diabetes.org.uk/boards/threads/compression-lows.113122",
+   "Diabetes UK Forum, 'Bedtime snacks for type 1 diabetic', https://forum.diabetes.org.uk/boards/threads/bedtime-snacks-for-type-1-diabetic.114875"
+  ]
+ },
+ {
+  "id": "compression-lows",
+  "title": "Is that night-time low real? Compression lows",
+  "patterns": [
+   "overnight-lows",
+   "cgm-use",
+   "sleep"
+  ],
+  "foods": [],
+  "advice": "Sometimes lying on the sensor arm makes the Dexcom show a sudden steep drop that isn't real. A fingerstick tells the difference. Still, a low that lasts for hours is more likely to be genuine.",
+  "how": "Signs of a compression artifact: a sudden, very steep drop at night while you were lying on the sensor side, then a sharp bounce back up when you roll over, and no symptoms. If you're unsure, check a fingerstick before treating. Try placing the sensor where you won't lie on it. Don't brush off slow, long-lasting lows as compression; treat and report them.",
+  "why": "Pressure on the sensor site reduces blood flow to the tissue around it, which lowers the glucose the sensor reads.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "ADA Standards of Care 2026, Sec. 7 Diabetes Technology, https://doi.org/10.2337/dc26-S007",
+   "Diabetes Canada CPG Ch. 9 Monitoring Glycemic Control, 2018, https://www.diabetes.ca/for-professionals/full-guidelines/chapter-9"
+  ]
+ },
+ {
+  "id": "cornstarch-products",
+  "title": "Uncooked cornstarch snacks",
+  "patterns": [
+   "overnight-lows"
+  ],
+  "foods": [
+   "cornstarch",
+   "glucose bar"
+  ],
+  "advice": "Uncooked cornstarch is a very slowly digested starch that some people use to cover the overnight hours. Studies are small and mixed, so it's something to discuss with your team rather than a first choice.",
+  "how": "Some specialty bars containing uncooked cornstarch are sold for this purpose. Ask your diabetes educator before trying one, and watch your CGM closely on the first few nights for morning highs.",
+  "why": "Raw cornstarch is digested over 6 or more hours, releasing glucose slowly through the night.",
+  "involves_dose_change": false,
+  "evidence": "study",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Axelsen M et al. Nocturnal glycaemic decline prevented by bedtime uncooked cornstarch in T1D. Diabet Med, 1999, https://gupea.ub.gu.se/handle/2077/12841",
+   "Kalergis M et al. Optimizing insulin delivery: role of bedtime snacks in nocturnal hypoglycemia in T1D (cornstarch vs standard snack). Diabetes Care, 2003, https://doi.org/10.2337/diacare.26.1.9",
+   "Raju B et al. Nocturnal hypoglycemia in type 1 diabetes: an assessment of preventive bedtime treatments. J Clin Endocrinol Metab, 2006, https://academic.oup.com/jcem/article/91/6/2087/2843397"
+  ]
+ },
+ {
+  "id": "creamer-choice",
+  "title": "Choosing creamer and milk",
+  "patterns": [
+   "carb-counting",
+   "morning-highs"
+  ],
+  "foods": [
+   "coffee",
+   "creamer",
+   "milk",
+   "cream",
+   "oat milk"
+  ],
+  "advice": "Creamers vary a lot: plain cream has almost no carbs, while flavoured creamers and oat milk add sugar quickly. Small swaps can lower morning carbs without giving up your coffee.",
+  "how": "Per tablespoon: 10% or 18% cream ~1 g, flavoured coffee creamer ~5-6 g, milk ~0.75 g; per cup, oat milk barista ~15-20 g vs. unsweetened almond ~1 g. Measuring your pour once or twice helps make dosing more reliable.",
+  "why": "Lactose and added sugars are the carb source; fat in cream contributes almost none.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Health Canada. Canadian Nutrient File, n.d., https://food-nutrition.canada.ca/cnf-fce/"
+  ]
+ },
+ {
+  "id": "dawn-vs-somogyi",
+  "title": "High in the morning: dawn effect, or rebound after a night low?",
+  "patterns": [
+   "morning-highs",
+   "overnight-lows",
+   "rebound-highs"
+  ],
+  "foods": [],
+  "advice": "A steady climb from about 3 or 4 a.m. with no low before it is the dawn effect, from natural morning hormones. A morning high after a night-time low is usually from treating the low or from rebound. Either way, the fix starts with stopping the night lows, not taking more insulin.",
+  "how": "Look at the overnight CGM trace. Flat, then rising from about 03:00-08:00 means dawn phenomenon; a basal timing or type change may help (team decision). A low followed by a high means over-treatment or counter-regulation, so prevent the low. CGM studies show that nocturnal lows are usually followed by normal or low fasting glucose, not highs, so the classic 'Somogyi effect' is uncommon. Don't raise the long-acting for morning highs if there were lows overnight.",
+  "why": "Growth hormone and cortisol rise before waking and increase insulin resistance, while a true night low is usually followed by low or normal fasting glucose.",
+  "involves_dose_change": true,
+  "evidence": "study",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Hoi-Hansen T, Pedersen-Bjergaard U, Thorsteinsson B, The Somogyi phenomenon revisited using CGM in daily life, Diabetologia 2005, https://pubmed.ncbi.nlm.nih.gov/?term=Somogyi+phenomenon+revisited+continuous+glucose+monitoring+Hoi-Hansen",
+   "Holt RIG et al., ADA/EASD T1D Consensus, Diabetes Care 2021, https://doi.org/10.2337/dci21-0043"
+  ]
+ },
+ {
+  "id": "diabetes-distress-fear-of-hypo",
+  "title": "Diabetes fatigue and fear of lows are real",
+  "patterns": [
+   "motivation-burnout",
+   "hypo-unawareness",
+   "general"
+  ],
+  "foods": [],
+  "advice": "Thirty years of daily decisions is a lot, and frequent lows, especially at night, are frightening and exhausting. Feeling worn down is normal and worth telling your team about. It's part of diabetes care, not a failing.",
+  "how": "ADA recommends screening for diabetes distress and fear of hypoglycemia, and referral for support when needed. Ask your clinic about a social worker or psychologist with diabetes experience, or Diabetes Canada peer support. Practical relief: let tools do some of the work (CGM alerts, Dexcom Follow, asking about AID).",
+  "why": "Distress and fear of lows lead to over-eating to stay safe, missed doses and rebounds, which make control harder.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "ADA Standards of Care 2026, Sec. 5, https://doi.org/10.2337/dc26-S005",
+   "Diabetes Canada CPG Ch. 18 Diabetes and Mental Health, 2018, https://www.diabetes.ca/for-professionals/full-guidelines/chapter-18"
+  ]
+ },
+ {
+  "id": "dont-snooze-urgent",
+  "title": "Never mute the night alarms when you live with lows",
+  "patterns": [
+   "overnight-lows",
+   "hypo-unawareness",
+   "cgm-use"
+  ],
+  "foods": [],
+  "advice": "After decades of type 1, the body's own low warnings often get quieter. The phone alarm is your safety net, so keep it loud.",
+  "how": "Keep the phone charged on the nightstand (not in another room), check that Do Not Disturb doesn't silence Dexcom (it has an override), and keep volume up. Some people put the phone in a glass to amplify it.",
+  "why": "Long-duration type 1 and repeated lows blunt adrenaline warning symptoms, so you may not wake on your own.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "Dexcom FAQ, 'How can I get fewer nighttime alerts with G7?', https://www.dexcom.com/en-us/faqs/how-can-i-get-fewer-nighttime-alerts",
+   "Beyond Type 1, 'Tip Sheet for Continuous Glucose Monitors', https://beyondtype1.org/tip-sheet-for-continuous-glucose-monitors-cgms"
+  ]
+ },
+ {
+  "id": "driving-above-5",
+  "title": "Above 5 to drive",
+  "patterns": [
+   "treating-lows",
+   "hypo-unawareness",
+   "general"
+  ],
+  "foods": [],
+  "advice": "Check your Dexcom before you drive. Be above 5 and not dropping. If you go low, pull over, treat it, and wait until you've fully recovered before you drive again.",
+  "how": "Diabetes Canada guidance: don't drive if glucose is below 4.0. Be above 5.0 before driving, and keep fast sugar in the car. After treating a low, wait about 40 minutes after recovery before driving, because thinking lags behind glucose. Check every few hours on long drives.",
+  "why": "Reaction time and judgement are impaired during a low and for some time after it, even once the numbers have recovered.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Diabetes Canada CPG Ch. 21 Diabetes and Driving, 2018, https://www.diabetes.ca/for-professionals/full-guidelines/chapter-21",
+   "Diabetes Canada CPG Ch. 14 Hypoglycemia, Rec. 2, 2018, https://www.diabetes.ca/for-professionals/full-guidelines/chapter-14"
+  ]
+ },
+ {
+  "id": "exercise-carbs-before",
+  "title": "Have a few carbs before an unplanned walk",
+  "patterns": [
+   "exercise",
+   "post-meal-lows"
+  ],
+  "foods": [],
+  "advice": "If you're heading out for an unplanned walk or chore and have recently taken insulin, a few carbs beforehand is a simple safety step.",
+  "how": "Rough guide from exercise researchers: 10-20 g before light activity if no recent mealtime insulin, 15-30 g if you injected in the last 2 hours. Bring tabs.",
+  "why": "Active muscles plus active insulin pull sugar down fast.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "Baker Heart & Diabetes Institute fact sheet, 'Physical activity and type 1 diabetes', https://www.baker.edu.au/-/media/documents/fact-sheets/baker-institute_physical-activity-t1-diabetes.pdf",
+   "Riddell Lab, York University (Canada), 'Making Real-Time Insulin Adjustments', 2020, https://mriddell.lab.yorku.ca/files/2020/11/Making-Real-Time-Insulin-Adjustments.pdf"
+  ]
+ },
+ {
+  "id": "exercise-carbs-during",
+  "title": "Snacks during exercise by trend arrow",
+  "patterns": [
+   "exercise",
+   "cgm-use"
+  ],
+  "foods": [],
+  "advice": "During exercise, use the arrow as well as the number. The faster you're falling, the more carbs you need, and the earlier you take them.",
+  "how": "EASD/ISPAD CGM guidance for adults (moderate risk): at about 7.0 mmol/L with a flat arrow, 10-15 g of carbs; with a slight down arrow, 15-25 g; with a down arrow, 20-35 g. Repeat every 15-20 minutes if needed, and again if the reading hasn't risen within 30 minutes. For longer exercise: 30-60 g of carbs per hour.",
+  "why": "CGM lags blood glucose during exercise, so the trend predicts where blood glucose is now better than the number alone.",
+  "involves_dose_change": false,
+  "evidence": "consensus",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Moser O et al., EASD/ISPAD position statement, Diabetologia 2020, https://doi.org/10.1007/s00125-020-05263-9",
+   "Riddell MC et al., Lancet Diabetes Endocrinol 2017, https://doi.org/10.1016/S2213-8587(17)30014-1"
+  ]
+ },
+ {
+  "id": "exercise-evening-night-lows",
+  "title": "Afternoon or evening exercise means a lower night",
+  "patterns": [
+   "exercise",
+   "overnight-lows"
+  ],
+  "foods": [],
+  "advice": "Activity keeps working on your sugar for hours afterward. An afternoon of gardening or an evening walk often shows up as a 2 a.m. low.",
+  "how": "On active days: have a bedtime snack even if in range, raise the overnight Low alert, and talk to your team about a lower dinner dose on those days.",
+  "why": "Muscles refill their glycogen stores for up to 24 hours after activity, pulling sugar from the blood.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "Baker Heart & Diabetes Institute fact sheet, 'Physical activity and type 1 diabetes', https://www.baker.edu.au/-/media/documents/fact-sheets/baker-institute_physical-activity-t1-diabetes.pdf",
+   "Riddell Lab, York University (Canada), 'Making Real-Time Insulin Adjustments', 2020, https://mriddell.lab.yorku.ca/files/2020/11/Making-Real-Time-Insulin-Adjustments.pdf",
+   "Breakthrough T1D Forum, 'Tips for night time snacks', https://forum.breakthrought1d.org/t/tips-for-night-time-snacks/74280"
+  ]
+ },
+ {
+  "id": "exercise-overnight-lows",
+  "title": "Exercise lows can show up that night",
+  "patterns": [
+   "exercise",
+   "overnight-lows"
+  ],
+  "foods": [],
+  "advice": "Afternoon or evening activity, including heavy gardening, a long walk or a busy day on your feet, can cause a low 6 to 15 hours later, often in the middle of the night. On those days, plan your bedtime ahead.",
+  "how": "After afternoon or evening exercise: set the overnight low alert at 4.4 mmol/L or higher; have a carb-plus-protein bedtime snack; avoid bedtime corrections; at 4.4 overnight, take 10 g of carbs with a flat arrow or 15 g with a slight down arrow, and more if it's falling faster. For MDI, the consensus mentions trimming the basal on heavy-activity days; ask your team whether and how much.",
+  "why": "Muscles keep refilling their glycogen stores and stay more sensitive to insulin for up to about 24 hours after exercise.",
+  "involves_dose_change": true,
+  "evidence": "consensus",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Moser O et al., EASD/ISPAD position statement, Diabetologia 2020, https://doi.org/10.1007/s00125-020-05263-9",
+   "Riddell MC et al., Lancet Diabetes Endocrinol 2017, https://doi.org/10.1016/S2213-8587(17)30014-1"
+  ]
+ },
+ {
+  "id": "exercise-pre-targets",
+  "title": "Where to be before exercise",
+  "patterns": [
+   "exercise"
+  ],
+  "foods": [],
+  "advice": "Before moderate exercise like a brisk walk, aim to start somewhere around 7 to 10. Below 5, have a snack and wait before starting.",
+  "how": "Starting glucose: ideally 7.0-10.0 mmol/L; if you're at high risk of lows, the consensus suggests starting a bit higher. 5.0-6.9: have 10-20 g of carbs first, depending on the arrow. Below 5.0: take carbs and delay until you're at least 5.0 and rising. Above 15.0: check blood ketones; above 1.5 mmol/L, don't exercise. Stop exercising if you fall below about 4.4-5.0 during it, treat, and restart only once you're at least 5.0 with a flat or rising arrow. Never exercise below 3.0.",
+  "why": "Working muscles take up glucose without needing insulin, and that adds to the insulin already circulating, so the starting level needs a buffer.",
+  "involves_dose_change": false,
+  "evidence": "consensus",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Riddell MC et al., Exercise management in T1D: a consensus statement, Lancet Diabetes Endocrinol 2017, https://doi.org/10.1016/S2213-8587(17)30014-1",
+   "Moser O et al., EASD/ISPAD position statement, Diabetologia 2020, https://doi.org/10.1007/s00125-020-05263-9"
+  ]
+ },
+ {
+  "id": "exercise-reduce-meal-bolus",
+  "title": "Exercising after a meal: a lighter mealtime dose",
+  "patterns": [
+   "exercise",
+   "post-meal-lows"
+  ],
+  "foods": [],
+  "advice": "If you're going to be active within an hour or two after eating, the mealtime insulin for that meal is usually reduced. Ask your team for a personal 'exercise meal' rule.",
+  "how": "The 2017 consensus suggests a reduced pre-exercise meal bolus, with the size of the reduction depending on how hard and how long the exercise is. Your team sets the amount. Exercising when there's a lot of rapid insulin on board (the first 90 minutes after a bolus) carries the highest risk of a low. Fasted morning exercise (before breakfast insulin) carries the lowest risk of a low.",
+  "why": "Insulin from the meal dose peaks at the same time as the muscles' glucose uptake, so the two effects add together.",
+  "involves_dose_change": true,
+  "evidence": "consensus",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Riddell MC et al., Lancet Diabetes Endocrinol 2017, https://doi.org/10.1016/S2213-8587(17)30014-1",
+   "ADA Standards of Care 2026, Sec. 5, https://doi.org/10.2337/dc26-S005"
+  ]
+ },
+ {
+  "id": "exercise-reduce-meal-dose",
+  "title": "Lower the meal dose before planned activity",
+  "patterns": [
+   "exercise",
+   "post-meal-lows"
+  ],
+  "foods": [],
+  "advice": "If you know you'll be active within a couple of hours after eating, lowering that meal's dose is better than eating extra later.",
+  "how": "Exercise guidelines give percentage reductions by intensity and timing; ask your team for your own starting point, then test it on a few walks with the G7 and tabs handy.",
+  "why": "Activity increases insulin sensitivity, so the same dose works harder.",
+  "involves_dose_change": true,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "Baker Heart & Diabetes Institute fact sheet, 'Physical activity and type 1 diabetes', https://www.baker.edu.au/-/media/documents/fact-sheets/baker-institute_physical-activity-t1-diabetes.pdf",
+   "Diabetes UK Forum, exercise bolus-reduction discussion, https://forum.diabetes.org.uk/boards/goto/post?id=439910",
+   "Riddell Lab, York University (Canada), 'Making Real-Time Insulin Adjustments', 2020, https://mriddell.lab.yorku.ca/files/2020/11/Making-Real-Time-Insulin-Adjustments.pdf"
+  ]
+ },
+ {
+  "id": "exercise-snacks",
+  "title": "Snacks for activity",
+  "patterns": [
+   "exercise",
+   "post-meal-lows"
+  ],
+  "foods": [
+   "banana",
+   "granola bar",
+   "juice",
+   "crackers"
+  ],
+  "advice": "Activity often lowers glucose during and for hours after, so carbs before or during can prevent lows. How much depends on timing and insulin on board.",
+  "how": "For 30-60 minutes of moderate activity, many people take 15-30 g carbs before or during (banana, granola bar, juice). Check before, during and after. If activity regularly causes lows, ask your team about dose adjustments around exercise.",
+  "why": "Muscle uses more glucose during exercise and stays more insulin-sensitive for up to 24 hours afterward.",
+  "involves_dose_change": false,
+  "evidence": "consensus",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Riddell MC et al. Exercise management in type 1 diabetes: a consensus statement. Lancet Diabetes Endocrinol, 2017, https://doi.org/10.1016/S2213-8587(17)30014-1"
+  ]
+ },
+ {
+  "id": "exercise-timing-fasted",
+  "title": "Exercise before breakfast is gentler on lows",
+  "patterns": [
+   "exercise",
+   "late-morning-lows"
+  ],
+  "foods": [],
+  "advice": "Morning activity before breakfast, when there's little mealtime insulin around, is usually less likely to cause lows than exercise right after a meal shot.",
+  "how": "A morning walk before breakfast often keeps people steady or even slightly raises them. If you exercise after a meal, give it 1-2 hours after the shot or plan a lower meal dose with your team.",
+  "why": "Little rapid insulin is active in the fasted state, and morning hormones raise glucose.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "Hard or intense workouts can raise sugar briefly.",
+  "research": "community",
+  "sources": [
+   "Baker Heart & Diabetes Institute fact sheet, 'Physical activity and type 1 diabetes', https://www.baker.edu.au/-/media/documents/fact-sheets/baker-institute_physical-activity-t1-diabetes.pdf",
+   "Riddell Lab, York University (Canada), 'Making Real-Time Insulin Adjustments', 2020, https://mriddell.lab.yorku.ca/files/2020/11/Making-Real-Time-Insulin-Adjustments.pdf"
+  ]
+ },
+ {
+  "id": "exercise-type-matters",
+  "title": "Different exercise, different effect",
+  "patterns": [
+   "exercise",
+   "rebound-highs"
+  ],
+  "foods": [],
+  "advice": "Steady activity like walking, cycling or swimming tends to drop sugar. Short intense bursts or weights can push it up for a while. Mixing the two can help balance things.",
+  "how": "Doing resistance exercise before aerobic exercise, or adding a 10-second all-out sprint at the end, lowers the drop during and after exercise. A rise after intense exercise is usually temporary. Correct it cautiously (the 2020 statement suggests a reduced correction, and avoiding corrections near bedtime), because a late low can follow.",
+  "why": "Intense effort releases adrenaline and cortisol, which push glucose out of the liver, while steady aerobic exercise mainly increases how much glucose the muscles use.",
+  "involves_dose_change": false,
+  "evidence": "consensus",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Riddell MC et al., Lancet Diabetes Endocrinol 2017, https://doi.org/10.1016/S2213-8587(17)30014-1",
+   "Moser O et al., Diabetologia 2020, https://doi.org/10.1007/s00125-020-05263-9"
+  ]
+ },
+ {
+  "id": "faster-insulins",
+  "title": "Fiasp or Lyumjev for faster mealtime action",
+  "patterns": [
+   "pre-bolus",
+   "post-meal-spikes",
+   "post-meal-lows"
+  ],
+  "foods": [],
+  "advice": "Fiasp and Lyumjev act a bit faster than NovoRapid or Humalog, so some people find they spike less after meals and can inject closer to eating.",
+  "how": "People switching report needing a shorter pre-bolus (often 0-10 minutes, but still ~20 min at breakfast for some), and some say they must eat promptly or they drop. Ask your doctor; both are available in Canada.",
+  "why": "Additives (niacinamide, treprostinil) speed absorption from under the skin.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "Some notice injection sting or that the speed seems to fade over months. Timing changes needed.",
+  "research": "community",
+  "sources": [
+   "Diabetes UK Forum, 'Swapping to Lyumjev from NovoRapid - your experiences please', https://forum.diabetes.org.uk/boards/threads/swapping-to-lyumjev-from-novor-your-experiences-please.118180/latest",
+   "Diabettech blog, 'Lyumjev: not as URLi as I expected', https://www.diabettech.com/insulin-lyumjev-not-as-urli-as-i-expected/"
+  ]
+ },
+ {
+  "id": "fat-protein-delayed-rise",
+  "title": "Why high-fat, high-protein meals rise late",
+  "patterns": [
+   "high-fat-meals",
+   "post-meal-spikes",
+   "post-meal-lows"
+  ],
+  "foods": [
+   "pizza",
+   "burgers",
+   "nachos",
+   "fries",
+   "poutine",
+   "chicken burger"
+  ],
+  "advice": "Fat and protein don't count as carbs, but in T1D they really do change the glucose curve: a rich meal often stays flat or even dips early, then rises 3-5 hours later. People often think their insulin 'didn't work' when it's really just mistimed.",
+  "how": "Watch your CGM 3, 4 and 5 hours after a burger, pizza or nachos meal and note the pattern. If you consistently see an early dip then a late rise, bring 2-3 examples (screenshots) to your diabetes team.",
+  "why": "Fat slows stomach emptying, and fat and protein both increase insulin needs later, so carbs arrive after rapid insulin has peaked.",
+  "involves_dose_change": false,
+  "evidence": "study",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Bell KJ et al. Impact of Fat, Protein, and Glycemic Index on Postprandial Glucose Control in Type 1 Diabetes. Diabetes Care, 2015, https://doi.org/10.2337/dc15-0100",
+   "Smart CE et al. Both Dietary Protein and Fat Increase Postprandial Glucose Excursions in Children With Type 1 Diabetes, and the Effect Is Additive. Diabetes Care, 2013, https://doi.org/10.2337/dc13-0195",
+   "Paterson M et al. The Role of Dietary Protein and Fat in Glycaemic Control in Type 1 Diabetes. Curr Diab Rep, 2015, https://pmc.ncbi.nlm.nih.gov/articles/PMC4512569"
+  ]
+ },
+ {
+  "id": "fat-protein-units-concept",
+  "title": "Fat-protein units (FPU) - what they are",
+  "patterns": [
+   "high-fat-meals",
+   "carb-counting"
+  ],
+  "foods": [
+   "pizza",
+   "burgers",
+   "steak",
+   "cheese"
+  ],
+  "advice": "Some clinics use 'fat-protein units' to estimate extra insulin for very rich meals, an approach from Polish researcher Ewa Pankowska. It tends to over-dose for many people, so most teams now use a modified, gentler version if at all.",
+  "how": "If you're curious, ask your educator whether a fat-protein approach is right for you. The basic idea: 100 kcal from fat plus protein counts as one unit, but how it converts to insulin must be individualized by your team.",
+  "why": "Each 100 kcal of fat and protein raises later glucose and insulin needs, but the original algorithm caused hypoglycemia in some studies.",
+  "involves_dose_change": true,
+  "evidence": "study",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Pankowska E et al. Application of novel dual wave meal bolus (fat-protein units) in children with T1D. Pediatr Diabetes, 2009, https://pubmed.ncbi.nlm.nih.gov/?term=Pankowska+dual+wave+bolus+fat+protein+units",
+   "ISPAD Clinical Practice Consensus Guidelines 2022: Nutritional management in children and adolescents with diabetes (Annan et al.), 2022, https://www.ispad.org/page/ISPADGuidelines2022",
+   "Bell KJ et al. Impact of Fat, Protein, and Glycemic Index on Postprandial Glucose Control in Type 1 Diabetes. Diabetes Care, 2015, https://doi.org/10.2337/dc15-0100"
+  ]
+ },
+ {
+  "id": "fibre-target",
+  "title": "Fibre helps smooth glucose",
+  "patterns": [
+   "post-meal-spikes",
+   "high-variability",
+   "general"
+  ],
+  "foods": [
+   "beans",
+   "lentils",
+   "oats",
+   "vegetables",
+   "whole grains",
+   "berries"
+  ],
+  "advice": "Diabetes Canada encourages people with diabetes to aim for more fibre - roughly 30-50 g a day - and most Canadians get about half that. Adding fibre gradually is one of the gentler ways to soften spikes.",
+  "how": "Easy adds: a handful of berries, 1/2 cup beans or lentils in soup or chili, a side salad or veggies with pizza, ground flax in yogurt, whole-grain crackers. Increase slowly and drink water to avoid bloating.",
+  "why": "Viscous (soluble) fibre slows stomach emptying and carb absorption, lowering the post-meal glucose peak.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Diabetes Canada CPG Ch.11 Nutrition Therapy (Sievenpiper et al.), 2018, https://guidelines.diabetes.ca/cpg/chapter11",
+   "Evert AB et al. Nutrition Therapy for Adults With Diabetes or Prediabetes: A Consensus Report. Diabetes Care, 2019, https://doi.org/10.2337/dci19-0014"
+  ]
+ },
+ {
+  "id": "fifteen-gram-canadian",
+  "title": "What 15 g looks like in Canadian foods",
+  "patterns": [
+   "treating-lows"
+  ],
+  "foods": [
+   "dex4",
+   "glucose tablets",
+   "juice box",
+   "regular pop",
+   "honey",
+   "skittles",
+   "life savers",
+   "sugar"
+  ],
+  "advice": "It helps to know exactly what 15 g looks like so you don't guess under stress. Keep a pre-measured option in your bag, car and nightstand.",
+  "how": "15 g = 4 Dex4 tablets (4 g each, gives 16 g); 175 mL (3/4 cup) juice or regular pop; a small 125 mL juice box is ~14-16 g, a 200 mL box ~22-26 g; 1 tbsp (15 mL) honey or 3 sugar packets dissolved in water; 6 Life Savers; about 15 Skittles. Rockets (Smarties) vary by roll - check the wrapper.",
+  "why": "These are mostly glucose, sucrose or fructose with no fat or protein, so they digest and absorb quickly.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Diabetes Canada CPG Ch.14 Hypoglycemia, 2018, https://guidelines.diabetes.ca/cpg/chapter14",
+   "ADA Consumer Guide: Dex4 glucose tablets, 4 g carbohydrate each, n.d., https://consumerguide.diabetes.org/node/591"
+  ]
+ },
+ {
+  "id": "finger-prick-before-big-treatment",
+  "title": "Confirm with a meter when the reading doesn't match how you feel",
+  "patterns": [
+   "treating-lows",
+   "cgm-use",
+   "overnight-lows"
+  ],
+  "foods": [],
+  "advice": "If the Dexcom says low but you feel fine, or the drop looks oddly sharp, a quick finger prick can save you eating a few hundred calories you didn't need.",
+  "how": "Keep a meter on the nightstand. For an overnight alarm with a sudden vertical drop, prick first; if the meter reads above 4.5, roll off the sensor and go back to sleep.",
+  "why": "CGM can be off during rapid change and from pressure on the sensor; capillary blood is the ground truth.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "If you feel low, treat first and check after; never delay treatment to test when symptomatic.",
+  "research": "community",
+  "sources": [
+   "diaTribe, 'Defeating the Hypoglycemia Binge', https://diatribe.org/diabetes-management/defeating-hypoglycemia-binge",
+   "Diabetes UK Forum, 'Compression lows', https://forum.diabetes.org.uk/boards/threads/compression-lows.113122",
+   "Diabetes UK Forum, 'Bedtime snacks for type 1 diabetic', https://forum.diabetes.org.uk/boards/threads/bedtime-snacks-for-type-1-diabetic.114875"
+  ]
+ },
+ {
+  "id": "follow-with-protein-if-meal-far",
+  "title": "Follow a low with a small snack if your next meal is hours away",
+  "patterns": [
+   "treating-lows",
+   "late-morning-lows",
+   "overnight-lows"
+  ],
+  "foods": [],
+  "advice": "Once you're back up, if there's still a lot of the day or night ahead before you eat, a small slower snack keeps you from sliding right back down.",
+  "how": "After the reading turns up past 4.0-4.5: a cheese string and a couple of crackers, half a slice of toast with peanut butter, or a small yogurt (about 10-15 g carbs with some protein).",
+  "why": "Fast sugar is used up in 30-60 minutes; if active insulin or basal is still pushing down, you'll drop again.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "Not needed if your next meal is within an hour; it can push you high.",
+  "research": "community",
+  "sources": [
+   "Healthline, 'Rule of 15 for diabetes', https://www.healthline.com/health/diabetes/rule-of-15-diabetes",
+   "Diabetes UK Forum, 'Bedtime snacks for type 1 diabetic', https://forum.diabetes.org.uk/boards/threads/bedtime-snacks-for-type-1-diabetic.114875"
+  ]
+ },
+ {
+  "id": "food-apps",
+  "title": "Apps for carb lookups",
+  "patterns": [
+   "carb-counting",
+   "cgm-use"
+  ],
+  "foods": [],
+  "advice": "Carb-counting apps save a lot of guesswork, especially for takeout and packaged foods. People often find one or two apps they trust and stick with.",
+  "how": "CalorieKing (free, large restaurant database), Carb Manager, MyFitnessPal, and Health Canada's Canadian Nutrient File for basic foods. Many apps let you save your usual meals so you only look them up once. Crowd-entered entries can be wrong - prefer verified ones.",
+  "why": "Using published data reduces carb-estimate error compared with eyeballing.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "CalorieKing food database, n.d., https://www.calorieking.com",
+   "Health Canada. Canadian Nutrient File, n.d., https://food-nutrition.canada.ca/cnf-fce/"
+  ]
+ },
+ {
+  "id": "food-order",
+  "title": "Veggies and protein first, carbs last",
+  "patterns": [
+   "post-meal-spikes",
+   "eating-patterns"
+  ],
+  "foods": [
+   "salad",
+   "vegetables",
+   "chicken",
+   "bread",
+   "rice"
+  ],
+  "advice": "One simple thing that helps many people: eat the vegetables and protein part of the meal first, and the bread, rice or fries last. It doesn't change what you eat, just the order.",
+  "how": "Start with the salad or veggies, then the protein, and finish with the starch about 10 minutes later. Even a side salad before pizza or a burger may help. Results vary - check your CGM to see if it works for you.",
+  "why": "Fibre and protein eaten first slow stomach emptying and blunt the glucose peak from the carbs eaten after.",
+  "involves_dose_change": false,
+  "evidence": "study",
+  "caveat": "Studied mostly in type 2; in type 1 the slower rise can leave rapid insulin peaking early, so watch for a dip in the first hour.",
+  "research": "nutrition",
+  "sources": [
+   "Shukla AP et al. Food Order Has a Significant Impact on Postprandial Glucose and Insulin Levels. Diabetes Care, 2015, https://doi.org/10.2337/dc15-0429"
+  ]
+ },
+ {
+  "id": "food-type-timing",
+  "title": "Match timing to food type",
+  "patterns": [
+   "pre-bolus",
+   "high-fat-meals",
+   "post-meal-lows"
+  ],
+  "foods": [
+   "cereal",
+   "bagel",
+   "juice",
+   "pizza",
+   "nachos",
+   "pasta"
+  ],
+  "advice": "Not every meal behaves the same. Fast carbs like cereal or a bagel rise quickly, while rich meals like pizza or nachos rise slowly - and a lot of after-meal lows come from early insulin meeting a slow meal.",
+  "how": "Group your regular meals into 'fast' (cereal, toast with jam, bagel, sweet coffee) and 'slow' (pizza, burgers, creamy pasta). Note which give early lows or early spikes, and share the pattern with your team so they can tailor timing advice.",
+  "why": "The speed of carb absorption varies with fat, fibre and processing, so the same carb count can peak at very different times.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Bell KJ et al. Impact of Fat, Protein, and Glycemic Index on Postprandial Glucose Control in Type 1 Diabetes. Diabetes Care, 2015, https://doi.org/10.2337/dc15-0100",
+   "Cobry E et al. Timing of meal insulin boluses to achieve optimal postprandial glycemic control in patients with type 1 diabetes. Diabetes Technol Ther, 2010, https://doi.org/10.1089/dia.2009.0112"
+  ]
+ },
+ {
+  "id": "foot-on-floor",
+  "title": "Getting up can kick off a morning rise",
+  "patterns": [
+   "morning-highs",
+   "pre-bolus"
+  ],
+  "foods": [],
+  "advice": "Many people notice their sugar climbs as soon as they get out of bed, even without eating. It's common, and it's not your fault.",
+  "how": "Community tactics on injections: take the breakfast shot before getting out of bed, or as soon as you wake, and wait before eating. Some take a small wake-up dose even if not eating (agree this with your team).",
+  "why": "Morning stress hormones (cortisol, adrenaline) signal the liver to release sugar.",
+  "involves_dose_change": true,
+  "evidence": "community",
+  "caveat": "Don't do this on mornings you woke up low or near-low.",
+  "research": "community",
+  "sources": [
+   "TCOYD, 'How to Treat Foot to Floor Phenomenon', 2020, https://tcoyd.org/2020/07/how-to-manage-foot-to-floor-phenomenon/",
+   "Diabetes UK Forum, 'Morning spike in sugars', https://forum.diabetes.org.uk/boards/threads/morning-spike-in-sugars.96658/latest"
+  ]
+ },
+ {
+  "id": "g7-warmup-first-day",
+  "title": "Double-check the first day of a new G7",
+  "patterns": [
+   "cgm-use",
+   "overnight-lows"
+  ],
+  "foods": [],
+  "advice": "The first day of a new sensor is often less accurate, and false lows overnight are common.",
+  "how": "Many people insert the new sensor in the morning so the first night isn't the bumpy one, and confirm surprising readings with a finger prick.",
+  "why": "The sensor needs time for the tissue to settle.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "Beyond Type 1, 'Tip Sheet for Continuous Glucose Monitors', https://beyondtype1.org/tip-sheet-for-continuous-glucose-monitors-cgms",
+   "Diabetes UK Forum, 'Compression lows', https://forum.diabetes.org.uk/boards/threads/compression-lows.113122"
+  ]
+ },
+ {
+  "id": "gastroparesis-check",
+  "title": "Early low, late high after meals? Ask about slow stomach emptying",
+  "patterns": [
+   "post-meal-lows",
+   "post-meal-spikes",
+   "high-variability"
+  ],
+  "foods": [],
+  "advice": "After many years of diabetes, some people's stomachs empty food slowly. The insulin then works before the food arrives, causing a low soon after eating and a high later. If you notice that pattern, or fullness, bloating or nausea, mention it to your doctor.",
+  "how": "Pattern: a low or dip within 1-2 hours of eating, then a rise 3-5 hours later. Ask your doctor about gastroparesis screening (ADA covers it under neuropathy). Bolus timing tactics your team may suggest: injecting at the start of the meal or after it, or splitting the meal dose. Smaller, lower-fat meals empty faster.",
+  "why": "Autonomic neuropathy from long-standing diabetes can slow how fast the stomach empties, which delays carb absorption relative to the insulin.",
+  "involves_dose_change": true,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "ADA Standards of Care 2026, Sec. 12 Retinopathy, Neuropathy, and Foot Care, https://doi.org/10.2337/dc26-S012"
+  ]
+ },
+ {
+  "id": "glucagon-baqsimi",
+  "title": "Have glucagon and teach someone to use it",
+  "patterns": [
+   "treating-lows",
+   "overnight-lows",
+   "hypo-unawareness"
+  ],
+  "foods": [],
+  "advice": "With lows below 3.0 happening, you should have unexpired glucagon at home. The person you live with should know where it is and how to use it. Nasal Baqsimi is the easiest: it goes in one nostril, with no mixing and no needle.",
+  "how": "ADA: prescribe glucagon for everyone on insulin who is at risk of level 2 or 3 lows, and teach family members. Diabetes Canada Rec. 9: teach support persons how to give glucagon. Baqsimi (3 mg nasal glucagon) has been approved in Canada since 2019; ask your pharmacist or doctor for a prescription. Give it when the person can't safely swallow or is unconscious, call 911, and turn them on their side. Check the expiry date. Glucagon works less well after more than 2 drinks of alcohol or a long fast.",
+  "why": "Glucagon makes the liver release stored glucose, which raises blood sugar when the person can't eat.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "ADA Standards of Care 2026, Sec. 6, https://doi.org/10.2337/dc26-S006",
+   "Diabetes Canada CPG Ch. 14 Hypoglycemia, Rec. 7, 9, 2018, https://www.diabetes.ca/for-professionals/full-guidelines/chapter-14",
+   "Baqsimi Canadian Product Monograph (Eli Lilly / Amphastar), https://health-products.canada.ca/dpd-bdpp/ (search BAQSIMI)"
+  ]
+ },
+ {
+  "id": "glucagon-partner-knows",
+  "title": "Make sure your husband knows where the glucagon is",
+  "patterns": [
+   "treating-lows",
+   "partner-support",
+   "hypo-unawareness"
+  ],
+  "foods": [],
+  "advice": "With long-standing type 1 and frequent night lows, it's worth a quick refresh: does he know where the rescue glucagon is and how to use it?",
+  "how": "Many people now carry nasal glucagon (Baqsimi) because it's a single puff with no mixing. Keep one in the bedroom and one in the bag; check expiry dates when daylight-saving changes.",
+  "why": "Severe lows can stop you swallowing; glucagon makes the liver release stored sugar.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "Glucagon works less well after heavy drinking because the liver is busy with alcohol.",
+  "research": "community",
+  "sources": [
+   "JDRF/Breakthrough T1D, 'Alcohol and Type 1 Diabetes: How to Manage a Night Out and the Morning After', https://www.jdrf.org/?p=138291",
+   "diaTribe, 'How to Coach Your Care-Partner on CGM Data', https://diatribe.org/lifestyle/how-coach-your-care-partner-cgm-data"
+  ]
+ },
+ {
+  "id": "glycemic-index-practical",
+  "title": "Glycemic index in real life",
+  "patterns": [
+   "post-meal-spikes",
+   "pre-bolus",
+   "carb-counting"
+  ],
+  "foods": [
+   "white bread",
+   "rice",
+   "oats",
+   "pasta",
+   "potatoes",
+   "lentils"
+  ],
+  "advice": "Glycemic index tells you how fast a carb food tends to raise glucose. It isn't about good or bad foods - it's about timing, so faster foods may need more lead time and slower ones less.",
+  "how": "Swaps that often help: large-flake or steel-cut oats instead of instant, al dente pasta, parboiled or basmati rice, grainy breads, adding beans or lentils. Mixed meals with fat, protein and fibre lower the overall GI of the meal.",
+  "why": "Lower-GI foods are digested and absorbed more slowly, flattening the post-meal peak so it better matches rapid insulin's action.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Diabetes Canada CPG Ch.11 Nutrition Therapy (Sievenpiper et al.), 2018, https://guidelines.diabetes.ca/cpg/chapter11",
+   "Bell KJ et al. Impact of Fat, Protein, and Glycemic Index on Postprandial Glucose Control in Type 1 Diabetes. Diabetes Care, 2015, https://doi.org/10.2337/dc15-0100",
+   "University of Sydney Glycemic Index database, n.d., https://glycemicindex.com"
+  ]
+ },
+ {
+  "id": "gummies-for-staying-power",
+  "title": "Fruit gummies or jelly candies for gentler, longer lift",
+  "patterns": [
+   "treating-lows",
+   "late-morning-lows",
+   "post-meal-lows"
+  ],
+  "foods": [],
+  "advice": "Some people find straight glucose shoots them up then lets them drift back down. A few gummy fruit snacks give a slightly longer tail.",
+  "how": "Common choices: fruit snacks (about 2-3 g each), jelly beans (~1 g each), Swedish Berries/Fish (~3-4 g each), Skittles (~1 g each, so 15 for 15 g). Count them out into small bags ahead of time.",
+  "why": "Gelatin/starch candies digest a little slower than dextrose, smoothing the rise.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "Chocolate and anything with fat (or diet versions) are too slow for a real low.",
+  "research": "community",
+  "sources": [
+   "Breakthrough T1D Forum, '15/15 rule outdated? If so, what is better way?', https://forum.breakthrought1d.org/t/15-15-rule-outdated-if-so-what-is-better-way/75173",
+   "Diabetes UK Forum, 'Bedtime snacks for type 1 diabetic', https://forum.diabetes.org.uk/boards/threads/bedtime-snacks-for-type-1-diabetic.114875"
+  ]
+ },
+ {
+  "id": "high-fat-protein-meals",
+  "title": "Pizza effect: fat and protein delay the rise",
+  "patterns": [
+   "high-fat-meals",
+   "post-meal-lows",
+   "post-meal-spikes",
+   "overnight-lows"
+  ],
+  "foods": [],
+  "advice": "Rich, fatty or high-protein meals like pizza, fries or a big restaurant supper often cause an early dip and then a high 3 to 6 hours later. The usual single shot before the meal doesn't fit that shape well.",
+  "how": "Strategies your team may suggest for MDI: inject closer to the start of the meal, not with a long pre-bolus; split the meal dose into a part with the meal and a part 1-2 hours later; or plan a correction for the late rise. Don't stack a correction for the early rise. Watch for this pattern on restaurant nights.",
+  "why": "Fat slows how fast the stomach empties and adds insulin resistance hours later, and protein adds some late glucose, so glucose peaks after rapid insulin has already peaked.",
+  "involves_dose_change": true,
+  "evidence": "study",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Bell KJ et al., Impact of fat, protein, and glycemic index on postprandial glucose control in T1D, Diabetes Care 2015, https://doi.org/10.2337/dc15-0100"
+  ]
+ },
+ {
+  "id": "hot-shower-low",
+  "title": "Hot showers, baths and saunas can speed insulin",
+  "patterns": [
+   "insulin-handling",
+   "post-meal-lows",
+   "treating-lows"
+  ],
+  "foods": [],
+  "advice": "Heat brings blood to the skin, so recently injected insulin can hit faster. Some people see a drop during or after a hot bath or hot tub.",
+  "how": "Avoid a long hot bath or sauna right after a meal shot; check the G7 before getting in; keep tabs nearby. Some see CGM rise after hot showers instead.",
+  "why": "Heat increases skin blood flow, speeding absorption from under the skin.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "Effects vary; some get a false high from the sensor warming.",
+  "research": "community",
+  "sources": [
+   "Diabetes Self-Management, 'Can People With Diabetes Safely Use Hot Tubs?', https://www.diabetesselfmanagement.com/healthy-living/general-health/can-people-with-diabetes-safely-use-hot-tubs/",
+   "Diabetes UK Forum, 'Insulin absorption factors', https://forum.diabetes.org.uk/boards/threads/insulin-absorption-factors.2739",
+   "Healthline, 'Do showers and baths affect blood sugars?', https://www.healthline.com/health/diabetes/do-showers-and-baths-affect-blood-sugars"
+  ]
+ },
+ {
+  "id": "hot-weather",
+  "title": "Summer heat can bring more lows",
+  "patterns": [
+   "insulin-handling",
+   "high-variability"
+  ],
+  "foods": [],
+  "advice": "Many people find they need a little less insulin in hot weather and go low more easily.",
+  "how": "Watch patterns in heat waves, keep hydrated, carry more low supplies.",
+  "why": "Heat raises absorption and you're often more active.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "Diabetes UK Forum, 'Insulin absorption factors', https://forum.diabetes.org.uk/boards/threads/insulin-absorption-factors.2739",
+   "Diabetes Self-Management, 'Can People With Diabetes Safely Use Hot Tubs?', https://www.diabetesselfmanagement.com/healthy-living/general-health/can-people-with-diabetes-safely-use-hot-tubs/"
+  ]
+ },
+ {
+  "id": "housework-shopping-counts",
+  "title": "Housework and shopping count as exercise",
+  "patterns": [
+   "exercise",
+   "late-morning-lows",
+   "post-meal-lows"
+  ],
+  "foods": [],
+  "advice": "Vacuuming, gardening, a big grocery trip, or walking around the mall all lower sugar just like 'real' exercise.",
+  "how": "Treat a busy chore morning like a walk: carry tabs, maybe a few grams before starting if you injected recently.",
+  "why": "Any muscle use increases glucose uptake.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "Baker Heart & Diabetes Institute fact sheet, 'Physical activity and type 1 diabetes', https://www.baker.edu.au/-/media/documents/fact-sheets/baker-institute_physical-activity-t1-diabetes.pdf",
+   "Adam Brown / diaTribe, 'Bright Spots & Landmines' (free book), 2017, https://diatribe.org/bright-spots-and-landmines"
+  ]
+ },
+ {
+  "id": "hydration",
+  "title": "Hydration and glucose",
+  "patterns": [
+   "general",
+   "sick-days",
+   "morning-highs"
+  ],
+  "foods": [
+   "water",
+   "sparkling water"
+  ],
+  "advice": "Water doesn't lower blood sugar directly, but being dehydrated can make highs worse and harder to bring down. Drinking water is a good habit, especially when glucose is high or you're unwell.",
+  "how": "Aim for water with every meal and extra when glucose is above ~14 mmol/L. Choose water, sparkling water or diet drinks for everyday thirst. Sugary drinks are best saved for treating lows.",
+  "why": "Dehydration concentrates glucose in the blood and reduces kidney excretion, while adequate fluid helps clear excess glucose.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Diabetes Canada CPG Appendix 8: Sick-Day Medication List / Ch.15 Hyperglycemic emergencies, 2018, https://guidelines.diabetes.ca/cpg/chapter15",
+   "Diabetes Canada CPG Ch.11 Nutrition Therapy (Sievenpiper et al.), 2018, https://guidelines.diabetes.ca/cpg/chapter11"
+  ]
+ },
+ {
+  "id": "hypo-levels-definitions",
+  "title": "The three levels of low",
+  "patterns": [
+   "treating-lows",
+   "general"
+  ],
+  "foods": [],
+  "advice": "A reading under 3.9 is a low worth treating. Under 3.0 is a serious low that needs action right away. A low where you need someone else's help is a severe low, and it should always prompt a talk with your team.",
+  "how": "Level 1: 3.0-3.9 mmol/L. Level 2: under 3.0 mmol/L (clinically significant). Level 3: a severe event with altered thinking, needing help from another person, at any number. Diabetes Canada defines a low as under 4.0 mmol/L for people on insulin. ADA says a level 2 or 3 low means the treatment plan should be re-evaluated.",
+  "why": "Below about 3.0 mmol/L, brain function and the body's warning symptoms start to fail, so the risk rises sharply.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "International Hypoglycaemia Study Group, Diabetes Care 2017, https://doi.org/10.2337/dc16-2215",
+   "ADA Standards of Care 2026, Sec. 6, https://doi.org/10.2337/dc26-S006",
+   "Diabetes Canada CPG Ch. 14 Hypoglycemia (Yale, Paty, Senior), 2018, https://www.diabetes.ca/for-professionals/full-guidelines/chapter-14"
+  ]
+ },
+ {
+  "id": "hypo-unawareness-restore",
+  "title": "Getting your low warning signs back",
+  "patterns": [
+   "hypo-unawareness",
+   "overnight-lows"
+  ],
+  "foods": [],
+  "advice": "After many years with type 1, and especially with frequent lows, the warning signs often get weaker. The encouraging part is that strictly avoiding lows for a few weeks can bring some of that awareness back.",
+  "how": "ADA recommends that people with hypoglycemia unawareness, a severe low, or a pattern of unexplained lows below 3.0 raise their glycemic goals to strictly avoid hypoglycemia for at least several weeks; this partially reverses unawareness. Diabetes Canada recommends targets loosened for up to 3 months, plus CGM and education. In practice: aim a bit higher for a while, and treat at the low alert rather than waiting for symptoms. Ask your team about a structured program (for example BGAT/HypoAware-style training) and about checking your awareness with the Gold or Clarke questionnaire.",
+  "why": "Each low dampens the body's adrenaline response to the next one for a day or more (hypoglycemia-associated autonomic failure), and avoiding lows lets that response recover.",
+  "involves_dose_change": true,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "ADA Standards of Care 2026, Sec. 6, https://doi.org/10.2337/dc26-S006",
+   "Diabetes Canada CPG Ch. 14 Hypoglycemia, Rec. 3-4, 2018, https://www.diabetes.ca/for-professionals/full-guidelines/chapter-14",
+   "Cryer PE, Mechanisms of hypoglycemia-associated autonomic failure, NEJM 2013, https://doi.org/10.1056/NEJMra1215228"
+  ]
+ },
+ {
+  "id": "insulin-heat-storage",
+  "title": "Protect insulin from heat",
+  "patterns": [
+   "insulin-handling",
+   "high-variability"
+  ],
+  "foods": [],
+  "advice": "Insulin that's been in a hot car or in direct sun can lose strength.",
+  "how": "Pen in use at room temperature for up to 28 days (check label); spare pens in the fridge; insulated cooling cases (Frio) in summer.",
+  "why": "Heat degrades insulin proteins.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "Diabetes UK Forum, 'Insulin absorption factors', https://forum.diabetes.org.uk/boards/threads/insulin-absorption-factors.2739"
+  ]
+ },
+ {
+  "id": "insulin-on-board-tracking",
+  "title": "Track the active insulin on injections",
+  "patterns": [
+   "corrections-stacking",
+   "post-meal-lows"
+  ],
+  "foods": [],
+  "advice": "Pumps track active insulin for you; on pens, you have to do it yourself. That's where a lot of stacking lows come from.",
+  "how": "Log every rapid shot with the time, in a smart pen (InPen, NovoPen 6 with logging), a cap like Tempo, or a notes app. Before any correction, check what's still working from the last 3-4 hours.",
+  "why": "Rapid insulin keeps working 3-5 hours, so a second shot adds to the first.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "Diabetes UK Forum, 'Bad BG readings' (half-correction advice), https://forum.diabetes.org.uk/boards/threads/bad-bg-readings.87199/latest",
+   "One Drop blog, 'High (and low) blood sugars are not forever' (rage bolus), https://onedrop.today/blogs/blog/rage-bolus-high-blood-sugar-overeat-low-blood-sugar-how-to-control-diabetes-emotions"
+  ]
+ },
+ {
+  "id": "insulin-stacking",
+  "title": "Avoid stacking insulin",
+  "patterns": [
+   "corrections-stacking",
+   "late-morning-lows",
+   "post-meal-lows",
+   "high-variability"
+  ],
+  "foods": [],
+  "advice": "Rapid insulin keeps working for about 4 hours. Taking another correction because the number hasn't come down yet adds up, and that's a classic cause of late-morning and afternoon lows. Give the first dose time to work.",
+  "how": "Before any correction, ask yourself when you last took rapid insulin. Within about 3 hours, assume a good part of it is still active and hold off or correct cautiously. Use the CGM arrow: if you're high but the arrow is flat or down within 2-3 hours of a dose, the insulin is working. Write down correction times. A smart pen or the dose memory in a pen app shows insulin on board. Ask your team for a correction rule that accounts for active insulin.",
+  "why": "Overlapping doses add their effects together, so the total working insulin ends up far more than you intended.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Holt RIG et al., ADA/EASD T1D Consensus, Diabetes Care 2021, https://doi.org/10.2337/dci21-0043"
+  ]
+ },
+ {
+  "id": "insulin-storage",
+  "title": "Insulin storage and expiry",
+  "patterns": [
+   "insulin-handling",
+   "high-variability",
+   "morning-highs"
+  ],
+  "foods": [],
+  "advice": "Insulin that's been too warm, frozen, or open too long can quietly lose strength, which shows up as highs that don't respond like they used to. Store it properly and note the date you open each pen.",
+  "how": "Unopened pens or vials: in the fridge at 2-8 °C, never frozen. In use: room temperature, up to about 28 days for most rapid insulins and glargine U100; longer for some (for example degludec, glargine U300). Check the leaflet. Write the date you open it on the pen. Keep insulin out of a hot car, direct sun and the freezer side of the fridge. Discard it if it's cloudy when it should be clear, or if it has been frozen. Prime (air-shot) the pen before each injection as the leaflet describes.",
+  "why": "Heat and freezing break down the insulin protein, so the same number of units does less.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "ADA Standards of Care 2026, Sec. 9 Pharmacologic Approaches, https://doi.org/10.2337/dc26-S009",
+   "Frid AH et al., Mayo Clin Proc 2016, https://doi.org/10.1016/j.mayocp.2016.06.010"
+  ]
+ },
+ {
+  "id": "juice-for-night-lows",
+  "title": "Juice box at the bedside for night lows",
+  "patterns": [
+   "treating-lows",
+   "overnight-lows",
+   "sleep"
+  ],
+  "foods": [],
+  "advice": "At 3 a.m. you want something you can get down half asleep without chewing. A small juice box on the nightstand does the job.",
+  "how": "Keep 2-3 small (125-200 mL) juice boxes or a pouch of glucose gel within arm's reach. Some prefer half a box for a slow drop and the whole one for a fast drop. Others keep tabs but say they're hard to chew when groggy.",
+  "why": "Liquid sugar empties from the stomach fastest and needs no chewing.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "Juice overshoots some people; know your amount (and note it on the box).",
+  "research": "community",
+  "sources": [
+   "Breakthrough T1D Forum, 'Tips for night time snacks', https://forum.breakthrought1d.org/t/tips-for-night-time-snacks/74280",
+   "Breakthrough T1D Forum, '15/15 rule outdated? If so, what is better way?', https://forum.breakthrought1d.org/t/15-15-rule-outdated-if-so-what-is-better-way/75173"
+  ]
+ },
+ {
+  "id": "label-reading-canada",
+  "title": "Reading Canadian nutrition labels for carbs",
+  "patterns": [
+   "carb-counting"
+  ],
+  "foods": [
+   "bagel",
+   "bread",
+   "crackers",
+   "cereal"
+  ],
+  "advice": "On Canadian labels, the number to use is 'Carbohydrate' - fibre is already included in it. Many people find subtracting fibre for high-fibre foods gives a closer match.",
+  "how": "Use total carbohydrate per serving, then scale to your portion. For foods with 5 g or more fibre per serving, some educators suggest subtracting the fibre; check with your team whether that suits you. Watch serving sizes - a 'serving' of bagel is often half a bagel.",
+  "why": "Fibre is not digested into glucose, so very high-fibre foods raise glucose less than their total carb suggests.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Diabetes Canada CPG Ch.11 Nutrition Therapy (Sievenpiper et al.), 2018, https://guidelines.diabetes.ca/cpg/chapter11",
+   "Health Canada. Canadian Nutrient File, n.d., https://food-nutrition.canada.ca/cnf-fce/"
+  ]
+ },
+ {
+  "id": "late-morning-lows",
+  "title": "Late-morning lows",
+  "patterns": [
+   "late-morning-lows",
+   "post-meal-lows",
+   "corrections-stacking"
+  ],
+  "foods": [],
+  "advice": "Lows around 10 a.m. to noon usually come from breakfast insulin outpacing a light breakfast, a correction on top of breakfast, or a morning walk. If there's no breakfast insulin involved, the long-acting may be part of it too.",
+  "how": "Look for: a small breakfast with a usual dose, a correction for a morning high plus the breakfast dose (stacking), activity in the morning, or a late lunch. Fix tactics: eat lunch on time, carry glucose tablets, and talk to your team about the breakfast ratio, or about the basal if the low happens even on days you skip breakfast insulin.",
+  "why": "Breakfast rapid insulin peaks 1-2 hours later, and morning insulin sensitivity rises as dawn hormones fade.",
+  "involves_dose_change": true,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Holt RIG et al., ADA/EASD T1D Consensus, Diabetes Care 2021, https://doi.org/10.2337/dci21-0043"
+  ]
+ },
+ {
+  "id": "late-morning-lows-breakfast",
+  "title": "Late-morning lows: look at the breakfast dose",
+  "patterns": [
+   "late-morning-lows",
+   "post-meal-lows"
+  ],
+  "foods": [],
+  "advice": "Lows 2-4 hours after breakfast usually mean the breakfast shot is a little strong for what you ate, or you were busier than usual.",
+  "how": "Check: was the breakfast low-carb but dosed like usual? Were you active (shopping, cleaning)? Some people add protein at breakfast, keep a 10 g snack at mid-morning, or discuss a different breakfast ratio. Morning basal (if you switched to morning dosing) can also contribute.",
+  "why": "Breakfast often needs more insulin early but less later, as insulin sensitivity improves during the morning.",
+  "involves_dose_change": true,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "Diabetes UK Forum, 'Late morning going high and I don't know the reason', https://forum.diabetes.org.uk/boards/threads/late-morning-going-high-and-i-don%E2%80%99t-know-the-reason.89608",
+   "Gary Scheiner, 'Think Like a Pancreas' (book, 3rd ed.), 2020 (basal testing, exercise and meal-dosing chapters)"
+  ]
+ },
+ {
+  "id": "late-morning-lows-coffee",
+  "title": "Late-morning lows after coffee breakfast",
+  "patterns": [
+   "late-morning-lows",
+   "post-meal-lows",
+   "carb-counting"
+  ],
+  "foods": [
+   "coffee",
+   "creamer",
+   "milk",
+   "sweetener"
+  ],
+  "advice": "If coffee with creamer and milk is your main breakfast and you dose for it, a late-morning low can happen when insulin outlasts the fairly quick carbs in the drink. Looking at what's in the mug and what comes after can help pinpoint why.",
+  "how": "Check the real carbs: milk is about 12 g per cup (250 mL), 18% cream about 1 g per tbsp, flavoured creamers 5-6 g per tbsp, and sugar-free sweeteners 0-1 g. If there's no food with it, adding a little protein/fibre (egg, yogurt, toast with peanut butter) may smooth the curve. Recurring 10-11 am lows are worth showing your team.",
+  "why": "A liquid breakfast absorbs fast, while rapid insulin lasts 3-4 hours, so insulin can outrun the carbs by mid-morning.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Health Canada. Canadian Nutrient File, n.d., https://food-nutrition.canada.ca/cnf-fce/",
+   "ADA Standards of Care in Diabetes-2026, Section 6 Glycemic Goals and Hypoglycemia, 2026, https://doi.org/10.2337/dc26-S006"
+  ]
+ },
+ {
+  "id": "lipohypertrophy-site-rotation",
+  "title": "Lumpy injection spots cause unpredictable sugars",
+  "patterns": [
+   "injection-sites",
+   "high-variability",
+   "post-meal-spikes",
+   "overnight-lows"
+  ],
+  "foods": [],
+  "advice": "After 30 years of injections, it's very common to have rubbery or lumpy areas under the skin. Insulin absorbs unpredictably there, causing surprise highs and lows. Ask your nurse to check your sites, and spread your injections out.",
+  "how": "Feel your usual spots for thickened or rubbery skin; flat palms work better than fingertips. Rotate within each area and keep injections about 1 cm (a finger-width) apart. Use a new pen needle every time; the 4 mm needle is enough for most adults. Important: if you move from a lumpy area to healthy skin, the insulin works more strongly and you may go low. Tell your team before switching so they can plan for possibly needing less.",
+  "why": "Lipohypertrophy, a fatty thickening from repeated injections in the same place, makes insulin absorption erratic and delayed, which raises variability and unexplained lows.",
+  "involves_dose_change": true,
+  "evidence": "consensus",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Frid AH et al., New Insulin Delivery Recommendations, Mayo Clin Proc 2016, https://doi.org/10.1016/j.mayocp.2016.06.010",
+   "FIT Canada Forum for Injection Technique recommendations, https://www.fit4diabetes.com/"
+  ]
+ },
+ {
+  "id": "liquid-carbs-everyday",
+  "title": "Sweet drinks: save them for lows",
+  "patterns": [
+   "post-meal-spikes",
+   "treating-lows"
+  ],
+  "foods": [
+   "juice",
+   "regular pop",
+   "sweet tea",
+   "iced capp"
+  ],
+  "advice": "Juice and regular pop raise glucose so fast that insulin can't keep up, which is exactly why they're great for lows and tricky for everyday drinking.",
+  "how": "Keep juice and regular pop as low treatment, and choose water, diet pop, sparkling water, or unsweetened tea/coffee day to day. If you love juice, having it with a meal and a small portion (125 mL) helps.",
+  "why": "Liquid sugars bypass chewing and slow digestion, absorbing in minutes.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Diabetes Canada CPG Ch.11 Nutrition Therapy (Sievenpiper et al.), 2018, https://guidelines.diabetes.ca/cpg/chapter11",
+   "Evert AB et al. Nutrition Therapy for Adults With Diabetes or Prediabetes: A Consensus Report. Diabetes Care, 2019, https://doi.org/10.2337/dci19-0014"
+  ]
+ },
+ {
+  "id": "low-followup-snack",
+  "title": "When to follow a low with a snack",
+  "patterns": [
+   "treating-lows",
+   "overnight-lows",
+   "late-morning-lows"
+  ],
+  "foods": [
+   "crackers",
+   "cheese",
+   "toast",
+   "peanut butter",
+   "yogurt"
+  ],
+  "advice": "After your glucose is back up, a small snack can help if your next meal is more than an hour away, or if the low happened overnight. It isn't always needed.",
+  "how": "Follow-up options with about 15 g carbs plus protein: 4-6 crackers with cheese, half a peanut butter sandwich, a small yogurt, an apple with nuts. Skip it if a meal is coming within the hour.",
+  "why": "Fast sugar wears off quickly; slower carbs plus protein keep glucose steady while active insulin is still working.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Diabetes Canada CPG Ch.14 Hypoglycemia, 2018, https://guidelines.diabetes.ca/cpg/chapter14"
+  ]
+ },
+ {
+  "id": "low-treat-kit",
+  "title": "A low kit everywhere",
+  "patterns": [
+   "treating-lows",
+   "overnight-lows",
+   "hypo-unawareness"
+  ],
+  "foods": [
+   "glucose tablets",
+   "juice box",
+   "dex4"
+  ],
+  "advice": "Having fast sugar within arm's reach is one of the most practical safety habits - nightstand, purse, car, coat pocket, and desk. It also cuts down on overtreating with whatever's nearby.",
+  "how": "Stock tubes of Dex4 or a few small juice boxes in each spot. Check expiry dates every few months. Ask your team about glucagon (e.g., nasal glucagon) for severe lows and show a family member how to use it.",
+  "why": "Rapid access shortens time spent low and reduces risk of a severe episode.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Diabetes Canada CPG Ch.14 Hypoglycemia, 2018, https://guidelines.diabetes.ca/cpg/chapter14",
+   "ADA Standards of Care in Diabetes-2026, Section 6 Glycemic Goals and Hypoglycemia, 2026, https://doi.org/10.2337/dc26-S006"
+  ]
+ },
+ {
+  "id": "lower-carb-optional",
+  "title": "Lower-carb meals can steady things (optional)",
+  "patterns": [
+   "high-variability",
+   "eating-patterns",
+   "post-meal-spikes"
+  ],
+  "foods": [],
+  "advice": "Some people find that eating fewer carbs at a meal means smaller doses and smaller mistakes. It's an option to try, not a rule.",
+  "how": "Common versions: carbs around 30 g at a meal instead of 60-80 g, more vegetables, protein and healthy fats. Adam Brown's 'eat less than 30 g at a meal' is a popular community idea.",
+  "why": "Smaller carb loads mean smaller insulin doses, so errors in either cause smaller swings.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "Very low-carb eating can raise the risk of lows and change how glucagon works; it is not a requirement. Talk to your dietitian.",
+  "research": "community",
+  "sources": [
+   "Adam Brown / diaTribe, 'Bright Spots & Landmines' (free book), 2017, https://diatribe.org/bright-spots-and-landmines"
+  ]
+ },
+ {
+  "id": "lows-beget-lows",
+  "title": "One low makes the next one more likely",
+  "patterns": [
+   "hypo-unawareness",
+   "overnight-lows",
+   "late-morning-lows",
+   "high-variability"
+  ],
+  "foods": [],
+  "advice": "A low overnight makes it harder to notice a low the next day, so the lows tend to come in runs. After a rough night, be extra careful the following day.",
+  "how": "On the day after a night-time low: check the Dexcom more often, treat at the alert rather than waiting for symptoms, eat meals on time, go easier on corrections and on hard exercise, and don't drive unless you're above 5.0 and stable.",
+  "why": "A recent low blunts the hormonal and symptom response to the next one for about 24-72 hours.",
+  "involves_dose_change": false,
+  "evidence": "study",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Cryer PE, NEJM 2013, https://doi.org/10.1056/NEJMra1215228",
+   "Holt RIG et al., ADA/EASD T1D Consensus, Diabetes Care 2021, https://doi.org/10.2337/dci21-0043"
+  ]
+ },
+ {
+  "id": "lows-stash-everywhere",
+  "title": "Keep low supplies everywhere you spend time",
+  "patterns": [
+   "treating-lows",
+   "hypo-unawareness",
+   "general"
+  ],
+  "foods": [],
+  "advice": "After 30 years you know lows come at bad moments. The trick is never having to go looking.",
+  "how": "Stash tabs or candies in: bedside table, car door/console, every purse and jacket, desk drawer, gym bag, the TV room, and a ziplock in the bathroom. Restock on Sundays. Some people keep a 'low box' in the kitchen with pre-counted portions so the household knows what to grab.",
+  "why": "Delay in treating is what turns a mild low into a severe one.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "Juice and gummies degrade in hot cars; tabs travel better.",
+  "research": "community",
+  "sources": [
+   "Adam Brown / diaTribe, 'Bright Spots & Landmines' (free book), 2017, https://diatribe.org/bright-spots-and-landmines",
+   "Breakthrough T1D Forum, '15/15 rule outdated? If so, what is better way?', https://forum.breakthrought1d.org/t/15-15-rule-outdated-if-so-what-is-better-way/75173"
+  ]
+ },
+ {
+  "id": "meal-regularity",
+  "title": "Regular meals on a fixed basal",
+  "patterns": [
+   "eating-patterns",
+   "late-morning-lows",
+   "post-meal-lows"
+  ],
+  "foods": [],
+  "advice": "With a once-daily long-acting insulin, your background insulin keeps working whether you eat or not. Fairly regular meals can make the day more predictable - and if lows happen when meals are late, that's useful information.",
+  "how": "Try to eat roughly every 4-6 hours while awake. If you know lunch will be late, carry a 15-20 g snack (granola bar, fruit, crackers). Note on your log when lows happen with skipped or delayed meals and share it with your team.",
+  "why": "Long-acting basal is meant to cover only background needs; if it's set slightly high, skipping meals unmasks it as lows.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Diabetes Canada CPG Ch.11 Nutrition Therapy (Sievenpiper et al.), 2018, https://guidelines.diabetes.ca/cpg/chapter11",
+   "ADA Standards of Care in Diabetes-2026, Section 5 Facilitating Positive Health Behaviors, 2026, https://doi.org/10.2337/dc26-S005"
+  ]
+ },
+ {
+  "id": "measured-low-treatment-kit",
+  "title": "Treat lows with something pre-counted",
+  "patterns": [
+   "treating-lows",
+   "rebound-highs"
+  ],
+  "foods": [],
+  "advice": "The easiest way to stop a low turning into a high is to treat with something already counted out, so you are not deciding while your brain is running on empty.",
+  "how": "People keep glucose tabs (4 g each in Canada, e.g. Dex4), 200 mL juice boxes (~20-25 g), or a roll of Rockets/Smarties candies (~6-7 g a roll) and treat with a fixed amount: about 15 g for a typical low, 8-10 g for a gentle drift down from 4.5. Many say a measured item 'stops the hand going back to the pantry'.",
+  "why": "Pure glucose absorbs predictably and fast; a fixed portion takes the guesswork and the hunger-driven overeating out of it.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "A fast-falling low (two down arrows) or one with a lot of rapid insulin on board may need more than 15 g.",
+  "research": "community",
+  "sources": [
+   "Breakthrough T1D Forum, '15/15 rule outdated? If so, what is better way?', https://forum.breakthrought1d.org/t/15-15-rule-outdated-if-so-what-is-better-way/75173",
+   "diaTribe, 'Defeating the Hypoglycemia Binge', https://diatribe.org/diabetes-management/defeating-hypoglycemia-binge",
+   "Healthline, 'Rule of 15 for diabetes', https://www.healthline.com/health/diabetes/rule-of-15-diabetes"
+  ]
+ },
+ {
+  "id": "menstrual-cycle",
+  "title": "Hormone cycle effects",
+  "patterns": [
+   "menstrual-cycle",
+   "overnight-lows",
+   "morning-highs"
+  ],
+  "foods": [],
+  "advice": "Many women see higher sugars in the week before their period, then a drop and more lows once it starts. If your lows cluster at certain times of the month, that's worth tracking. Perimenopause can make it less predictable.",
+  "how": "Note period days in the Dexcom or a calendar for 2-3 cycles and compare. If there's a clear pattern, ask your team about a planned temporary adjustment for those days, and be ready for lows as the period begins.",
+  "why": "Progesterone in the luteal phase raises insulin resistance, and when it falls at menstruation, insulin sensitivity rises again.",
+  "involves_dose_change": true,
+  "evidence": "study",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Brown SA et al., Fluctuations of hyperglycemia and insulin sensitivity are linked to menstrual cycle phases in women with T1D, J Diabetes Sci Technol 2015, https://doi.org/10.1177/1932296815608400"
+  ]
+ },
+ {
+  "id": "missed-or-double-basal",
+  "title": "Did I take my long-acting? Avoid doubling",
+  "patterns": [
+   "overnight-lows",
+   "insulin-handling",
+   "high-variability"
+  ],
+  "foods": [],
+  "advice": "A surprise low that lasts many hours can come from accidentally taking the long-acting twice. It's an easy mistake after 30 years of doing it on autopilot. A simple tracking habit prevents it.",
+  "how": "Use a smart pen cap or a pen with dose memory (for example a Timesulin-style cap or InPen/NovoPen 6 memory), or tick a box on the fridge calendar. If you think you double-dosed: tell your team or call Telehealth (811 in most provinces). Set the CGM low alert higher for 24 hours, eat regularly, don't exercise hard, and make sure someone knows. If you're unsure whether you took it, don't simply take another dose; call your team for a plan.",
+  "why": "An extra long-acting dose works for about 24 hours, causing a prolonged low that keeps coming back.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Holt RIG et al., ADA/EASD T1D Consensus, Diabetes Care 2021, https://doi.org/10.2337/dci21-0043"
+  ]
+ },
+ {
+  "id": "move-basal-to-morning",
+  "title": "Switch long-acting from bedtime to morning",
+  "patterns": [
+   "overnight-lows"
+  ],
+  "foods": [],
+  "advice": "A lot of people with Lantus or Basaglar at bedtime find it peaks a little in the night. Moving it to the morning is a common, well-tolerated change.",
+  "how": "People move the shot to breakfast time (often in steps over a few days) and many report fewer 1-3 a.m. lows. Do this with your team's guidance on how to bridge the switch day.",
+  "why": "Glargine has a mild peak several hours after injection; dosing in the morning puts that peak in the daytime when you're awake and eating.",
+  "involves_dose_change": true,
+  "evidence": "community",
+  "caveat": "Some get a rise in the late evening/early night as the dose wanes; that's when splitting is considered.",
+  "research": "community",
+  "sources": [
+   "Diabetes UK Forum, 'Splitting Lantus dose' thread, https://forum.diabetes.org.uk/boards/threads/splitting-lantus-dose.15061",
+   "Diabetes UK Forum, 'Basal insulin at night' thread, https://forum.diabetes.org.uk/boards/threads/basal-insulin-at-night.94866/latest"
+  ]
+ },
+ {
+  "id": "nachos-meal",
+  "title": "Nachos: hard to count, easy to underestimate",
+  "patterns": [
+   "high-fat-meals",
+   "carb-counting",
+   "post-meal-spikes"
+  ],
+  "foods": [
+   "nachos",
+   "tortilla chips",
+   "cheese"
+  ],
+  "advice": "Nachos are one of the hardest foods to count because the chip pile is hidden under cheese. People often underestimate them, then see a long, late high from all the cheese.",
+  "how": "Tortilla chips are about 1 g carb per chip, or roughly 18-20 g per 28 g (about 10-12 chips). A restaurant platter can be 80-150 g carbs for the whole thing - decide your share up front. Plate your portion instead of grazing; beans and salsa add fibre.",
+  "why": "Large amounts of fried corn starch plus melted cheese cause both a sizeable carb load and delayed absorption.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "CalorieKing food database, n.d., https://www.calorieking.com",
+   "Bell KJ et al. Impact of Fat, Protein, and Glycemic Index on Postprandial Glucose Control in Type 1 Diabetes. Diabetes Care, 2015, https://doi.org/10.2337/dc15-0100"
+  ]
+ },
+ {
+  "id": "new-needle",
+  "title": "Use a fresh pen needle",
+  "patterns": [
+   "injection-sites",
+   "insulin-handling"
+  ],
+  "foods": [],
+  "advice": "Reusing pen needles is common, but it dulls them, adds to lumps, and can make doses less predictable.",
+  "how": "Change the needle each shot if you can; 4 mm needles are enough for most adults.",
+  "why": "Dull needles damage tissue, contributing to lipohypertrophy.",
+  "involves_dose_change": false,
+  "evidence": "study",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "Review on lipohypertrophy and erratic absorption (PMC8442188), https://pmc.ncbi.nlm.nih.gov/articles/PMC8442188"
+  ]
+ },
+ {
+  "id": "no-one-diet",
+  "title": "There is no one right diet for T1D",
+  "patterns": [
+   "general",
+   "eating-patterns",
+   "motivation-burnout"
+  ],
+  "foods": [],
+  "advice": "Major guidelines agree there's no single 'diabetes diet' - the best eating pattern is one that fits your tastes, culture, budget and life. The goal is matching insulin to what you actually like to eat, not cutting foods out.",
+  "how": "Start from what you already eat (coffee, burgers, pizza, bagels) and look for one small tweak at a time rather than a whole new plan. Ask for a referral to a registered dietitian who works with T1D; in Canada this is often free through a diabetes education centre.",
+  "why": "Evidence shows many eating patterns (Mediterranean, lower-carb, DASH, vegetarian) can work, so personal fit and sustainability matter more than the label.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Evert AB et al. Nutrition Therapy for Adults With Diabetes or Prediabetes: A Consensus Report. Diabetes Care, 2019, https://doi.org/10.2337/dci19-0014",
+   "Diabetes Canada CPG Ch.11 Nutrition Therapy (Sievenpiper et al.), 2018, https://guidelines.diabetes.ca/cpg/chapter11",
+   "ADA Standards of Care in Diabetes-2026, Section 5 Facilitating Positive Health Behaviors, 2026, https://doi.org/10.2337/dc26-S005"
+  ]
+ },
+ {
+  "id": "non-judgmental-framing",
+  "title": "No good or bad foods",
+  "patterns": [
+   "motivation-burnout",
+   "general",
+   "eating-patterns"
+  ],
+  "foods": [],
+  "advice": "All foods can fit with type 1 diabetes. After decades of living with it, many people feel tired of food rules - the focus is on learning how each food behaves for you, not on restriction.",
+  "how": "When a meal goes high or low, treat it as information: note what you ate, timing, and the CGM curve. Pick one food you eat often and experiment with it for a week. Celebrate meals that go well.",
+  "why": "Food guilt and restriction can increase stress and disordered eating risk, which itself worsens glucose management.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "ADA Standards of Care in Diabetes-2026, Section 5 Facilitating Positive Health Behaviors, 2026, https://doi.org/10.2337/dc26-S005",
+   "Evert AB et al. Nutrition Therapy for Adults With Diabetes or Prediabetes: A Consensus Report. Diabetes Care, 2019, https://doi.org/10.2337/dci19-0014"
+  ]
+ },
+ {
+  "id": "overnight-alert-higher-low",
+  "title": "Raise the overnight Low alert so you get warned early",
+  "patterns": [
+   "overnight-lows",
+   "cgm-use",
+   "hypo-unawareness",
+   "sleep"
+  ],
+  "foods": [],
+  "advice": "With frequent night lows, an earlier warning buys you time to take a few grams before it becomes a real low.",
+  "how": "Many people set the Low alert around 4.4-5.0 mmol/L overnight, keep Urgent Low Soon on (warns ~20 min before 3.1), and turn on Falling Fast. G7 lets you add a second, scheduled night profile in Alerts so daytime settings stay as you like them.",
+  "why": "An early alert catches the drop while a small treatment is still enough.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "Too many alerts lead to alarm fatigue; adjust the threshold so it's useful, not constant.",
+  "research": "community",
+  "sources": [
+   "Dexcom Canada FAQ, 'How could I prevent nighttime lows with earlier alerts?', https://www.dexcom.com/en-ca/faqs/g7/how-could-i-prevent-nighttime-lows-with-earlier-alerts",
+   "Dexcom FAQ, 'How can I get fewer nighttime alerts with G7?', https://www.dexcom.com/en-us/faqs/how-can-i-get-fewer-nighttime-alerts"
+  ]
+ },
+ {
+  "id": "overnight-lows-basal-too-strong",
+  "title": "Long overnight lows usually point to the long-acting",
+  "patterns": [
+   "overnight-lows",
+   "sleep"
+  ],
+  "foods": [],
+  "advice": "When you drift low overnight and stay there for hours, well after supper's rapid insulin has worn off, it usually means your long-acting is a bit strong for the night. That's a question for your team: they may trim it or change when you take it.",
+  "how": "Clue: the drop starts 4-5 hours or more after the last rapid insulin, with no exercise or alcohol that day, and repeats on several nights a week. Ask your team about trimming the long-acting, changing the time you take it, or switching to a flatter basal. Until then, set the Dexcom low alert higher overnight and consider a bedtime snack when you go to bed in the lower range.",
+  "why": "Rapid insulin is mostly gone 4-5 hours after a dose, so a slow overnight fall is driven by the basal insulin.",
+  "involves_dose_change": true,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Holt RIG et al., Management of Type 1 Diabetes in Adults: ADA/EASD Consensus Report, Diabetes Care 2021, https://doi.org/10.2337/dci21-0043",
+   "ADA Standards of Care 2026, Sec. 9 Pharmacologic Approaches, https://doi.org/10.2337/dc26-S009"
+  ]
+ },
+ {
+  "id": "partner-follow-agreement",
+  "title": "Agree with your husband on what Follow alerts mean",
+  "patterns": [
+   "partner-support",
+   "overnight-lows",
+   "cgm-use"
+  ],
+  "foods": [],
+  "advice": "Having your husband on Dexcom Follow can be a real comfort, especially at night. It works best when you've agreed what he should do and when.",
+  "how": "Agree on thresholds: e.g., he gets notified only for lows or urgent lows overnight, not highs. Agree on the response: a text or wake you, bring juice. Agree he doesn't comment on highs unless you ask.",
+  "why": "Clear agreements prevent nagging and keep the focus on safety.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "diaTribe, 'How to Coach Your Care-Partner on CGM Data', https://diatribe.org/lifestyle/how-coach-your-care-partner-cgm-data",
+   "TCOYD type 1 talks (diabetes 'couples therapy' session on not being the diabetes police), https://tcoyd.org/tag/type-1/"
+  ]
+ },
+ {
+  "id": "partner-low-language",
+  "title": "How a partner can help during a low",
+  "patterns": [
+   "partner-support",
+   "treating-lows"
+  ],
+  "foods": [],
+  "advice": "During a low, you might be irritable or confused; a partner's calm help is valuable.",
+  "how": "Partners: hand over the juice without questioning, avoid 'Did you take too much?', wait 15 minutes together, then talk later if needed.",
+  "why": "Low blood sugar affects the brain, so arguing doesn't help.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "TCOYD type 1 talks (diabetes 'couples therapy' session on not being the diabetes police), https://tcoyd.org/tag/type-1/",
+   "diaTribe, 'How to Coach Your Care-Partner on CGM Data', https://diatribe.org/lifestyle/how-coach-your-care-partner-cgm-data"
+  ]
+ },
+ {
+  "id": "partner-silent-follow",
+  "title": "Partner Follow without nagging",
+  "patterns": [
+   "partner-support",
+   "motivation-burnout"
+  ],
+  "foods": [],
+  "advice": "It's easy for a loving partner to become the 'diabetes police'. You decide how much he weighs in.",
+  "how": "Some couples set Follow to only alert for urgent lows; partner asks 'Need anything?' rather than 'Why are you high?'.",
+  "why": "Respecting autonomy reduces diabetes distress.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "diaTribe, 'How to Coach Your Care-Partner on CGM Data', https://diatribe.org/lifestyle/how-coach-your-care-partner-cgm-data",
+   "TCOYD type 1 talks (diabetes 'couples therapy' session on not being the diabetes police), https://tcoyd.org/tag/type-1/"
+  ]
+ },
+ {
+  "id": "peer-community",
+  "title": "Connect with others who get it",
+  "patterns": [
+   "motivation-burnout",
+   "general"
+  ],
+  "foods": [],
+  "advice": "Talking to others with type 1 can make things feel lighter and give you new ideas.",
+  "how": "Online forums, Facebook groups, local in-person groups (e.g., Connected in Motion in Canada for adults with T1D), podcasts like Juicebox.",
+  "why": "Peer support reduces isolation and offers practical tips.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "Forum advice varies; check dose changes with your team.",
+  "research": "community",
+  "sources": [
+   "NDSS (Australia), 'Diabetes distress and burnout', https://www.ndss.com.au/looking-after-your-mind/when-diabetes-makes-it-tough/diabetes-distress-and-burnout/",
+   "Juicebox Podcast (Scott Benner), 'Type 1 Diabetes Pro Tips' series: Pre Bolus, Bump and Nudge (#34, #44), Setting Basal Insulin (#37), Fat and Protein (#39), https://podbay.fm/p/type-1-diabetes-pro-tips"
+  ]
+ },
+ {
+  "id": "pho",
+  "title": "Pho and noodle soups",
+  "patterns": [
+   "carb-counting",
+   "post-meal-spikes"
+  ],
+  "foods": [
+   "pho",
+   "rice noodles",
+   "ramen"
+  ],
+  "advice": "Noodle soups are tricky because the noodles hide under the broth. A large pho bowl often has more carbs than people think.",
+  "how": "A regular bowl of pho typically has 40-60 g carbs from noodles; large 70-90 g. Hoisin sauce adds ~5 g per tbsp. Options: order a small, ask for extra veg/sprouts, or leave some noodles. Ramen is similar or higher.",
+  "why": "Rice noodles are refined starch that digests quickly, especially in hot broth.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "CalorieKing food database, n.d., https://www.calorieking.com"
+  ]
+ },
+ {
+  "id": "phrasing-dose-advice",
+  "title": "How guidelines phrase dose changes",
+  "patterns": [
+   "general"
+  ],
+  "foods": [],
+  "advice": "Ray names the lever ('your long-acting may be strong overnight', 'the breakfast ratio may be a bit strong') and steers the actual number change to her diabetes team, the way guidelines describe adjustments as shared decisions.",
+  "how": "Guidelines frame these as shared decision-making: 're-evaluate the treatment plan' after level 2 or 3 lows (ADA); 'raise glycemic goals' to restore awareness; 'consider basal reduction' after evening exercise (consensus). Good phrasings: 'worth asking your team about trimming your long-acting', 'ask whether a different long-acting would suit you', 'ask for a bedtime correction rule'. Never state units or percentages for her.",
+  "why": "Safe insulin adjustment depends on the full clinical picture, and the guidelines place dose decisions with the care team or a trained, structured-education patient.",
+  "involves_dose_change": true,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "ADA Standards of Care 2026, Sec. 6, https://doi.org/10.2337/dc26-S006",
+   "Holt RIG et al., ADA/EASD T1D Consensus, Diabetes Care 2021, https://doi.org/10.2337/dci21-0043"
+  ]
+ },
+ {
+  "id": "pizza-effect",
+  "title": "The pizza effect",
+  "patterns": [
+   "high-fat-meals",
+   "post-meal-spikes",
+   "post-meal-lows",
+   "overnight-lows"
+  ],
+  "foods": [
+   "pizza"
+  ],
+  "advice": "Pizza is famous among people with T1D for causing a low or flat line in the first couple of hours, then a stubborn high late in the evening or overnight. You're not doing anything wrong - it's one of the trickiest foods there is.",
+  "how": "Count the crust carefully (a large slice can be 30-40 g carbs; thick or stuffed crust more). Add a salad first to slow things and help fullness. Having pizza earlier in the evening rather than late means the delayed rise happens while you're awake to see it.",
+  "why": "Cheese and meat fat delay gastric emptying of the crust's starch, shifting the glucose rise 3-6 hours later than usual.",
+  "involves_dose_change": false,
+  "evidence": "study",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Bell KJ et al. Impact of Fat, Protein, and Glycemic Index on Postprandial Glucose Control in Type 1 Diabetes. Diabetes Care, 2015, https://doi.org/10.2337/dc15-0100",
+   "Paterson M et al. The Role of Dietary Protein and Fat in Glycaemic Control in Type 1 Diabetes. Curr Diab Rep, 2015, https://pmc.ncbi.nlm.nih.gov/articles/PMC4512569"
+  ]
+ },
+ {
+  "id": "pizza-split-dose-mdi",
+  "title": "Pizza, pasta and Chinese food: split the shot",
+  "patterns": [
+   "high-fat-meals",
+   "post-meal-spikes",
+   "post-meal-lows"
+  ],
+  "foods": [],
+  "advice": "Big, fatty meals digest slowly. One shot up front can cause a low early and a high hours later. Splitting the dose on injections is a common workaround.",
+  "how": "MDI version of an 'extended bolus': part of the dose at the start of the meal and the rest 1-2 hours later (community splits range from 50/50 to 60/40, with any correction in the first shot). Set a phone reminder for the second shot.",
+  "why": "Fat and protein slow stomach emptying, delaying the carb rise by hours.",
+  "involves_dose_change": true,
+  "evidence": "community",
+  "caveat": "Split ratios are personal; test on a weekend with your team's input. Forgetting the second shot means a high.",
+  "research": "community",
+  "sources": [
+   "diaTribe, 'Pizza and Blood Sugar Control: (Not Quite) Easy as Pie', https://diatribe.org/diet-and-nutrition/pizza-and-blood-sugar-control-not-quite-easy-pie",
+   "Diabetes UK Forum, 'Double injecting for pasta', https://forum.diabetes.org.uk/boards/threads/double-injecting-for-pasta.20889/latest",
+   "Diabetes UK Forum, 'Fat, protein and carbs question (oh and booze)', https://forum.diabetes.org.uk/boards/threads/fat-protein-and-carbs-question-oh-and-booze.103293",
+   "Beyond Type 1, 'Bolus for pizza tips', https://beyondtype1.org/bolus-for-pizza-tips/"
+  ]
+ },
+ {
+  "id": "plate-method",
+  "title": "The plate method when you can't count",
+  "patterns": [
+   "carb-counting",
+   "eating-patterns",
+   "post-meal-spikes"
+  ],
+  "foods": [],
+  "advice": "When counting carbs precisely isn't practical, the plate method gives a consistent meal shape: half vegetables, a quarter protein, a quarter starch. Consistency makes your insulin estimate more predictable.",
+  "how": "Use a standard 9-inch plate: 1/2 non-starchy veg, 1/4 protein, 1/4 grains/starch, plus a fruit and milk if you like. For a quarter-plate starch, many people find it's roughly 30-45 g carbs - check a few times with a measuring cup to calibrate.",
+  "why": "Keeping the carb portion steady and pairing it with fibre and protein reduces both carb-estimate error and peak height.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Diabetes Canada. Meal planning / Just the Basics plate method, n.d., https://diabetes.ca/nutrition---fitness/meal-planning",
+   "Diabetes Canada CPG Ch.11 Nutrition Therapy (Sievenpiper et al.), 2018, https://guidelines.diabetes.ca/cpg/chapter11"
+  ]
+ },
+ {
+  "id": "post-meal-lows-causes",
+  "title": "Why you might go low after meals",
+  "patterns": [
+   "post-meal-lows",
+   "late-morning-lows"
+  ],
+  "foods": [],
+  "advice": "A low 1 to 3 hours after a meal usually means the insulin for that meal was more than you needed. Common reasons are a dose that's too strong for that meal, over-counted carbs, pre-bolusing too long, or being active after eating. Look at which meal it happens after.",
+  "how": "Check, for the meal in question: was the carb count high? Was the pre-bolus long? Were you active after eating? Was there a correction on top? Was it a high-fat meal (insulin peaks before the food is absorbed)? If it's the same meal on 3 or more days, your team may adjust the insulin-to-carb ratio for that meal. Your body may also need less insulin at breakfast than at supper, or the other way round.",
+  "why": "The mealtime dose peaks 1-2 hours after injection, so too much of it shows up as a low in that window.",
+  "involves_dose_change": true,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Holt RIG et al., ADA/EASD T1D Consensus, Diabetes Care 2021, https://doi.org/10.2337/dci21-0043",
+   "Diabetes Canada CPG Ch. 12 Glycemic Management in Adults with T1D, 2018, https://www.diabetes.ca/for-professionals/full-guidelines/chapter-12"
+  ]
+ },
+ {
+  "id": "post-meal-targets",
+  "title": "What counts as a good after-meal number",
+  "patterns": [
+   "post-meal-spikes",
+   "general"
+  ],
+  "foods": [],
+  "advice": "Some rise after eating is normal. The goal is to stay under 10 at the peak and be back near your starting point by 3 to 4 hours, without dropping low.",
+  "how": "Diabetes Canada targets: before meals 4.0-7.0 mmol/L; 2 hours after meals 5.0-10.0 mmol/L (5.0-8.0 if the A1C target isn't being met). ADA: peak after meals under 10.0 mmol/L. For you, avoiding lows comes first, so a few post-meal readings slightly above 10 are an acceptable trade.",
+  "why": "Post-meal highs add to A1C and variability, but chasing them aggressively causes lows.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Diabetes Canada CPG Ch. 8 Targets for Glycemic Control, 2018, https://www.diabetes.ca/for-professionals/full-guidelines/chapter-8",
+   "ADA Standards of Care 2026, Sec. 6, https://doi.org/10.2337/dc26-S006"
+  ]
+ },
+ {
+  "id": "poutine",
+  "title": "Poutine",
+  "patterns": [
+   "high-fat-meals",
+   "carb-counting",
+   "post-meal-spikes"
+  ],
+  "foods": [
+   "poutine",
+   "fries",
+   "gravy",
+   "cheese curds"
+  ],
+  "advice": "Poutine is a Canadian classic that combines lots of fries, gravy and cheese - big carbs and big fat, so expect a later rise. You can absolutely enjoy it with some planning.",
+  "how": "A regular poutine is often 60-90 g carbs; large can be 100 g or more. Check chain nutrition info (e.g., New York Fries, Smoke's, A&W). A smaller size, sharing, or adding a side salad helps. Watch your CGM 3-5 hours later to learn your pattern.",
+  "why": "Fried potato starch digests fairly quickly, but the cheese and gravy fat slow and extend the rise.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "CalorieKing food database, n.d., https://www.calorieking.com",
+   "Bell KJ et al. Impact of Fat, Protein, and Glycemic Index on Postprandial Glucose Control in Type 1 Diabetes. Diabetes Care, 2015, https://doi.org/10.2337/dc15-0100"
+  ]
+ },
+ {
+  "id": "pre-bolus-timing",
+  "title": "Pre-bolus 15-20 minutes when in range",
+  "patterns": [
+   "pre-bolus",
+   "post-meal-spikes"
+  ],
+  "foods": [],
+  "advice": "If you're in range and steady, taking your mealtime insulin about 15 to 20 minutes before you eat can flatten the after-meal spike a lot. But if you're on the low side or dropping, bolus right as you start eating instead.",
+  "how": "In range and flat: inject 15-20 minutes before eating. High: a longer wait helps. Below about 5 or falling: inject at the start of the meal, or even right after it. If you're unsure you'll finish the meal (for example eating out, or with a poor appetite), inject right after eating. Ultra-rapid insulins (Fiasp, Lyumjev) go in at the start of the meal.",
+  "why": "Rapid-acting analogues take about 15 minutes to start working and peak at 1-2 hours, while carbs raise glucose within 15-30 minutes, so giving the insulin early lines it up with the food.",
+  "involves_dose_change": false,
+  "evidence": "study",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Slattery D, Amiel SA, Choudhary P, Optimal prandial timing of bolus insulin in diabetes management: a review, Diabet Med 2018, https://doi.org/10.1111/dme.13525",
+   "Holt RIG et al., ADA/EASD T1D Consensus, Diabetes Care 2021, https://doi.org/10.2337/dci21-0043"
+  ]
+ },
+ {
+  "id": "pre-emptive-treatment-trend",
+  "title": "Head off a low early with a small snack",
+  "patterns": [
+   "treating-lows",
+   "cgm-use",
+   "overnight-lows",
+   "late-morning-lows"
+  ],
+  "foods": [],
+  "advice": "With a CGM you don't have to wait until you're below 4. If the alert goes off and the arrow is pointing down, a small snack of 10 to 15 grams can stop the low before it starts.",
+  "how": "At about 4.4-5.0 mmol/L: with a flat arrow, about 10 g of carbs; with a slight down arrow, about 15 g; with a steep down arrow, treat as a low (15-20 g) and re-check in 15 minutes. These amounts are adapted from the EASD/ISPAD overnight and exercise tables; personalise them with your team.",
+  "why": "Treating on the trend catches the fall about 15-20 minutes earlier, which avoids the deep lows that cause rebounds and loss of awareness.",
+  "involves_dose_change": false,
+  "evidence": "consensus",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Moser O et al., EASD/ISPAD position statement, Diabetologia 2020, https://doi.org/10.1007/s00125-020-05263-9"
+  ]
+ },
+ {
+  "id": "protein-alone",
+  "title": "Protein on its own rarely needs a carb count",
+  "patterns": [
+   "carb-counting",
+   "eating-patterns",
+   "post-meal-lows"
+  ],
+  "foods": [
+   "eggs",
+   "cheese",
+   "chicken",
+   "nuts",
+   "greek yogurt"
+  ],
+  "advice": "Small protein snacks - a cheese string, an egg, a handful of nuts - usually have little effect on glucose. Large protein-heavy meals (big steak) are different and can cause a slow rise hours later.",
+  "how": "Use low-carb protein snacks when you're hungry but don't want to dose. For big protein meals, check your CGM 3-5 hours later to learn your own pattern.",
+  "why": "In T1D, protein above roughly 75 g in a meal can raise glucose later via gluconeogenesis, but small amounts have little effect.",
+  "involves_dose_change": false,
+  "evidence": "study",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Paterson M et al. The Role of Dietary Protein and Fat in Glycaemic Control in Type 1 Diabetes. Curr Diab Rep, 2015, https://pmc.ncbi.nlm.nih.gov/articles/PMC4512569",
+   "Smart CE et al. Both Dietary Protein and Fat Increase Postprandial Glucose Excursions in Children With Type 1 Diabetes, and the Effect Is Additive. Diabetes Care, 2013, https://doi.org/10.2337/dc13-0195",
+   "ISPAD Clinical Practice Consensus Guidelines 2022: Nutritional management in children and adolescents with diabetes (Annan et al.), 2022, https://www.ispad.org/page/ISPADGuidelines2022"
+  ]
+ },
+ {
+  "id": "protein-late-rise",
+  "title": "Big protein meals can cause a slow, late rise",
+  "patterns": [
+   "high-fat-meals",
+   "post-meal-spikes"
+  ],
+  "foods": [],
+  "advice": "A big steak or a large protein-heavy meal can push you up slowly, 3-5 hours later.",
+  "how": "Watch the G7 for a delayed rise after big protein meals. Some people include part of the protein in their dose planning or add a later small dose (agree with your team).",
+  "why": "Some protein is converted to glucose slowly in the liver.",
+  "involves_dose_change": true,
+  "evidence": "community",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "Diabetes UK Forum, 'Fat, protein and carbs question (oh and booze)', https://forum.diabetes.org.uk/boards/threads/fat-protein-and-carbs-question-oh-and-booze.103293",
+   "Juicebox Podcast (Scott Benner), 'Type 1 Diabetes Pro Tips' series: Pre Bolus, Bump and Nudge (#34, #44), Setting Basal Insulin (#37), Fat and Protein (#39), https://podbay.fm/p/type-1-diabetes-pro-tips"
+  ]
+ },
+ {
+  "id": "protein-veg-first",
+  "title": "Eat the vegetables and protein first, starch last",
+  "patterns": [
+   "post-meal-spikes",
+   "eating-patterns"
+  ],
+  "foods": [],
+  "advice": "A simple trick: start the meal with the salad and the meat, and leave the bread, rice or potatoes for the second half.",
+  "how": "Order: vegetables, then protein/fat, then carbs. Many people find it softens the spike without changing what they eat.",
+  "why": "Fibre, protein and fat slow how quickly the stomach releases carbs.",
+  "involves_dose_change": false,
+  "evidence": "study",
+  "caveat": "Mostly studied in type 2; slowing carbs can mismatch a pre-bolus and cause an early low, so you may need less pre-bolus time.",
+  "research": "community",
+  "sources": [
+   "Adam Brown / diaTribe, 'Bright Spots & Landmines' (free book), 2017, https://diatribe.org/bright-spots-and-landmines"
+  ]
+ },
+ {
+  "id": "rage-bolus-pause",
+  "title": "Recognise the 'rage bolus' and give yourself a rule",
+  "patterns": [
+   "corrections-stacking",
+   "rebound-highs",
+   "motivation-burnout",
+   "stress"
+  ],
+  "foods": [],
+  "advice": "Everyone with type 1 knows the frustrated big correction after a stubborn high. Having a rule decided in a calm moment helps more than willpower.",
+  "how": "Community rules of thumb: no correction within 3-4 hours of the last rapid shot unless checked with your active-insulin math; write down the time of every correction; if you're angry, walk for 10 minutes first and re-look.",
+  "why": "Rapid insulin keeps working for 3-5 hours; stacking several shots lands all at once and causes a hard low.",
+  "involves_dose_change": true,
+  "evidence": "community",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "One Drop blog, 'High (and low) blood sugars are not forever' (rage bolus), https://onedrop.today/blogs/blog/rage-bolus-high-blood-sugar-overeat-low-blood-sugar-how-to-control-diabetes-emotions",
+   "Research article on post-hypoglycemic hyperglycemia and 'rage bolus' (PMC9294577), https://pmc.ncbi.nlm.nih.gov/articles/PMC9294577",
+   "Diabetes UK Forum, 'Bad BG readings' (half-correction advice), https://forum.diabetes.org.uk/boards/threads/bad-bg-readings.87199/latest"
+  ]
+ },
+ {
+  "id": "rebound-high-dont-chase",
+  "title": "Don't chase the rebound high after a low",
+  "patterns": [
+   "rebound-highs",
+   "corrections-stacking",
+   "high-variability"
+  ],
+  "foods": [],
+  "advice": "After a low, you'll often bounce high. That's partly the liver's emergency sugar dump and partly the extra treatment. Going in hard with insulin is how the rollercoaster keeps going.",
+  "how": "Wait at least 2 hours after a low before correcting, and when you do, many people use a smaller correction than usual. Ask your team for a 'post-low' correction rule.",
+  "why": "Counter-regulatory hormones (glucagon, adrenaline) raise glucose and cause temporary insulin resistance after a low.",
+  "involves_dose_change": true,
+  "evidence": "community",
+  "caveat": "Ketones or a high that keeps climbing for hours needs a proper correction.",
+  "research": "community",
+  "sources": [
+   "Research article on post-hypoglycemic hyperglycemia and 'rage bolus' (PMC9294577), https://pmc.ncbi.nlm.nih.gov/articles/PMC9294577",
+   "Diabetes UK Forum, 'Bad BG readings' (half-correction advice), https://forum.diabetes.org.uk/boards/threads/bad-bg-readings.87199/latest",
+   "diaTribe, 'Defeating the Hypoglycemia Binge', https://diatribe.org/diabetes-management/defeating-hypoglycemia-binge"
+  ]
+ },
+ {
+  "id": "rebound-highs-dont-chase",
+  "title": "Rebound highs after a low: don't chase them",
+  "patterns": [
+   "rebound-highs",
+   "high-variability",
+   "treating-lows",
+   "corrections-stacking"
+  ],
+  "foods": [],
+  "advice": "A high that follows a low is usually from the extra food plus your body's own emergency hormones. Correcting it hard tends to start the roller-coaster again. A gentle approach evens things out.",
+  "how": "Prevent it: treat lows with measured fast sugar, not by eating until you feel better. If you rebound: wait 2-3 hours before correcting (the rise often settles on its own), then correct cautiously, accounting for insulin on board. Rebounds are a big driver of a high CV.",
+  "why": "Counter-regulatory hormones (glucagon, adrenaline, cortisol) released during a low raise glucose and cause temporary insulin resistance for several hours.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Diabetes Canada CPG Ch. 14 Hypoglycemia, 2018, https://www.diabetes.ca/for-professionals/full-guidelines/chapter-14",
+   "Battelino T et al., International Consensus on Time in Range, Diabetes Care 2019, https://doi.org/10.2337/dci19-0028"
+  ]
+ },
+ {
+  "id": "recurrent-level2-reevaluate-plan",
+  "title": "Repeated lows below 3.0 mean the plan needs changing",
+  "patterns": [
+   "overnight-lows",
+   "general",
+   "hypo-unawareness"
+  ],
+  "foods": [],
+  "advice": "If you're dipping below 3.0 several times a week, the insulin plan needs adjusting. It isn't something to put up with or fix with more snacks. That's worth a call to your diabetes team now rather than at your next routine visit.",
+  "how": "ADA: ask about hypoglycemia at every visit, and re-evaluate the treatment plan after any level 2 or level 3 low or a pattern of them. Bring your Dexcom Clarity AGP (14 days) to the call and point out the times of day the lows cluster. Write down any patterns you notice: exercise, alcohol, late corrections, missed meals.",
+  "why": "When lows keep happening at the same time of day, insulin at that time is usually greater than what the body needs, and food alone can't fix that safely.",
+  "involves_dose_change": true,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "ADA Standards of Care 2026, Sec. 6, https://doi.org/10.2337/dc26-S006",
+   "Diabetes Canada CPG Ch. 14 Hypoglycemia, Rec. 1-2, 2018, https://www.diabetes.ca/for-professionals/full-guidelines/chapter-14"
+  ]
+ },
+ {
+  "id": "restaurant-carb-estimate",
+  "title": "Restaurant meals: count, then watch",
+  "patterns": [
+   "carb-counting",
+   "post-meal-spikes",
+   "post-meal-lows"
+  ],
+  "foods": [],
+  "advice": "Restaurant portions and hidden sugars often fool even experienced carb counters. Plan to check and adjust rather than nail it the first time.",
+  "how": "Use the chain's nutrition info (most Canadian chains post it), apps like Calorie King, or photo-estimate; then check the G7 at 2 and 4 hours. Many keep a note of 'what worked' for regular spots.",
+  "why": "Sauces, breading and sugar in restaurant food add carbs that aren't obvious.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "Adam Brown / diaTribe, 'Bright Spots & Landmines' (free book), 2017, https://diatribe.org/bright-spots-and-landmines",
+   "diaTribe, 'Pizza and Blood Sugar Control: (Not Quite) Easy as Pie', https://diatribe.org/diet-and-nutrition/pizza-and-blood-sugar-control-not-quite-easy-pie"
+  ]
+ },
+ {
+  "id": "restaurant-strategies",
+  "title": "Eating out and takeout strategies",
+  "patterns": [
+   "carb-counting",
+   "high-fat-meals",
+   "post-meal-spikes"
+  ],
+  "foods": [
+   "pizza",
+   "burgers",
+   "pasta",
+   "chinese food",
+   "takeout"
+  ],
+  "advice": "Restaurant portions are big, and food is often richer than at home. A few habits make eating out far more predictable without taking the fun out of it.",
+  "how": "Look up the menu's nutrition info before you go (most Canadian chains post it). Use an app like CalorieKing, Carb Manager or MyFitnessPal for estimates. Compare the plate to your hand or known portions (a fist ~ 1 cup). Box half at the start. Note your guess and CGM result so next time you can adjust.",
+  "why": "Larger portions and hidden fats/sugars increase both carb-estimate error and delayed absorption.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "CalorieKing food database, n.d., https://www.calorieking.com",
+   "Evert AB et al. Nutrition Therapy for Adults With Diabetes or Prediabetes: A Consensus Report. Diabetes Care, 2019, https://doi.org/10.2337/dci19-0014"
+  ]
+ },
+ {
+  "id": "review-weekly-patterns",
+  "title": "Look at your week, not just today",
+  "patterns": [
+   "cgm-use",
+   "high-variability",
+   "general"
+  ],
+  "foods": [],
+  "advice": "A quick weekly look at the patterns tells you more than stressing over every reading.",
+  "how": "Use the Clarity app's overlay or weekly report: when do lows cluster? Focus on one time of day at a time. Celebrate what's working.",
+  "why": "Patterns show what's systematic; single readings are noise.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "Adam Brown / diaTribe, 'Bright Spots & Landmines' (free book), 2017, https://diatribe.org/bright-spots-and-landmines",
+   "Dr. Stephen Ponder, Sugar Surfing presentation slides, https://abcd10.redhot.circle-interactive.co.uk/sites/default/files/resources/IPN17%20PONDER.pdf"
+  ]
+ },
+ {
+  "id": "rotate-sites-lumps",
+  "title": "Rotate injection sites and check for lumps",
+  "patterns": [
+   "injection-sites",
+   "high-variability",
+   "post-meal-lows"
+  ],
+  "foods": [],
+  "advice": "After 30 years of injections, lumpy spots are very common. Insulin from them absorbs unpredictably, causing random highs and lows.",
+  "how": "Feel for rubbery or thickened areas (often around the belly button or favourite spots). Use a rotation pattern (e.g. clockwise around the belly, 2-3 cm apart). Moving to fresh skin can make insulin work much stronger, so watch for lows when changing.",
+  "why": "Repeated injections at one spot cause lipohypertrophy, which slows and scatters absorption.",
+  "involves_dose_change": false,
+  "evidence": "study",
+  "caveat": "When you switch from a lumpy area to fresh tissue, the same dose may act stronger.",
+  "research": "community",
+  "sources": [
+   "IDF Diabetes Voice, 'Lipohypertrophy causes unexplained highs and lows', https://diabetesvoice.org/en/caring-for-diabetes/lipohypertrophy-causes-unexplained-highs-and-lows/",
+   "Review on lipohypertrophy and erratic absorption (PMC8442188), https://pmc.ncbi.nlm.nih.gov/articles/PMC8442188"
+  ]
+ },
+ {
+  "id": "rule-of-15",
+  "title": "Treating a low: the 15-15 approach",
+  "patterns": [
+   "treating-lows"
+  ],
+  "foods": [
+   "glucose tablets",
+   "juice",
+   "regular pop",
+   "sugar"
+  ],
+  "advice": "For a low under 4.0 mmol/L, Diabetes Canada recommends 15 g of fast-acting carbohydrate, then re-check in 15 minutes and repeat if still under 4.0. Glucose tablets are the gold standard because they work fastest and are easy to measure.",
+  "how": "Take 15 g fast sugar, wait 15 minutes, re-check (CGM may lag - confirm with a fingerstick if unsure). Repeat if still below 4.0. If your next meal is more than an hour away, follow up with a snack containing about 15 g carb plus protein.",
+  "why": "Pure glucose is absorbed directly without digestion; 15 g typically raises glucose about 2.1 mmol/L within 20 minutes.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Diabetes Canada CPG Ch.14 Hypoglycemia, 2018, https://guidelines.diabetes.ca/cpg/chapter14",
+   "ADA Standards of Care in Diabetes-2026, Section 6 Glycemic Goals and Hypoglycemia, 2026, https://doi.org/10.2337/dc26-S006"
+  ]
+ },
+ {
+  "id": "same-breakfast",
+  "title": "Repeat a 'known' breakfast",
+  "patterns": [
+   "high-variability",
+   "eating-patterns",
+   "carb-counting"
+  ],
+  "foods": [],
+  "advice": "Having a couple of go-to breakfasts that you know how to dose makes mornings far more predictable.",
+  "how": "Pick 2-3 breakfasts (e.g. eggs and one slice of toast; Greek yogurt with berries and nuts) and dose them the same way each time. Adam Brown calls these 'Bright Spots': things that already work, repeated.",
+  "why": "Fewer unknowns means fewer dosing errors and less variability.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "Adam Brown / diaTribe, 'Bright Spots & Landmines' (free book), 2017, https://diatribe.org/bright-spots-and-landmines"
+  ]
+ },
+ {
+  "id": "second-gen-basal-less-nocturnal",
+  "title": "Some long-acting insulins cause fewer night lows",
+  "patterns": [
+   "overnight-lows",
+   "high-variability"
+  ],
+  "foods": [],
+  "advice": "If overnight lows keep happening even after adjustments, it's reasonable to ask your team whether a different long-acting would suit you better. The newer, flatter ones (degludec/Tresiba or glargine U300/Toujeo) are linked to fewer night-time lows.",
+  "how": "Ask: 'Would a switch to degludec or glargine U300 make sense for my overnight lows?' ADA recommends long-acting analogues to reduce hypoglycemia risk. In the SWITCH 1 trial in T1D, degludec reduced nocturnal symptomatic hypoglycemia compared with glargine U100. Any switch is managed by your team, including the dose conversion.",
+  "why": "Longer-acting, peakless basal insulins release more evenly over 24 hours, which means less of a night-time peak and less day-to-day variation.",
+  "involves_dose_change": true,
+  "evidence": "study",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Lane W et al., SWITCH 1, JAMA 2017, https://doi.org/10.1001/jama.2017.7115",
+   "ADA Standards of Care 2026, Sec. 9, https://doi.org/10.2337/dc26-S009"
+  ]
+ },
+ {
+  "id": "sensor-placement-comfortable",
+  "title": "Pick a sensor spot that fits how you sleep",
+  "patterns": [
+   "cgm-use",
+   "sleep"
+  ],
+  "foods": [],
+  "advice": "The best spot is the one you don't lie on.",
+  "how": "Side-sleepers: back of the arm on the non-sleeping side, or upper buttock. People also rest the sensor arm on the other arm.",
+  "why": "Avoiding pressure means fewer false alarms.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "Diabetes UK Forum, 'Compression lows on Dexcom G7 vs Libre 3', https://forum.diabetes.org.uk/boards/threads/compression-lows-on-dexcom-g7-vs-libre-3.118389",
+   "T1D Exchange, 'What We Learned from the Online Community in August' (compression-low, alcohol-wipe and zero-sugar polls), 2022, https://t1dexchange.org/articles/top-questions-of-the-day-august-2022"
+  ]
+ },
+ {
+  "id": "sick-day-eating",
+  "title": "Eating on sick days",
+  "patterns": [
+   "sick-days",
+   "treating-lows"
+  ],
+  "foods": [
+   "soup",
+   "crackers",
+   "juice",
+   "popsicles",
+   "ginger ale",
+   "jello"
+  ],
+  "advice": "When you're sick, it's important to keep getting carbs and fluids even if you don't feel like eating, because you'll still need insulin. Your team's sick-day plan should guide dose changes.",
+  "how": "If you can't eat normally, aim for about 15 g carbs every hour or so from easy foods: 1/2 cup regular jello, 125 mL juice, a popsicle, 6 soda crackers, 1 cup broth soup with noodles. Sip fluids often. Check ketones if glucose is above ~14 mmol/L, and call your team if you can't keep fluids down.",
+  "why": "Illness raises stress hormones and insulin needs, while poor intake risks lows and ketones.",
+  "involves_dose_change": true,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Diabetes Canada CPG Appendix 8: Sick-Day Medication List / Ch.15 Hyperglycemic emergencies, 2018, https://guidelines.diabetes.ca/cpg/chapter15",
+   "ISPAD Clinical Practice Consensus Guidelines 2022: Nutritional management in children and adolescents with diabetes (Annan et al.), 2022, https://www.ispad.org/page/ISPADGuidelines2022"
+  ]
+ },
+ {
+  "id": "sick-day-rules",
+  "title": "Sick days: keep the basal, check more",
+  "patterns": [
+   "sick-days"
+  ],
+  "foods": [],
+  "advice": "Even if you can't eat much, keep taking your long-acting insulin and check more often. Illness usually raises sugar.",
+  "how": "Check every 2-4 hours, drink fluids, have regular ginger ale or juice if you can't eat, check ketones if over 14. Call your team for dose advice.",
+  "why": "Illness hormones increase insulin resistance; stopping basal risks DKA.",
+  "involves_dose_change": true,
+  "evidence": "educator",
+  "caveat": "Vomiting with high ketones means urgent care.",
+  "research": "community",
+  "sources": [
+   "Diabetes Canada, 'Sick day medication list / sick-day management' (Clinical Practice Guidelines patient resources), https://www.diabetes.ca"
+  ]
+ },
+ {
+  "id": "sick-days",
+  "title": "Sick days: never stop the long-acting",
+  "patterns": [
+   "sick-days"
+  ],
+  "foods": [],
+  "advice": "When you're sick, keep taking your long-acting even if you're not eating. Illness usually pushes sugars up. Check more often and check for ketones if you're high.",
+  "how": "Check glucose every 2-4 hours. Drink plenty of sugar-free fluids, and switch to sugary fluids if you can't eat. Check blood ketones when glucose is above about 14 mmol/L or you're vomiting: 0.6-1.4 means take action per your sick-day plan; 1.5-2.9 means call your team; 3.0 or higher, or vomiting you can't stop, means go to emergency. If vomiting means you can't keep food down, you may also run low, so ask your team for a written sick-day plan that covers both.",
+  "why": "Stress hormones from illness raise glucose and ketone production, and stopping basal insulin can lead to DKA within hours.",
+  "involves_dose_change": true,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Diabetes Canada CPG Ch. 15 Hyperglycemic Emergencies in Adults, 2018, https://www.diabetes.ca/for-professionals/full-guidelines/chapter-15",
+   "ADA Standards of Care 2026, Sec. 6 (Hyperglycemic Crises), https://doi.org/10.2337/dc26-S006"
+  ]
+ },
+ {
+  "id": "skipped-meals-lows",
+  "title": "Skipping meals and lows",
+  "patterns": [
+   "late-morning-lows",
+   "eating-patterns",
+   "overnight-lows"
+  ],
+  "foods": [],
+  "advice": "If you get low when you skip a meal or eat late, that can be a sign your long-acting dose is doing more than background work. It's worth flagging rather than just eating to keep up with it.",
+  "how": "As an experiment your team may suggest, keep a 'basal check' log: skip or delay a meal on a quiet day, don't take correction insulin, and note glucose every hour. Bring the results to your next appointment - only your team should adjust doses.",
+  "why": "Basal insulin set correctly keeps glucose flat without food; a steady drop during fasting suggests it's too strong.",
+  "involves_dose_change": true,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "ADA Standards of Care in Diabetes-2026, Section 6 Glycemic Goals and Hypoglycemia, 2026, https://doi.org/10.2337/dc26-S006",
+   "ISPAD Clinical Practice Consensus Guidelines 2022: Nutritional management in children and adolescents with diabetes (Annan et al.), 2022, https://www.ispad.org/page/ISPADGuidelines2022"
+  ]
+ },
+ {
+  "id": "sleep-routine",
+  "title": "Regular sleep and meal times help",
+  "patterns": [
+   "sleep",
+   "eating-patterns",
+   "high-variability",
+   "overnight-lows"
+  ],
+  "foods": [],
+  "advice": "Your long-acting works the same every day, so it works best when your meals and sleep are fairly regular too. A late or skipped supper is a common setup for an overnight low.",
+  "how": "Keep supper within a roughly consistent window. If you skip a meal, skip its rapid insulin too, but never the long-acting. Late night eating with a bolus puts that insulin's peak in the middle of the night. Short sleep raises insulin resistance the next day.",
+  "why": "A fixed basal dose assumes a predictable daily rhythm, and big swings in routine create mismatches.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "ADA Standards of Care 2026, Sec. 5, https://doi.org/10.2337/dc26-S005",
+   "Holt RIG et al., ADA/EASD T1D Consensus, Diabetes Care 2021, https://doi.org/10.2337/dci21-0043"
+  ]
+ },
+ {
+  "id": "small-basal-steps",
+  "title": "Change basal in small steps and wait",
+  "patterns": [
+   "overnight-lows",
+   "high-variability"
+  ],
+  "foods": [],
+  "advice": "When basal does need changing, small steps and patience beat big swings.",
+  "how": "Community habit: change by a small amount, then wait 3 days (longer with Tresiba) before judging. Some people use half-unit pens (e.g. NovoPen Echo, HumaPen Luxura HD) because one whole unit flips nights from high to low.",
+  "why": "Long-acting insulin takes a few days to reach a new steady state.",
+  "involves_dose_change": true,
+  "evidence": "community",
+  "caveat": "Agree the step size with your team.",
+  "research": "community",
+  "sources": [
+   "Diabetes UK Forum, 'Bedtime snacks for type 1 diabetic', https://forum.diabetes.org.uk/boards/threads/bedtime-snacks-for-type-1-diabetic.114875",
+   "Breakthrough T1D Forum, 'Tips for night time snacks', https://forum.breakthrought1d.org/t/tips-for-night-time-snacks/74280",
+   "Diabetes UK Forum, 'Splitting Lantus dose' thread, https://forum.diabetes.org.uk/boards/threads/splitting-lantus-dose.15061"
+  ]
+ },
+ {
+  "id": "small-nudges",
+  "title": "Small nudges instead of big corrections",
+  "patterns": [
+   "high-variability",
+   "corrections-stacking",
+   "treating-lows"
+  ],
+  "foods": [],
+  "advice": "Small, early adjustments ('nudges') keep you smoother than waiting for a big high or low and fixing it with a big move.",
+  "how": "Taking a few grams of carbs when you start to drift down, or a small correction early in a rise, instead of a large correction later. Juicebox calls this 'bump and nudge'.",
+  "why": "Small early changes act on a smaller problem.",
+  "involves_dose_change": true,
+  "evidence": "community",
+  "caveat": "Needs careful tracking of insulin on board to avoid stacking.",
+  "research": "community",
+  "sources": [
+   "Juicebox Podcast (Scott Benner), 'Type 1 Diabetes Pro Tips' series: Pre Bolus, Bump and Nudge (#34, #44), Setting Basal Insulin (#37), Fat and Protein (#39), https://podbay.fm/p/type-1-diabetes-pro-tips",
+   "Dr. Stephen Ponder, Sugar Surfing presentation slides, https://abcd10.redhot.circle-interactive.co.uk/sites/default/files/resources/IPN17%20PONDER.pdf"
+  ]
+ },
+ {
+  "id": "small-treatment-for-drifting-lows",
+  "title": "Smaller carbs for slow drifts",
+  "patterns": [
+   "treating-lows",
+   "rebound-highs",
+   "high-variability"
+  ],
+  "foods": [],
+  "advice": "Not every low needs the full 15 g. If you're drifting gently and there's not much mealtime insulin left working, a little nudge often does it without the bounce.",
+  "how": "Experienced folks scale to the trend: one 4 g tab or 2-4 fruit gummies for a slow slide around 4.0-4.5, the full 15 g for a straight-down arrow, more if a meal bolus was in the last two hours. Some find 15 g raises them ~3 mmol/L, so they halve it.",
+  "why": "1 g of glucose raises an adult roughly 0.2-0.3 mmol/L, so 15 g can easily overshoot a mild low.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "Below 3.0 or with symptoms of confusion, treat fully and don't experiment.",
+  "research": "community",
+  "sources": [
+   "Breakthrough T1D Forum, '15/15 rule outdated? If so, what is better way?', https://forum.breakthrought1d.org/t/15-15-rule-outdated-if-so-what-is-better-way/75173",
+   "Healthline, 'Rule of 15 for diabetes', https://www.healthline.com/health/diabetes/rule-of-15-diabetes"
+  ]
+ },
+ {
+  "id": "snack-masking-basal",
+  "title": "When a nightly snack is hiding a dose issue",
+  "patterns": [
+   "overnight-lows",
+   "eating-patterns"
+  ],
+  "foods": [],
+  "advice": "If you feel you *need* a snack every night to avoid going low, that's often a sign your long-acting insulin or supper dose may be set a little strong. Eating to cover insulin isn't a long-term fix - it's worth a conversation.",
+  "how": "Keep a week of notes: bedtime glucose, snack or not, overnight lowest number and time. Bring CGM overnight reports to your team. Overnight lows at the same time most nights is a pattern they'll want to see.",
+  "why": "Basal insulin should keep glucose steady overnight without food; a consistent need for carbs suggests too much insulin is active.",
+  "involves_dose_change": true,
+  "evidence": "consensus",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "ADA Standards of Care in Diabetes-2026, Section 6 Glycemic Goals and Hypoglycemia, 2026, https://doi.org/10.2337/dc26-S006",
+   "ISPAD Clinical Practice Consensus Guidelines 2022: Nutritional management in children and adolescents with diabetes (Annan et al.), 2022, https://www.ispad.org/page/ISPADGuidelines2022"
+  ]
+ },
+ {
+  "id": "snacks-carb-counts",
+  "title": "Common snack carb counts",
+  "patterns": [
+   "carb-counting",
+   "eating-patterns"
+  ],
+  "foods": [
+   "chips",
+   "granola bar",
+   "crackers",
+   "popcorn",
+   "fruit",
+   "cookies"
+  ],
+  "advice": "Snacks between meals can quietly add up and push glucose higher. Knowing a few numbers makes it easy to decide whether a snack needs insulin.",
+  "how": "Approx: small bag chips (40 g) ~20-22 g carbs; granola bar 15-25 g; 3 cups air-popped popcorn ~18 g; medium apple ~20-25 g; banana ~25-30 g; 2 cookies 15-20 g. Under ~10-15 g, some people don't dose - ask your team about your own threshold.",
+  "why": "Unmatched carbs from snacks raise glucose, while very small snacks may be covered by background insulin.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Health Canada. Canadian Nutrient File, n.d., https://food-nutrition.canada.ca/cnf-fce/",
+   "CalorieKing food database, n.d., https://www.calorieking.com"
+  ]
+ },
+ {
+  "id": "split-basal-two-shots",
+  "title": "Splitting the long-acting into two shots",
+  "patterns": [
+   "overnight-lows",
+   "morning-highs",
+   "high-variability"
+  ],
+  "foods": [],
+  "advice": "If one shot a day leaves you low at night and high at other times, splitting it lets you give less overnight and more in the day.",
+  "how": "Common starting point from community reports: two shots about 12 hours apart, often a 50:50 split, then adjusted from CGM patterns (some settle around 60:40 with the smaller part at night). Levemir is the insulin most often split; some split Lantus/Basaglar too.",
+  "why": "Two smaller doses give a flatter profile and let you shape day vs night separately.",
+  "involves_dose_change": true,
+  "evidence": "community",
+  "caveat": "Mixed results: some find split Lantus doses too small to last well. Do it with your diabetes team, and expect 2-3 days to settle.",
+  "research": "community",
+  "sources": [
+   "Diabetes UK Forum, 'Splitting Lantus dose' thread, https://forum.diabetes.org.uk/boards/threads/splitting-lantus-dose.15061",
+   "Diabetes UK Forum, 'Basal insulin at night' thread, https://forum.diabetes.org.uk/boards/threads/basal-insulin-at-night.94866/latest"
+  ]
+ },
+ {
+  "id": "split-dosing-fat-meals",
+  "title": "Split or extended dosing for rich meals - ask your team",
+  "patterns": [
+   "high-fat-meals",
+   "post-meal-lows",
+   "post-meal-spikes",
+   "pre-bolus"
+  ],
+  "foods": [
+   "pizza",
+   "nachos",
+   "poutine",
+   "burgers",
+   "lasagna",
+   "fish and chips"
+  ],
+  "advice": "Research suggests high-fat, high-protein meals need more insulin overall and that some of it works better later. On injections, some people split their meal dose into two parts - but the split and amounts are something to work out with your diabetes team.",
+  "how": "Ask your team about: (1) giving part of the meal dose at the start and part 1-2 hours later for rich meals, (2) whether that applies to your usual pizza/burger/nachos meals. Bring CGM traces showing an early low then late high - that's exactly the data they need.",
+  "why": "Splitting the dose lines up insulin action with the delayed fat-protein glucose rise, reducing the early low and late high.",
+  "involves_dose_change": true,
+  "evidence": "study",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Bell KJ et al. Impact of Fat, Protein, and Glycemic Index on Postprandial Glucose Control in Type 1 Diabetes. Diabetes Care, 2015, https://doi.org/10.2337/dc15-0100",
+   "Pankowska E et al. Application of novel dual wave meal bolus (fat-protein units) in children with T1D. Pediatr Diabetes, 2009, https://pubmed.ncbi.nlm.nih.gov/?term=Pankowska+dual+wave+bolus+fat+protein+units",
+   "ISPAD Clinical Practice Consensus Guidelines 2022: Nutritional management in children and adolescents with diabetes (Annan et al.), 2022, https://www.ispad.org/page/ISPADGuidelines2022"
+  ]
+ },
+ {
+  "id": "stress-highs",
+  "title": "Stress can push you up",
+  "patterns": [
+   "stress",
+   "high-variability"
+  ],
+  "foods": [],
+  "advice": "Stress, anger or a big event can push sugar up for hours.",
+  "how": "Notice patterns; some people do a short walk or breathing exercise; avoid rage bolusing.",
+  "why": "Stress hormones release glucose and reduce insulin sensitivity.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "One Drop blog, 'High (and low) blood sugars are not forever' (rage bolus), https://onedrop.today/blogs/blog/rage-bolus-high-blood-sugar-overeat-low-blood-sugar-how-to-control-diabetes-emotions",
+   "Adam Brown / diaTribe, 'Bright Spots & Landmines' (free book), 2017, https://diatribe.org/bright-spots-and-landmines"
+  ]
+ },
+ {
+  "id": "stress-hormones",
+  "title": "Stress pushes sugars up",
+  "patterns": [
+   "stress",
+   "rebound-highs",
+   "high-variability"
+  ],
+  "foods": [],
+  "advice": "Stress, pain and poor sleep can push your sugar up without any food. Correcting these highs aggressively can lead to a low once the stress settles.",
+  "how": "Correct stress highs cautiously and watch for a later drop. Short walks or breathing exercises help some people. If stress is ongoing, mention it to your team; a persistent pattern is something to adjust for, but a single stressful day isn't.",
+  "why": "Cortisol and adrenaline raise liver glucose output and cause temporary insulin resistance.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "ADA Standards of Care 2026, Sec. 5 Facilitating Positive Health Behaviors, https://doi.org/10.2337/dc26-S005"
+  ]
+ },
+ {
+  "id": "structured-education",
+  "title": "A structured T1D refresher course",
+  "patterns": [
+   "general",
+   "carb-counting",
+   "hypo-unawareness",
+   "motivation-burnout"
+  ],
+  "foods": [],
+  "advice": "Even after 30 years, a structured refresher program can make a real difference to lows. These courses teach you to adjust your own insulin safely, with a team behind you.",
+  "how": "Holt 2021 and Diabetes Canada recommend structured education (DAFNE-style) for all adults with T1D, and hypoglycemia-focused training (for example BGAT, HypoAware) for those with frequent lows or reduced awareness. Ask your diabetes education centre what's offered in your province.",
+  "why": "Structured education programs reduce severe hypoglycemia and improve awareness in trials.",
+  "involves_dose_change": false,
+  "evidence": "consensus",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Holt RIG et al., ADA/EASD T1D Consensus, Diabetes Care 2021, https://doi.org/10.2337/dci21-0043",
+   "Diabetes Canada CPG Ch. 14 Hypoglycemia, Rec. 3.2, 3.5, 2018, https://www.diabetes.ca/for-professionals/full-guidelines/chapter-14"
+  ]
+ },
+ {
+  "id": "sushi",
+  "title": "Sushi rice counts",
+  "patterns": [
+   "carb-counting",
+   "post-meal-spikes"
+  ],
+  "foods": [
+   "sushi",
+   "maki",
+   "nigiri",
+   "rice"
+  ],
+  "advice": "Sushi looks light, but the rice is seasoned with sugar and packed tight, so carbs add up fast. Many people underestimate sushi meals.",
+  "how": "Rough guide: one maki piece ~4-6 g carbs (a 6-8 piece roll ~25-40 g; tempura or specialty rolls more), one nigiri ~6-8 g. Sashimi, miso soup, edamame and seaweed salad are lower-carb sides. Count pieces as you go.",
+  "why": "Sushi rice is a short-grain, sweetened high-GI rice that raises glucose quickly.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "CalorieKing food database, n.d., https://www.calorieking.com",
+   "University of Sydney Glycemic Index database, n.d., https://glycemicindex.com"
+  ]
+ },
+ {
+  "id": "tim-hortons",
+  "title": "Tim Hortons carb estimates",
+  "patterns": [
+   "carb-counting",
+   "post-meal-spikes"
+  ],
+  "foods": [
+   "bagel",
+   "muffin",
+   "donut",
+   "timbits",
+   "breakfast sandwich",
+   "double double",
+   "iced capp",
+   "chili",
+   "soup"
+  ],
+  "advice": "Tim's is easy to dose for because full nutrition info is online - you don't have to guess. Some items are surprisingly high in carbs, especially muffins and bagels.",
+  "how": "Use the Tim Hortons nutrition calculator. Ballpark: plain bagel ~55 g carbs, muffin 50-65 g, donut 25-40 g, 1 Timbit 6-9 g, English muffin breakfast sandwich ~30 g, chili ~20-25 g. A breakfast sandwich or chili are lower-carb options.",
+  "why": "Published values let you match insulin to carbs accurately instead of estimating.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Tim Hortons Canada. Nutrition & Allergens, n.d., https://www.timhortons.ca/nutrition-and-allergens"
+  ]
+ },
+ {
+  "id": "tir-2023-update",
+  "title": "Updated CGM metric definitions (2023)",
+  "patterns": [
+   "cgm-use",
+   "general"
+  ],
+  "foods": [],
+  "advice": "The newer international statement keeps the same targets and adds that CGM numbers should sit alongside A1C. Time below range is singled out as a key safety result.",
+  "how": "The 2023 consensus on CGM metrics confirms the 3.9-10.0 range, 14 or more days of data, and 70% sensor wear, and defines a hypoglycemia 'event' as 15 minutes or more below 3.9 (level 1) or below 3.0 (level 2), ending after 15 minutes back above 3.9. Use event counts and their time of day when talking with your team.",
+  "why": "Counting low events by time of day shows clinicians exactly which insulin, at which time, to look at.",
+  "involves_dose_change": false,
+  "evidence": "consensus",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Battelino T et al., Continuous glucose monitoring and metrics for clinical trials: an international consensus statement, Lancet Diabetes Endocrinol 2023, https://doi.org/10.1016/S2213-8587(22)00319-9"
+  ]
+ },
+ {
+  "id": "treat-low-15-rule",
+  "title": "Treating a low: the 15 g rule",
+  "patterns": [
+   "treating-lows"
+  ],
+  "foods": [],
+  "advice": "For an ordinary low, take 15 g of fast sugar, wait 15 minutes, and check again. If you're under 3.0 or feel quite unwell, start with 20 g.",
+  "how": "Below 4.0 mmol/L and awake: take 15 g of glucose or sucrose; use 20 g if you're below 3.0 or the low feels severe. Re-check after 15 minutes and take another 15 g if you're still below 4.0. Diabetes Canada prefers glucose or sucrose tablets or a solution over juice or gels. ADA says 15-20 g of glucose is the preferred treatment, and its 2026 update adds a recommendation that first-aid kits carry oral glucose. 15 g of glucose raises glucose by about 2.1 mmol/L within 20 minutes.",
+  "why": "Pure glucose is absorbed quickly and predictably, so the amount you take matches the rise you get.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Diabetes Canada CPG Ch. 14 Hypoglycemia, Rec. 5-6, 2018, https://www.diabetes.ca/for-professionals/full-guidelines/chapter-14",
+   "ADA Standards of Care 2026, Sec. 6, https://doi.org/10.2337/dc26-S006"
+  ]
+ },
+ {
+  "id": "treat-low-canadian-options",
+  "title": "What 15 g looks like in Canada",
+  "patterns": [
+   "treating-lows"
+  ],
+  "foods": [],
+  "advice": "Keep pre-measured fast sugar wherever you might go low: by the bed, in your bag, and in the car. Then you're not guessing in the middle of the night.",
+  "how": "Each of these is about 15 g: 4 Dex4 tablets (4 g each); 5 Dextrosol tablets (3 g each); 15 mL (3 tsp, or 3 packets) of table sugar dissolved in water; 175 mL (3/4 cup) of juice or regular pop; 15 mL (1 tbsp) of honey; 6 Life Savers. Avoid chocolate, cookies and other high-fat foods for treating a low, because fat slows absorption.",
+  "why": "Fat and protein delay stomach emptying, so a chocolate bar takes much longer to fix a low and then pushes glucose up for hours afterwards.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Diabetes Canada CPG Ch. 14 Hypoglycemia, 2018, https://www.diabetes.ca/for-professionals/full-guidelines/chapter-14",
+   "Diabetes Canada patient resource: Lows and highs, https://www.diabetes.ca/managing-my-diabetes/tools---resources/lows-and-highs-blood-sugar-levels"
+  ]
+ },
+ {
+  "id": "tresiba-toujeo-flatter",
+  "title": "Ask about a flatter long-acting insulin (Tresiba or Toujeo)",
+  "patterns": [
+   "overnight-lows",
+   "high-variability"
+  ],
+  "foods": [],
+  "advice": "If overnight lows keep happening despite tweaks, ask your doctor whether Tresiba (degludec) or Toujeo might suit you. Many people say their nights got calmer.",
+  "how": "In Canada both are generally covered on many plans. People switching report needing a few days to a week to see the real effect, and that it is not always a 1:1 dose swap.",
+  "why": "These insulins release more evenly over 24+ hours, with less of a peak; the SWITCH 1 trial found fewer nighttime lows with degludec vs glargine in type 1.",
+  "involves_dose_change": true,
+  "evidence": "study",
+  "caveat": "Tresiba's long tail means changes take 3-4 days to show; Toujeo can take several days too. Switching needs a prescriber.",
+  "research": "community",
+  "sources": [
+   "AJMC, 'Advera finds fewer overnight events with Tresiba' (SWITCH 1 summary), https://www.ajmc.com/view/advera-finds-fewer-overnight-events-with-tresiba",
+   "Diabetes UK Forum, 'Changing from Lantus to Tresiba - advice please', https://forum.diabetes.org.uk/boards/threads/changing-from-lantus-to-tresiba-advice-please.62814"
+  ]
+ },
+ {
+  "id": "variability-cv",
+  "title": "Bringing down the swings (CV)",
+  "patterns": [
+   "high-variability"
+  ],
+  "foods": [],
+  "advice": "Your swings are larger than the target. The good news is that most of the improvement comes from avoiding lows and the rebounds that follow them, and from steadier meal timing. Not from extra insulin.",
+  "how": "Target CV is 36% or less. Main levers: fewer lows (each one tends to cause a rebound), measured treatment of lows, no stacked corrections, pre-bolusing when in range, consistent injection sites (avoid lumpy spots), and regular meal timing. Above 36%, the consensus regards hypoglycemia risk as substantially higher.",
+  "why": "High CV goes along with more frequent lows, and lows followed by rebounds push the CV up further.",
+  "involves_dose_change": false,
+  "evidence": "consensus",
+  "caveat": "",
+  "research": "clinical",
+  "sources": [
+   "Battelino T et al., International Consensus on Time in Range, Diabetes Care 2019, https://doi.org/10.2337/dci19-0028",
+   "Danne T et al., Diabetes Care 2017, https://doi.org/10.2337/dc17-1600"
+  ]
+ },
+ {
+  "id": "wait-the-full-15",
+  "title": "Wait out the CGM lag before eating more",
+  "patterns": [
+   "treating-lows",
+   "rebound-highs",
+   "cgm-use"
+  ],
+  "foods": [],
+  "advice": "The hardest part of treating a low is waiting. Your sensor runs behind your blood, so it'll still look low for a while after the sugar is already working.",
+  "how": "Treat, set a 15-minute phone timer, and do something else (sit down, sip water). Only re-treat if the G7 arrow is still flat or down after 15-20 min. Many people say 'trust the timer, not the panic'.",
+  "why": "CGM reads interstitial fluid, which lags blood glucose by about 5-15 minutes, more when levels are changing fast.",
+  "involves_dose_change": false,
+  "evidence": "community",
+  "caveat": "If you feel worse or are under 3.0 at 15 min, re-treat right away.",
+  "research": "community",
+  "sources": [
+   "diaTribe, 'Defeating the Hypoglycemia Binge', https://diatribe.org/diabetes-management/defeating-hypoglycemia-binge",
+   "Diabetes UK Forum, 'Bad BG readings' (half-correction advice), https://forum.diabetes.org.uk/boards/threads/bad-bg-readings.87199/latest",
+   "Breakthrough T1D Forum, '15/15 rule outdated? If so, what is better way?', https://forum.breakthrought1d.org/t/15-15-rule-outdated-if-so-what-is-better-way/75173"
+  ]
+ },
+ {
+  "id": "walk-after-meals",
+  "title": "A short walk after eating",
+  "patterns": [
+   "post-meal-spikes",
+   "exercise"
+  ],
+  "foods": [],
+  "advice": "A 10-15 minute easy walk after a meal is one of the most reliable ways to blunt a spike, and it works in type 1 too. It's especially handy after a big or carb-heavy meal.",
+  "how": "Start walking within about 15-30 minutes of finishing. Keep it gentle. Bring a fast carb along, because walking soon after a full rapid-insulin dose can push you low - if lows follow walks, that's a dose question for your team.",
+  "why": "Working muscles take up glucose without needing extra insulin, lowering the post-meal peak.",
+  "involves_dose_change": false,
+  "evidence": "study",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Manohar C et al. The effect of walking on postprandial glycemic excursion in patients with type 1 diabetes and healthy people. Diabetes Care, 2012, https://doi.org/10.2337/dc11-2381",
+   "Riddell MC et al. Exercise management in type 1 diabetes: a consensus statement. Lancet Diabetes Endocrinol, 2017, https://doi.org/10.1016/S2213-8587(17)30014-1"
+  ]
+ },
+ {
+  "id": "watch-trend-not-number",
+  "title": "Look at the arrow, not just the number",
+  "patterns": [
+   "cgm-use",
+   "high-variability",
+   "treating-lows"
+  ],
+  "foods": [],
+  "advice": "A 5.5 heading straight down is a very different situation from a 5.5 sitting flat. The arrow tells you what's coming.",
+  "how": "Act early on arrows: 6.0 with a down-arrow before driving or bed means a few grams now; 9.0 with a flat arrow 2 hours after a meal may need nothing.",
+  "why": "Sugar Surfing's main point: direction and speed matter as much as the reading.",
+  "involves_dose_change": false,
+  "evidence": "educator",
+  "caveat": "",
+  "research": "community",
+  "sources": [
+   "Dr. Stephen Ponder, Sugar Surfing presentation slides, https://abcd10.redhot.circle-interactive.co.uk/sites/default/files/resources/IPN17%20PONDER.pdf",
+   "Breakthrough T1D Forum, '15/15 rule outdated? If so, what is better way?', https://forum.breakthrought1d.org/t/15-15-rule-outdated-if-so-what-is-better-way/75173"
+  ]
+ },
+ {
+  "id": "what-not-to-treat-with",
+  "title": "Foods that are slow for treating lows",
+  "patterns": [
+   "treating-lows",
+   "rebound-highs"
+  ],
+  "foods": [
+   "chocolate",
+   "peanut butter",
+   "milk",
+   "cookies",
+   "granola bar",
+   "ice cream"
+  ],
+  "advice": "Chocolate, cookies, ice cream and peanut butter feel comforting during a low, but the fat slows the sugar down - so you stay low longer and often eat more. Many people then rebound high later.",
+  "how": "Treat first with pure fast sugar (tablets, juice, regular pop), then have the slower foods afterward if your next meal is far off. Keep fast options where lows happen so you're not stuck with what's in the cupboard.",
+  "why": "Fat delays stomach emptying, so carbs in chocolate or peanut butter reach the blood much more slowly than glucose.",
+  "involves_dose_change": false,
+  "evidence": "guideline",
+  "caveat": "",
+  "research": "nutrition",
+  "sources": [
+   "Diabetes Canada CPG Ch.14 Hypoglycemia, 2018, https://guidelines.diabetes.ca/cpg/chapter14",
+   "American Diabetes Association. Hypoglycemia (Low Blood Glucose), n.d., https://diabetes.org/living-with-diabetes/hypoglycemia-low-blood-glucose"
+  ]
+ }
+]
