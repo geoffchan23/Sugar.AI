@@ -28,6 +28,10 @@ private const val VERY_HIGH_MMOL = 13.9
 private const val MGDL_PER_MMOL = 18.0182
 private const val MAX_POINTS = 150
 private const val MAX_DAYS = 31
+private const val MAX_FOOD_DAYS = 90
+private const val MAX_FOODS = 60
+/** Eating below this counts as treating a low in [AssistantTools.FOODS] (she often treats on the way down). */
+private const val LOW_TREAT_MMOL = 4.4
 
 private val LOCAL = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 
@@ -37,6 +41,7 @@ object AssistantTools {
     const val JOURNAL = "get_journal"
     const val LOWS = "get_lows"
     const val STRATEGIES = "get_strategies"
+    const val FOODS = "get_foods"
     const val PROPOSE = "propose_entries"
     const val PROPOSE_CHANGES = "propose_changes"
     const val REPLY = "reply"
@@ -83,6 +88,7 @@ object AssistantTools {
                 "foods" to JSONObject().put("type", "array").put("items", JSONObject().put("type", "string"))
                     .put("description", "Foods or drinks involved, lowercase (pizza, coffee, nachos); empty if none"),
             )),
+        fn(FOODS, "The foods and drinks she has logged (up to $MAX_FOOD_DAYS days), most frequent first: how often, the last day, and how many times she had it while low or dropping toward low (below 4.4, or within 20 minutes after a reading below 3.9) - those are what she actually treats lows with.", DAY_RANGE),
         fn(PROPOSE, "Propose new journal entries for the day entries go on, for her to confirm on screen. Call once with every entry from the message. Nothing is saved unless she confirms.",
             obj("entries" to JSONObject().put("type", "array").put("items", obj(*ENTRY_FIELDS)))),
         fn(PROPOSE_CHANGES, "Propose changes to her log for her to confirm on screen: edit or delete existing entries (by id from get_journal), or add entries on any of the last $MAX_CHANGE_DAYS days. Call once with every change. Nothing is saved unless she confirms.",
@@ -108,6 +114,7 @@ object AssistantTools {
             JOURNAL -> journal(data, days(a))
             LOWS -> lows(data, zone, days(a))
             STRATEGIES -> strategies(a)
+            FOODS -> foods(data, zone, days(a, MAX_FOOD_DAYS))
             else -> JSONObject().put("error", "unknown tool $name")
         }.toString()
     } catch (e: Exception) {
@@ -116,11 +123,11 @@ object AssistantTools {
 
     private fun parseLocal(s: String): LocalDateTime = LocalDateTime.parse(s.trim().replace('T', ' '), LOCAL)
 
-    private fun days(a: JSONObject): Pair<LocalDate, LocalDate> {
+    private fun days(a: JSONObject, max: Int = MAX_DAYS): Pair<LocalDate, LocalDate> {
         val from = LocalDate.parse(a.getString("from_day"))
         val to = LocalDate.parse(a.getString("to_day"))
         require(!to.isBefore(from)) { "to_day is before from_day" }
-        return from to (if (to.isAfter(from.plusDays(MAX_DAYS - 1L))) from.plusDays(MAX_DAYS - 1L) else to)
+        return from to (if (to.isAfter(from.plusDays(max - 1L))) from.plusDays(max - 1L) else to)
     }
 
     private fun mmol(r: ReadingEntity) = r.mgdl / MGDL_PER_MMOL
@@ -226,6 +233,34 @@ object AssistantTools {
         }
         return JSONObject().put("from_day", from.toString()).put("to_day", to.toString())
             .put("count", episodes.size).put("lows", JSONArray(episodes))
+    }
+
+    /** Her logged foods, grouped by name, with how often she had each one while low ([FOODS]). */
+    suspend fun foods(data: AssistantData, zone: ZoneId, range: Pair<LocalDate, LocalDate>): JSONObject {
+        val (from, to) = range
+        val rs = data.readings(from.atStartOfDay(zone).toInstant().toEpochMilli() - 3600_000L, to.plusDays(1).atStartOfDay(zone).toInstant().toEpochMilli())
+        val times = rs.map { it.timestampMs }
+        fun whileLow(at: Long): Boolean {
+            // the reading nearest the entry, and any low in the 20 minutes before it
+            var i = java.util.Collections.binarySearch(times, at).let { if (it < 0) -it - 1 else it }
+            val near = listOfNotNull(rs.getOrNull(i - 1), rs.getOrNull(i)).filter { kotlin.math.abs(it.timestampMs - at) <= 10 * 60_000L }
+            if (near.any { mmol(it) < LOW_TREAT_MMOL }) return true
+            while (i > 0 && rs[i - 1].timestampMs >= at - 20 * 60_000L) { if (mmol(rs[i - 1]) < LOW_MMOL) return true; i-- }
+            return false
+        }
+        class Food(val name: String) { var n = 0; var low = 0; var last = "" }
+        val foods = linkedMapOf<String, Food>()
+        for (e in data.journal(from.toString(), to.toString())) {
+            val ev = parseEventNote(e.text) ?: continue
+            val f = foods.getOrPut(ev.name.trim().lowercase()) { Food(ev.name.trim()) }
+            f.n++
+            if (e.day > f.last) f.last = e.day
+            val at = LocalDate.parse(e.day).atStartOfDay(zone).plusMinutes(ev.minuteOfDay.toLong()).toInstant().toEpochMilli()
+            if (whileLow(at)) f.low++
+        }
+        val ranked = foods.values.sortedWith(compareByDescending<Food> { it.low }.thenByDescending { it.n }.thenByDescending { it.last })
+        return JSONObject().put("from_day", from.toString()).put("to_day", to.toString())
+            .put("foods", JSONArray(ranked.take(MAX_FOODS).map { JSONObject().put("name", it.name).put("times", it.n).put("last_day", it.last).put("while_low", it.low) }))
     }
 
     fun strategies(a: JSONObject): JSONObject {

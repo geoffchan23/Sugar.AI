@@ -448,6 +448,7 @@ private fun toolLabel(name: String) = when (name) {
     AssistantTools.JOURNAL -> "log"
     AssistantTools.LOWS -> "lows"
     AssistantTools.STRATEGIES -> "playbook"
+    AssistantTools.FOODS -> "her foods"
     AssistantTools.PROPOSE -> "new entries"
     AssistantTools.PROPOSE_CHANGES -> "changes"
     RayTools.QUERY -> "query"

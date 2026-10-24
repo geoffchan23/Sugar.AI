@@ -310,6 +310,12 @@ The old "no cloud / never an LLM API" rule is gone (Geoff, 2026-10-08).
   `tools/merge-strategies.py <research json…>` (post-review fixes go in its
   OVERRIDES). Reddit itself couldn't be read (blocked to scripts and the
   Chrome extension); community entries come from other forums.
+- **Her kitchen first** (Geoff, 2026-10-24): any food Ray suggests comes
+  from what she's logged (`get_foods`: 90 days, grouped by name, with
+  `while_low` = eaten below 4.4 or within 20 min after a low, i.e. what she
+  treats lows with), then common household staples; playbook foods (Life
+  Savers, Dex4…) are translated to her equivalent, never named. Lows need
+  fast sugar with little fat (no cookies, chocolate, zero-sugar drinks).
 - **Voice eval:** `tools/ray-voice-eval.sh` pulls a copy of the server DB
   into `data/` and runs `tools/ray-voice-questions.txt` through the real
   chat/watch loop (answers + tools used → `data/ray-voice-eval.jsonl`).

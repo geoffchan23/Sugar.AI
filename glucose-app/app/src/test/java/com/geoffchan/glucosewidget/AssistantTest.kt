@@ -43,6 +43,22 @@ class AssistantToolsTest {
         assertEquals("2026-10-07 00:05", out.getJSONArray("points").getJSONArray(0).getString(0)) // middle of the first bucket
     }
 
+    @Test fun `foods counts what she had while low and ranks those first`() = runBlocking {
+        // low (3.5) from 10:00 to 10:25, 6.0 otherwise
+        val data = FakeData(day({ if (it in 120..125) 3.5 else 6.0 }), listOf(
+            j(DAY, "event: coffee @ 08:00"), j(DAY, "event: Coffee @ 13:00"),
+            j(DAY, "event: candy @ 10:10"),
+            j(DAY, "event: juice @ 10:35"), // 10 min after the low ended: still treating it
+            j(DAY, "dose: short-acting 4u @ 10:10"),
+        ))
+        val foods = AssistantTools.foods(data, ZONE, DAY to DAY).getJSONArray("foods")
+        val byName = (0 until foods.length()).associate { foods.getJSONObject(it).let { f -> f.getString("name").lowercase() to f } }
+        assertEquals(listOf("candy", "juice", "coffee"), (0 until foods.length()).map { foods.getJSONObject(it).getString("name").lowercase() })
+        assertEquals(1, byName.getValue("candy").getInt("while_low"))
+        assertEquals(2, byName.getValue("coffee").getInt("times"))
+        assertEquals(0, byName.getValue("coffee").getInt("while_low"))
+    }
+
     @Test fun `readings tool parses local times and reports an empty range`() = runBlocking {
         val r = JSONObject(AssistantTools.run(AssistantTools.READINGS, """{"from":"2026-01-01 00:00","to":"2026-01-01 06:00"}""", FakeData(emptyList(), emptyList()), ZONE))
         assertEquals(0, r.getInt("count"))
@@ -117,7 +133,7 @@ class AssistantToolsTest {
         val names = (0 until defs.length()).map { defs.getJSONObject(it) }.onEach {
             assertTrue(it.getBoolean("strict")); check(it.getJSONObject("parameters"))
         }.map { it.getString("name") }
-        assertEquals(listOf("get_readings", "get_stats", "get_journal", "get_lows", "get_strategies", "propose_entries", "propose_changes", "reply"), names)
+        assertEquals(listOf("get_readings", "get_stats", "get_journal", "get_lows", "get_strategies", "get_foods", "propose_entries", "propose_changes", "reply"), names)
     }
 
     @Test fun `proposals go through the same strict validation as the on-device path`() {
